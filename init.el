@@ -10,8 +10,6 @@
 (menu-bar-mode -1)
 (tooltip-mode -1)
 
-(load-theme 'modus-operandi t)
-
 ;;; Better defaults
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (setq use-short-answers t)
@@ -67,6 +65,11 @@
 (global-set-key (kbd "M-u") #'upcase-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-c") #'capitalize-dwim)
+
+(global-set-key (kbd "C-c <left>") #'windmove-left)
+(global-set-key (kbd "C-c <right>") #'windmove-right)
+(global-set-key (kbd "C-c <up>") #'windmove-up)
+(global-set-key (kbd "C-c <down>") #'windmove-down)
 
 (repeat-mode 1)
 (savehist-mode 1)
