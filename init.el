@@ -42,32 +42,32 @@
 (global-set-key (kbd "M-c") #'capitalize-dwim)
 
 ;;; Isearch
-(setq isearch-lazy-count t
-      isearch-allow-scroll 'unlimited
-      isearch-yank-on-move 'shift
-      isearch-allow-motion t
-      isearch-motion-changes-direction nil)
+(setq isearch-lazy-count t)
+(setq isearch-allow-scroll 'unlimited)
+(setq isearch-yank-on-move 'shift)
+(setq isearch-allow-motion t)
+(setq isearch-motion-changes-direction nil)
 
 ;;; Scroll
-(setq mouse-wheel-progressive-speed nil
-      mouse-wheel-follow-mouse 't
-      scroll-step 1)
+(setq mouse-wheel-progressive-speed nil)
+(setq mouse-wheel-follow-mouse t)
+(setq scroll-step 1)
 (setq view-read-only t)
 
 ;;; Init screen
-(setq inhibit-startup-screen t
-      initial-scratch-message nil
-      initial-major-mode 'text-mode)
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message nil)
+(setq initial-major-mode 'text-mode)
 
 ;;; Backups
 (setq backup-directory-alist
       `(("" . ,(expand-file-name "backups" user-emacs-directory))))
 
-(setq backup-by-copying t
-      version-control t
-      kept-old-versions 2
-      kept-new-versions 5
-      delete-old-versions t)
+(setq backup-by-copying t)
+(setq version-control t)
+(setq kept-old-versions 2)
+(setq kept-new-versions 5)
+(setq delete-old-versions t)
 
 ;;; Completions
 (add-to-list 'completion-styles 'flex t)
@@ -179,9 +179,9 @@
 
 ;;;; Java
 (add-hook 'java-mode-hook (lambda ()
-			    (setq c-basic-offset 4
-                                  tab-width 4
-                                  indent-tabs-mode t)))
+			    (setq c-basic-offset 4)
+                            (setq tab-width 4)
+                            (setq indent-tabs-mode t)))
 
 ;;;; JS
 (setq js-indent-level 2)
