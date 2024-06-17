@@ -4,7 +4,7 @@
 ;;; GUI elements
 (when (member "DejaVu Sans Mono" (font-family-list))
   (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10") t))
-(add-to-list 'default-frame-alist '(background-color . "#f0f0e4"))
+(add-to-list 'default-frame-alist '(background-color . "#f0efeb"))
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -12,8 +12,8 @@
 (tooltip-mode -1)
 
 ;;;; Faces
-(set-face-attribute 'fringe nil :background "#ededda")
-(set-face-attribute 'mode-line nil :background "#e3e3cf")
+(set-face-attribute 'fringe nil :background "#eae7e1")
+(set-face-attribute 'mode-line nil :background "#e3dfd8")
 
 ;;; Better defaults
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -66,6 +66,7 @@
 
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c s") #'org-capture)
+(global-set-key (kbd "C-c l") #'org-store-link)
 
 (global-set-key (kbd "M-u") #'upcase-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
