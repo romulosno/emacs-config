@@ -112,6 +112,7 @@
 (add-hook 'compilation-mode-hook #'rename-uniquely)
 
 (add-hook 'prog-mode-hook (lambda ()
+			    (company-mode)
 			    (electric-pair-local-mode)
 			    (display-line-numbers-mode)))
 
