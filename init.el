@@ -4,11 +4,16 @@
 ;;; GUI elements
 (when (member "DejaVu Sans Mono" (font-family-list))
   (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10") t))
+(add-to-list 'default-frame-alist '(background-color . "#f0f0e4"))
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (tooltip-mode -1)
+
+;;;; Faces
+(set-face-attribute 'fringe nil :background "#ededda")
+(set-face-attribute 'mode-line nil :background "#e3e3cf")
 
 ;;; Better defaults
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
