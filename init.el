@@ -1,10 +1,11 @@
-;; -*- lexical-binding: t; -*-
+;;; init.el -- emacs config . -*- lexical-binding: t; -*-
 (when (< emacs-major-version 27) (package-initialize))
 
 ;;; GUI elements
-(when (member "DejaVu Sans Mono" (font-family-list))
-  (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10") t))
-(add-to-list 'default-frame-alist '(background-color . "#f0efeb"))
+(when (member "Hack" (font-family-list))
+  (add-to-list 'default-frame-alist '(font . "Hack-10") t))
+(add-to-list 'default-frame-alist '(background-color . "#f0efeb") t)
+(add-to-list 'default-frame-alist '(foreground-color . "#000000") t)
 
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
@@ -19,8 +20,10 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (setq use-short-answers t)
 (setq kill-whole-line t)
+(setq delete-by-moving-to-trash t)
 (setq disabled-command-function nil)
 (setq repeat-exit-key "RET")
+(setq visible-bell t)
 (setq read-process-output-max (* 1024 1024))
 
 ;;;; Isearch
@@ -63,6 +66,7 @@
 (global-set-key (kbd "C-z") #'repeat)
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
 (global-set-key (kbd "C-c o") #'outline-minor-mode)
+(global-set-key (kbd "C-c h") #'hl-line-mode)
 
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c s") #'org-capture)
@@ -107,13 +111,10 @@
    (python . t)))
 
 ;;; Prog
-(setq js-indent-level 2)
-
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 (add-hook 'compilation-mode-hook #'rename-uniquely)
 
 (add-hook 'prog-mode-hook (lambda ()
-			    (company-mode)
 			    (electric-pair-local-mode)
 			    (display-line-numbers-mode)))
 
@@ -126,8 +127,12 @@
 ;;;; Java
 (add-hook 'java-mode-hook (lambda ()
 			    (setq c-basic-offset 4
-                                      tab-width 4
-                                      indent-tabs-mode t)))
+                                  tab-width 4
+                                  indent-tabs-mode t)))
+
+;;;; JS
+(setq js-indent-level 2)
+(setq js-chain-indent t)
 
 ;;;; Eldoc
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
@@ -147,12 +152,11 @@
   (require 'dired-aux)
   (require 'dired-x))
 
-(setq delete-by-moving-to-trash t)
 (setq dired-recursive-deletes 'always)
 
 (add-hook 'dired-mode-hook
 	  (lambda ()
-	    (setq truncate-lines nil)
+	    (setq truncate-lines t)
 	    (hl-line-mode)
 	    (dired-isearch-filenames-mode)))
 
