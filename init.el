@@ -30,7 +30,9 @@
 (setq read-process-output-max (* 1024 1024))
 
 ;; Server
-(server-start)
+(require 'server)
+(or (server-running-p)
+    (server-start))
 
 ;;; Global keys
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
