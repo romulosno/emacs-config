@@ -1,4 +1,4 @@
-;;; early-init.el -- early init config . -*- lexical-binding: t; -*-
+;;; early-init.el -- early init config
 
 (when (and (fboundp 'native-comp-available-p)
            (native-comp-available-p))
