@@ -16,11 +16,11 @@
 (setq visible-bell t)
 (setq view-read-only t)
 (setq inhibit-startup-screen t)
+(setq isearch-lazy-count t)
 
 (setq backup-directory-alist
       `(("" . ,(expand-file-name "backups" user-emacs-directory))))
 
-(setq isearch-lazy-count t)
 
 (setq tab-always-indent 'complete)
 (setq completions-max-height 15)
@@ -30,7 +30,6 @@
 (setq save-abbrevs 'silently)
 
 (setq repeat-exit-key "RET")
-(global-set-key (kbd "C-z") #'repeat)
 
 (setq org-confirm-babel-evaluate nil)
 (org-babel-do-load-languages
@@ -71,7 +70,15 @@
 (setq smerge-command-prefix "\e")
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
+(setq outline-minor-mode-prefix "\M-o"
+      outline-minor-mode-cycle t
+      outline-minor-mode-cycle-filter 'bolp)
+
 (savehist-mode 1)
 (save-place-mode 1)
 (repeat-mode 1)
 
+(global-set-key (kbd "C-z") #'repeat)
+(global-set-key (kbd "C-c o") #'outline-minor-mode)
+(global-set-key (kbd "C-c s") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
