@@ -1,9 +1,4 @@
 ;;; init.el -- init config
-(add-to-list 'default-frame-alist '(background-color . "gray8") t)
-(add-to-list 'default-frame-alist '(foreground-color . "white") t)
-
-(set-face-attribute 'mode-line nil :background "gray20" :foreground "white")
-
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
