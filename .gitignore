@@ -1,0 +1,16 @@
+backups
+eln-cache
+share
+tramp
+transient
+places
+projects
+.org-id-locations
+history
+abbrev_defs
+bookmarks
+games
+recentf
+custom.el
+eglot-java-eclipse-jdt-cache
+*.*~
