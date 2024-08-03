@@ -4,25 +4,28 @@
 (add-to-list 'default-frame-alist '(height . 40))
 
 (cond
+ ((find-font (font-spec :name "IBM Plex Mono"))
+  (set-face-font 'default "IBM Plex Mono-10"))
  ((find-font (font-spec :name "Ubuntu Mono"))
   (set-face-font 'default "Ubuntu Mono-12"))
- ((find-font (font-spec :name "Liberation Mono"))
-  (set-face-font 'default "Liberation Mono-10")))
-
-(set-face-attribute 'default nil :background "#f5f3ef" :foreground "#0a0c10")
-(set-face-attribute 'fringe nil :background "#f5f3ef" :foreground "#0a0c10")
-(set-face-attribute 'mode-line nil :background "#cfcdca" :foreground "#0a0c10" :box nil)
-(set-face-attribute 'font-lock-comment-face nil :foreground "gray30")
+ ((find-font (font-spec :name "DeJavu Sans Mono"))
+  (set-face-font 'default "DeJavu Sans Mono-10")))
 
 (setq frame-background-mode 'light)
+(set-face-attribute 'default nil :background "white smoke" :foreground "black")
+(set-face-attribute 'fringe nil :background "white smoke" :foreground "black")
+(set-face-attribute 'region nil :background "gray85")
+(set-face-attribute 'mode-line nil :background "SlateGray2" :foreground "black" :box nil)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
+(column-number-mode 1)
 (savehist-mode 1)
 (save-place-mode 1)
 (global-so-long-mode 1)
+(windmove-default-keybindings 'ctrl)
 
 (setq inhibit-startup-screen t)
 (setq initial-major-mode 'fundamental-mode)
@@ -42,8 +45,6 @@
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-u") #'upcase-dwim)
 
-(global-set-key (kbd "C-z") #'repeat)
-(global-set-key (kbd "C-c b") #'ibuffer)
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
 (global-set-key (kbd "C-c f") #'find-name-dired)
 
@@ -52,11 +53,14 @@
 (setq isearch-allow-scroll t)
 
 (setq completion-show-help nil)
+(setq dabbrev-case-fold-search nil)
 (setq-default abbrev-mode t)
 (setq save-abbrevs 'silently)
 
 (setq ibuffer-use-other-window t)
+(global-set-key (kbd "C-c b") #'ibuffer)
 
+(global-set-key (kbd "C-z") #'repeat)
 (setq repeat-exit-key "RET")
 (repeat-mode 1)
 
