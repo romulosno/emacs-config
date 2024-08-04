@@ -3,19 +3,26 @@
 (add-to-list 'default-frame-alist '(width . 100))
 (add-to-list 'default-frame-alist '(height . 40))
 
-(cond
- ((find-font (font-spec :name "IBM Plex Mono"))
-  (set-face-font 'default "IBM Plex Mono-10"))
- ((find-font (font-spec :name "Ubuntu Mono"))
-  (set-face-font 'default "Ubuntu Mono-12"))
- ((find-font (font-spec :name "DeJavu Sans Mono"))
-  (set-face-font 'default "DeJavu Sans Mono-10")))
 
 (setq frame-background-mode 'light)
 (set-face-attribute 'default nil :background "white smoke" :foreground "black")
 (set-face-attribute 'fringe nil :background "white smoke" :foreground "black")
 (set-face-attribute 'region nil :background "gray85")
 (set-face-attribute 'mode-line nil :background "SlateGray2" :foreground "black" :box nil)
+(set-face-attribute 'font-lock-keyword-face nil :foreground "DarkMagenta")
+
+(defun set-fonts ()
+  (cond
+   ((find-font (font-spec :name "IBM Plex Mono"))
+    (set-face-font 'default "IBM Plex Mono-10"))
+   ((find-font (font-spec :name "Ubuntu Mono"))
+    (set-face-font 'default "Ubuntu Mono-12"))
+   ((find-font (font-spec :name "DeJavu Sans Mono"))
+    (set-face-font 'default "DeJavu Sans Mono-10"))))
+
+(if (daemonp)
+    (add-hook 'server-after-make-frame-hook #'set-fonts)
+  (set-fonts))
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
