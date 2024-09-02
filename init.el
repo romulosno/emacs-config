@@ -1,12 +1,19 @@
-(setq gc-cons-threshold 6400000)
 (setq read-process-output-max (* 1024 1024))
-
-(set-face-font 'default "DejaVu Sans Mono-10")
 
 (column-number-mode 1)
 (savehist-mode 1)
 (save-place-mode 1)
 (global-so-long-mode 1)
+
+(defun set-font ()
+  (when (find-font (font-spec :name "Cascadia Code"))
+    (set-face-font 'default "Cascadia Code-10")))
+
+(if (daemonp)
+    (add-hook 'server-after-make-frame-hook #'set-font)
+  (set-font))
+
+(load-theme 'modus-operandi t)
 
 (setq inhibit-startup-screen t)
 (setq initial-major-mode 'fundamental-mode)
