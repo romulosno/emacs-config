@@ -6,8 +6,8 @@
 (global-so-long-mode 1)
 
 (defun set-font ()
-  (when (find-font (font-spec :name "Cascadia Code"))
-    (set-face-font 'default "Cascadia Code-10")))
+  (when (find-font (font-spec :name "Liberation Mono"))
+    (set-face-font 'default "Liberation Mono-10")))
 
 (if (daemonp)
     (add-hook 'server-after-make-frame-hook #'set-font)
@@ -87,7 +87,6 @@
 
 (setq smerge-command-prefix "\e")
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq diff-font-lock-syntax nil)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
