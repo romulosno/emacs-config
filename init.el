@@ -1,13 +1,14 @@
-(setq read-process-output-max (* 1024 1024))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (column-number-mode 1)
 (savehist-mode 1)
 (save-place-mode 1)
 (global-so-long-mode 1)
+(pixel-scroll-precision-mode 1)
 
 (defun set-font ()
-  (when (find-font (font-spec :name "Liberation Mono"))
-    (set-face-font 'default "Liberation Mono-10")))
+  (when (find-font (font-spec :name "Cascadia Code"))
+    (set-frame-font "Cascadia Code-10")))
 
 (if (daemonp)
     (add-hook 'server-after-make-frame-hook #'set-font)
@@ -66,6 +67,8 @@
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 3)
 
+(setq read-process-output-max (* 3 1024 1024))
+
 (setq eglot-sync-connect nil)
 (setq eglot-autoshutdown t)
 
@@ -73,6 +76,12 @@
   (define-key eglot-mode-map (kbd "C-c c a") #'eglot-code-actions)
   (define-key eglot-mode-map (kbd "C-c c f") #'eglot-format)
   (define-key eglot-mode-map (kbd "C-c c r") #'eglot-rename))
+
+(with-eval-after-load 'flymake
+  (define-key flymake-mode-map (kbd "C-c e n") #'flymake-goto-next-error)
+  (define-key flymake-mode-map (kbd "C-c e p") #'flymake-goto-prev-error)
+  (define-key flymake-mode-map (kbd "C-c e l") #'flymake-show-buffer-diagnostics)
+  (define-key flymake-mode-map (kbd "C-c e L") #'flymake-show-project-diagnostics))
 
 (when (executable-find "gopls")
   (add-hook 'go-mode-hook #'eglot-ensure))
