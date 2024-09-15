@@ -14,7 +14,8 @@
     (add-hook 'server-after-make-frame-hook #'set-font)
   (set-font))
 
-(load-theme 'modus-operandi t)
+(setq auto-dark-themes '((modus-vivendi) (modus-operandi)))
+(auto-dark-mode 1)
 
 (setq inhibit-startup-screen t)
 (setq initial-major-mode 'fundamental-mode)
