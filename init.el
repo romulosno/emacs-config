@@ -7,8 +7,8 @@
 (pixel-scroll-precision-mode 1)
 
 (defun set-font ()
-  (when (find-font (font-spec :name "Cascadia Code"))
-    (set-frame-font "Cascadia Code-10")))
+  (when (find-font (font-spec :name "DejaVu Sans Mono"))
+    (set-frame-font "DejaVu Sans Mono-10")))
 
 (if (daemonp)
     (add-hook 'server-after-make-frame-hook #'set-font)
