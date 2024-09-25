@@ -110,15 +110,10 @@
 (setq compilation-auto-jump-to-first-error 'if-location-known)
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
-;; Project compile buffer name
-(setq project-compilation-buffer-name-function
-      (lambda (name-of-mode)
-        (project-prefixed-buffer-name name-of-mode)))
-
 ;; Command compile buffer name
 (setq compilation-buffer-name-function
       (lambda (name-of-mode)
-	(format "*%s (%s)*" (car compile-history) default-directory)))
+	(format "*%s<%s>*" (car compile-history) default-directory)))
 
 ;; Eldoc
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
