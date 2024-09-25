@@ -56,6 +56,8 @@
 
 ;; Completions
 (add-to-list 'completion-styles 'substring t)
+(add-to-list 'completion-styles 'flex t)
+
 (setq completions-format 'one-column)
 (setq completion-show-help nil)
 (setq completions-max-height 20)
@@ -101,24 +103,25 @@
 (define-key prog-mode-map (kbd "<f5>") #'compile)
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
 
+(install-packages (dockerfile-mode go-mode eglot yaml-mode))
+
 ;;; Compilation
 (setq compilation-max-output-line-length nil)
 (setq compilation-auto-jump-to-first-error 'if-location-known)
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
 ;; Project compile buffer name
-(install-packages (dockerfile-mode go-mode eglot yaml-mode))
-
 (setq project-compilation-buffer-name-function
         (lambda (name-of-mode)
-          (generate-new-buffer-name
-           (project-prefixed-buffer-name name-of-mode))))
+           (project-prefixed-buffer-name name-of-mode)))
 
 ;; Command compile buffer name
 (setq compilation-buffer-name-function
       (lambda (name-of-mode)
-	(generate-new-buffer
-	 (car compile-history))))
+	(format "*%s (%s)*"
+		(car compile-history)
+		(file-name-nondirectory
+		 (directory-file-name (expand-file-name default-directory))))))
 
 ;; Eldoc
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
