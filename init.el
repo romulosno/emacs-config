@@ -112,16 +112,13 @@
 
 ;; Project compile buffer name
 (setq project-compilation-buffer-name-function
-        (lambda (name-of-mode)
-           (project-prefixed-buffer-name name-of-mode)))
+      (lambda (name-of-mode)
+        (project-prefixed-buffer-name name-of-mode)))
 
 ;; Command compile buffer name
 (setq compilation-buffer-name-function
       (lambda (name-of-mode)
-	(format "*%s (%s)*"
-		(car compile-history)
-		(file-name-nondirectory
-		 (directory-file-name (expand-file-name default-directory))))))
+	(format "*%s (%s)*" (car compile-history) default-directory)))
 
 ;; Eldoc
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
