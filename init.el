@@ -1,30 +1,38 @@
+;; Packages config
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(setq package-archive-priorities '(("elpa" . 3)
+				   ("melpa" . 2)
+				   ("nongnu" . 1)))
 
-(defvar my-package-list '(dockerfile-mode
-			  go-mode
-			  eglot
-			  modus-themes
-			  yaml-mode))
+(defmacro install-packages (packages)
+  "Install one or a list of PACKAGES without needing to quote."
+  (let ((pkg-list (if (listp packages)
+                      packages
+                    (list packages))))
+    `(progn
+       ,@(mapcar (lambda (pkg)
+                   `(unless (package-installed-p ',pkg)
+                      (package-install ',pkg)))
+                 pkg-list))))
 
-(dolist (pac my-package-list)
-  (unless (package-installed-p pac)
-	  (package-install pac)))
-
+;; Server
 (require 'server)
 (unless (server-running-p)
   (server-start))
 
+;; Global modes
 (column-number-mode 1)
 (savehist-mode 1)
 (save-place-mode 1)
 (global-so-long-mode 1)
-(repeat-mode 1)
+(pixel-scroll-precision-mode)
+
+(load-theme 'modus-operandi t)
 
 (when (find-font (font-spec :name "Hack"))
   (set-face-font 'default "Hack-10"))
 
-(load-theme 'modus-operandi-tinted t)
-
+;; Init screen
 (setq inhibit-startup-screen t)
 (setq initial-major-mode 'fundamental-mode)
 (setq initial-scratch-message nil)
@@ -37,13 +45,16 @@
 (setq imenu-auto-rescan t)
 (setq make-backup-files nil)
 
+;; Enable commands
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
+;; Isearch
 (setq isearch-lazy-count t)
 (setq isearch-yank-on-move 'shift)
 (setq isearch-allow-scroll t)
 
+;; Completions
 (add-to-list 'completion-styles 'substring t)
 (setq completions-format 'one-column)
 (setq completion-show-help nil)
@@ -53,21 +64,16 @@
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
-(setq dabbrev-case-fold-search nil)
 (setq-default abbrev-mode t)
+(setq dabbrev-case-fold-search nil)
 (setq save-abbrevs 'silently)
 
-(global-set-key (kbd "C-z") #'repeat)
+;; Repeat
 (setq repeat-exit-key "RET")
+(global-set-key (kbd "C-z") #'repeat)
+(repeat-mode 1)
 
-(define-key prog-mode-map (kbd "<f5>") #'compile)
-(add-hook 'prog-mode-hook #'electric-pair-local-mode)
-(add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
-
-(setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
-(setq eldoc-echo-area-use-multiline-p 3)
-(setq read-process-output-max (* 3 1024 1024))
-
+;; Dired
 (require 'dired)
 (require 'dired-aux)
 (require 'dired-x)
@@ -76,24 +82,65 @@
 (setq delete-by-moving-to-trash t)
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 
+;; Merge and diff
 (setq smerge-command-prefix "\e")
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-keep-variants nil)
 
+;; Case control
 (global-set-key (kbd "M-c") #'capitalize-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-u") #'upcase-dwim)
+
+;; Search
 (global-set-key (kbd "C-c f") #'find-name-dired)
+(global-set-key (kbd "C-c g") #'grep)
+(global-set-key (kbd "C-c r") #'rgrep)
+
+;;; Code
+(define-key prog-mode-map (kbd "<f5>") #'compile)
+(add-hook 'prog-mode-hook #'electric-pair-local-mode)
+
+;;; Compilation
+(setq compilation-max-output-line-length nil)
+(setq compilation-auto-jump-to-first-error 'if-location-known)
+(add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
+
+;; Project compile buffer name
+(install-packages (dockerfile-mode go-mode eglot yaml-mode))
+
+(setq project-compilation-buffer-name-function
+        (lambda (name-of-mode)
+          (generate-new-buffer-name
+           (project-prefixed-buffer-name name-of-mode))))
+
+;; Command compile buffer name
+(setq compilation-buffer-name-function
+      (lambda (name-of-mode)
+	(generate-new-buffer
+	 (car compile-history))))
+
+;; Eldoc
+(setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
+(setq eldoc-echo-area-use-multiline-p 3)
+
+;; LSP
+(setq read-process-output-max (* 3 1024 1024))
+(setq eglot-autoshutdown t)
+(setq eglot-sync-connect nil)
 
 (with-eval-after-load 'eglot
   (define-key eglot-mode-map (kbd "C-c c a") #'eglot-code-actions)
   (define-key eglot-mode-map (kbd "C-c c f") #'eglot-format)
   (define-key eglot-mode-map (kbd "C-c c r") #'eglot-rename))
 
+;; Diagnostics
 (with-eval-after-load 'flymake
   (define-key flymake-mode-map (kbd "C-c e n") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "C-c e p") #'flymake-goto-prev-error)
   (define-key flymake-mode-map (kbd "C-c e l") #'flymake-show-buffer-diagnostics)
   (define-key flymake-mode-map (kbd "C-c e L") #'flymake-show-project-diagnostics))
 
+;; Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
