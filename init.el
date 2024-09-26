@@ -1,3 +1,4 @@
+;; Config
 ;;; Packages config
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (setq package-archive-priorities '(("elpa" . 3)
@@ -27,6 +28,7 @@
 (global-so-long-mode 1)
 (pixel-scroll-precision-mode)
 
+;;; Font and theme
 (load-theme 'modus-operandi t)
 
 (when (find-font (font-spec :name "Hack"))
@@ -84,7 +86,13 @@
 (setq delete-by-moving-to-trash t)
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 
-;; Version Control
+;;; Org And Markdown
+(setq org-tags-column 0)
+(setq org-use-speed-commands t)
+
+(install-packages markdown-mode)
+
+;;; Version Control
 (setq vc-git-show-stash nil)
 (setq make-backup-files nil)
 (setq smerge-command-prefix "\e")
@@ -104,9 +112,16 @@
 
 ;; Outline
 (global-set-key (kbd "C-c o") #'outline-minor-mode)
+
 (setq outline-minor-mode-prefix (kbd "M-o"))
 (setq outline-minor-mode-cycle t)
 (setq outline-minor-mode-cycle-filter 'bolp)
+
+(add-hook 'outline-minor-mode-hook
+	  (lambda ()
+	    (if outline-minor-mode
+		(reveal-mode 1)
+	      (reveal-mode 0))))
 
 ;;; Code
 (define-key prog-mode-map (kbd "<f5>") #'compile)
@@ -144,6 +159,22 @@
   (define-key flymake-mode-map (kbd "C-c e l") #'flymake-show-buffer-diagnostics)
   (define-key flymake-mode-map (kbd "C-c e L") #'flymake-show-project-diagnostics))
 
+;;; DAP
+(install-packages dape)
+(setq dape-buffer-window-arrangement 'right)
+
+(with-eval-after-load 'dape
+  (dape-breakpoint-global-mode)
+  (add-hook 'kill-emacs-hook #'dape-breakpoint-save)
+  (add-hook 'after-init #'dape-breakpoint-load))
+
+(add-hook 'dape-display-source-hook #'pulse-momentary-highlight-one-line)
+
 ;;; Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
+
+;; Local Variables:
+;; page-delimiter: ";;;"
+;; eval: (outline-minor-mode 1)
+;; End:
