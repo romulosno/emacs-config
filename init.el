@@ -1,4 +1,4 @@
-;; Packages config
+;;; Packages config
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (setq package-archive-priorities '(("elpa" . 3)
 				   ("melpa" . 2)
@@ -15,12 +15,12 @@
                       (package-install ',pkg)))
                  pkg-list))))
 
-;; Server
+;;; Server
 (require 'server)
 (unless (server-running-p)
   (server-start))
 
-;; Global modes
+;;; Global modes
 (column-number-mode 1)
 (savehist-mode 1)
 (save-place-mode 1)
@@ -32,29 +32,29 @@
 (when (find-font (font-spec :name "Hack"))
   (set-face-font 'default "Hack-10"))
 
-;; Init screen
+;;; Init screen
 (setq inhibit-startup-screen t)
 (setq initial-major-mode 'fundamental-mode)
 (setq initial-scratch-message nil)
 
+;;; Misc
 (setq use-short-answers t)
 (setq kill-whole-line t)
 (setq visible-bell t)
 (setq view-read-only t)
 (setq visible-bell t)
 (setq imenu-auto-rescan t)
-(setq make-backup-files nil)
 
-;; Enable commands
+;;; Enable commands
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
-;; Isearch
+;;; Isearch
 (setq isearch-lazy-count t)
 (setq isearch-yank-on-move 'shift)
 (setq isearch-allow-scroll t)
 
-;; Completions
+;;; Completions
 (add-to-list 'completion-styles 'substring t)
 (add-to-list 'completion-styles 'flex t)
 
@@ -70,12 +70,12 @@
 (setq dabbrev-case-fold-search nil)
 (setq save-abbrevs 'silently)
 
-;; Repeat
+;;; Repeat
 (setq repeat-exit-key "RET")
 (global-set-key (kbd "C-z") #'repeat)
 (repeat-mode 1)
 
-;; Dired
+;;; Dired
 (require 'dired)
 (require 'dired-aux)
 (require 'dired-x)
@@ -84,8 +84,11 @@
 (setq delete-by-moving-to-trash t)
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
 
-;; Merge and diff
+;; Version Control
+(setq vc-git-show-stash nil)
+(setq make-backup-files nil)
 (setq smerge-command-prefix "\e")
+
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-keep-variants nil)
 
@@ -98,6 +101,12 @@
 (global-set-key (kbd "C-c f") #'find-name-dired)
 (global-set-key (kbd "C-c g") #'grep)
 (global-set-key (kbd "C-c r") #'rgrep)
+
+;; Outline
+(global-set-key (kbd "C-c o") #'outline-minor-mode)
+(setq outline-minor-mode-prefix (kbd "M-o"))
+(setq outline-minor-mode-cycle t)
+(setq outline-minor-mode-cycle-filter 'bolp)
 
 ;;; Code
 (define-key prog-mode-map (kbd "<f5>") #'compile)
@@ -115,11 +124,11 @@
       (lambda (name-of-mode)
 	(format "*%s<%s>*" (car compile-history) default-directory)))
 
-;; Eldoc
+;;; Eldoc
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 3)
 
-;; LSP
+;;; LSP
 (setq read-process-output-max (* 3 1024 1024))
 (setq eglot-autoshutdown t)
 (setq eglot-sync-connect nil)
@@ -129,13 +138,12 @@
   (define-key eglot-mode-map (kbd "C-c c f") #'eglot-format)
   (define-key eglot-mode-map (kbd "C-c c r") #'eglot-rename))
 
-;; Diagnostics
 (with-eval-after-load 'flymake
   (define-key flymake-mode-map (kbd "C-c e n") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "C-c e p") #'flymake-goto-prev-error)
   (define-key flymake-mode-map (kbd "C-c e l") #'flymake-show-buffer-diagnostics)
   (define-key flymake-mode-map (kbd "C-c e L") #'flymake-show-project-diagnostics))
 
-;; Custom
+;;; Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
