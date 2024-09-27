@@ -26,10 +26,10 @@
 (savehist-mode 1)
 (save-place-mode 1)
 (global-so-long-mode 1)
-(pixel-scroll-precision-mode)
 
 ;;; Font and theme
-(load-theme 'modus-operandi t)
+(install-packages modus-themes)
+(load-theme 'modus-vivendi-tinted t)
 
 (when (find-font (font-spec :name "Hack"))
   (set-face-font 'default "Hack-10"))
@@ -93,6 +93,7 @@
 (install-packages markdown-mode)
 
 ;;; Version Control
+(install-packages git-timemachine)
 (setq vc-git-show-stash nil)
 (setq make-backup-files nil)
 (setq smerge-command-prefix "\e")
