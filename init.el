@@ -29,10 +29,15 @@
 
 ;;; Font and theme
 (install-packages modus-themes)
-(load-theme 'modus-vivendi-tinted t)
+(load-theme 'modus-operandi t)
 
-(when (find-font (font-spec :name "Hack"))
-  (set-face-font 'default "Hack-10"))
+(cond
+ ((find-font (font-spec :name "Julia Mono"))
+  (set-face-font 'default "Julia Mono-10"))
+ ((find-font (font-spec :name "Ubuntu Mono"))
+  (set-face-font 'default "Ubuntu Mono-11"))
+ ((find-font (font-spec :name "DejaVu Sans Mono"))
+  (set-face-font 'default "DejaVu Sans Mono-10")))
 
 ;;; Init screen
 (setq inhibit-startup-screen t)
@@ -89,6 +94,7 @@
 ;;; Org And Markdown
 (setq org-tags-column 0)
 (setq org-use-speed-commands t)
+(setq org-startup-indented t)
 
 (install-packages markdown-mode)
 
