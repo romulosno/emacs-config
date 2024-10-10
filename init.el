@@ -28,7 +28,6 @@
 (global-so-long-mode 1)
 
 ;;; Font and theme
-(install-packages modus-themes)
 (load-theme 'modus-operandi t)
 
 (cond
@@ -62,6 +61,9 @@
 (setq isearch-allow-scroll t)
 
 ;;; Completions
+(install-packages company)
+(add-hook 'prog-mode-hook #'company-mode)
+
 (add-to-list 'completion-styles 'substring t)
 (add-to-list 'completion-styles 'flex t)
 
@@ -155,16 +157,24 @@
 (setq eglot-autoshutdown t)
 (setq eglot-sync-connect nil)
 
+(install-packages eglot-java)
 (with-eval-after-load 'eglot
-  (define-key eglot-mode-map (kbd "C-c c a") #'eglot-code-actions)
-  (define-key eglot-mode-map (kbd "C-c c f") #'eglot-format)
-  (define-key eglot-mode-map (kbd "C-c c r") #'eglot-rename))
+  (define-key eglot-mode-map (kbd "<f5>") #'eglot-code-actions)
+  (define-key eglot-mode-map (kbd "<f6>") #'eglot-rename)
+  (define-key eglot-mode-map (kbd "<f7>") #'eglot-format)
+  (add-to-list 'eglot-server-programs
+             `((java-mode java-ts-mode) .
+               ("jdtls"
+                :initializationOptions
+                (:bundles
+		 ["/home/romulo/Libs/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.0.jar"])))))
 
-(with-eval-after-load 'flymake
-  (define-key flymake-mode-map (kbd "C-c e n") #'flymake-goto-next-error)
-  (define-key flymake-mode-map (kbd "C-c e p") #'flymake-goto-prev-error)
-  (define-key flymake-mode-map (kbd "C-c e l") #'flymake-show-buffer-diagnostics)
-  (define-key flymake-mode-map (kbd "C-c e L") #'flymake-show-project-diagnostics))
+
+;; (with-eval-after-load 'flymake
+;;   (define-key flymake-mode-map (kbd "C-c e n") #'flymake-goto-next-error)
+;;   (define-key flymake-mode-map (kbd "C-c e p") #'flymake-goto-prev-error)
+;;   (define-key flymake-mode-map (kbd "C-c e l") #'flymake-show-buffer-diagnostics)
+;;   (define-key flymake-mode-map (kbd "C-c e L") #'flymake-show-project-diagnostics))
 
 ;;; DAP
 (install-packages dape)
