@@ -28,11 +28,12 @@
 (global-so-long-mode 1)
 
 ;;; Font and theme
-(load-theme 'modus-operandi t)
+(install-packages modus-themes)
+(load-theme 'modus-vivendi-tinted t)
 
 (cond
- ((find-font (font-spec :name "Julia Mono"))
-  (set-face-font 'default "Julia Mono-10"))
+ ((find-font (font-spec :name "JetBrains Mono"))
+  (set-face-font 'default "JetBrains Mono-10"))
  ((find-font (font-spec :name "Ubuntu Mono"))
   (set-face-font 'default "Ubuntu Mono-11"))
  ((find-font (font-spec :name "DejaVu Sans Mono"))
@@ -152,6 +153,12 @@
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 3)
 
+;;; Java
+(add-hook 'java-mode-hook (lambda ()
+                                 (setq c-basic-offset 4
+                                      tab-width 4
+                                      indent-tabs-mode t)))
+
 ;;; LSP
 (setq read-process-output-max (* 3 1024 1024))
 (setq eglot-autoshutdown t)
@@ -186,6 +193,21 @@
   (add-hook 'after-init #'dape-breakpoint-load))
 
 (add-hook 'dape-display-source-hook #'pulse-momentary-highlight-one-line)
+
+;;; Display buffer
+(defun fit-window-to-buffer-max-one-third-frame (&optional window)
+  "fit window to buffer size, but use max half of current frame height."
+  (interactive)
+  (let ((wnd (or window (selected-window)))
+        (max-height (/ (frame-height) 3)))
+    (fit-window-to-buffer window max-height)))
+  
+(add-to-list 'display-buffer-alist '("\\*Completions\\*"
+				     (display-buffer-reuse-mode-window
+				      display-buffer-in-side-window)
+				     (side . bottom)
+				     (slot . -1)
+				     (window-height . fit-window-to-buffer-max-one-third-frame)))
 
 ;;; Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
