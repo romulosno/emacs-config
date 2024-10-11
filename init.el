@@ -203,8 +203,9 @@
     (fit-window-to-buffer window max-height)))
   
 (add-to-list 'display-buffer-alist '("\\*Completions\\*"
-				     (display-buffer-reuse-mode-window
-				      display-buffer-in-side-window)
+				     display-buffer-reuse-mode-window
+				     display-buffer-in-side-window
+				     (mode completion-list-mode)
 				     (side . bottom)
 				     (slot . -1)
 				     (window-height . fit-window-to-buffer-max-one-third-frame)))
