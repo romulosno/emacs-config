@@ -29,7 +29,7 @@
 
 ;;; Font and theme
 (install-packages modus-themes)
-(load-theme 'modus-vivendi-tinted t)
+(load-theme 'modus-operandi-tinted t)
 
 (cond
  ((find-font (font-spec :name "JetBrains Mono"))
@@ -103,7 +103,7 @@
 
 ;;; Version Control
 (install-packages git-timemachine)
-(setq vc-git-show-stash nil)
+(setq vc-git-show-stash 0)
 (setq make-backup-files nil)
 (setq smerge-command-prefix "\e")
 
@@ -134,10 +134,16 @@
 	      (reveal-mode 0))))
 
 ;;; Code
-(define-key prog-mode-map (kbd "<f5>") #'compile)
+(global-set-key (kbd "<f5>") #'compile)
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
 
-(install-packages (dockerfile-mode go-mode eglot yaml-mode))
+(install-packages (dockerfile-mode go-mode eglot yaml-mode groovy-mode kotlin-mode))
+
+;;;; Java
+(add-hook 'java-mode-hook (lambda ()
+                                 (setq c-basic-offset 4
+                                      tab-width 4
+                                      indent-tabs-mode t)))
 
 ;;; Compilation
 (setq compilation-max-output-line-length nil)
@@ -152,12 +158,6 @@
 ;;; Eldoc
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 3)
-
-;;; Java
-(add-hook 'java-mode-hook (lambda ()
-                                 (setq c-basic-offset 4
-                                      tab-width 4
-                                      indent-tabs-mode t)))
 
 ;;; LSP
 (setq read-process-output-max (* 3 1024 1024))
