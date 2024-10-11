@@ -28,10 +28,8 @@
 (global-so-long-mode 1)
 
 ;;; Font and theme
-(install-packages modus-themes)
 (setq modus-themes-mixed-fonts t)
-
-(load-theme 'modus-operandi-tinted t)
+(load-theme 'modus-operandi t)
 
 (cond
  ((find-font (font-spec :name "Hack"))
@@ -212,13 +210,6 @@
 	       (slot . 1)
 	       (window-parameters . ((no-delete-other-windows . t)))
 	       (window-height . 0.33)))
-
-(add-to-list 'display-buffer-alist
-             `((or (derived-mode . org-mode)
-                   (derived-mode . org-agenda-mode))
-               (display-buffer-in-tab)
-               (ignore-current-tab . t)
-               (tab- . "Org Files")))
 
 ;;; Tab bar
 (setq tab-bar-select-tab-modifiers '(meta))
