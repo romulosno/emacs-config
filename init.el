@@ -29,11 +29,13 @@
 
 ;;; Font and theme
 (install-packages modus-themes)
+(setq modus-themes-mixed-fonts t)
+
 (load-theme 'modus-operandi-tinted t)
 
 (cond
- ((find-font (font-spec :name "JetBrains Mono"))
-  (set-face-font 'default "JetBrains Mono-10"))
+ ((find-font (font-spec :name "Hack"))
+  (set-face-font 'default "Hack-10"))
  ((find-font (font-spec :name "Ubuntu Mono"))
   (set-face-font 'default "Ubuntu Mono-11"))
  ((find-font (font-spec :name "DejaVu Sans Mono"))
@@ -150,11 +152,6 @@
 (setq compilation-auto-jump-to-first-error 'if-location-known)
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
-;; Command compile buffer name
-(setq compilation-buffer-name-function
-      (lambda (name-of-mode)
-	(format "*%s<%s>*" (car compile-history) default-directory)))
-
 ;;; Eldoc
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 3)
@@ -176,13 +173,6 @@
                 (:bundles
 		 ["/home/romulo/Libs/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.0.jar"])))))
 
-
-;; (with-eval-after-load 'flymake
-;;   (define-key flymake-mode-map (kbd "C-c e n") #'flymake-goto-next-error)
-;;   (define-key flymake-mode-map (kbd "C-c e p") #'flymake-goto-prev-error)
-;;   (define-key flymake-mode-map (kbd "C-c e l") #'flymake-show-buffer-diagnostics)
-;;   (define-key flymake-mode-map (kbd "C-c e L") #'flymake-show-project-diagnostics))
-
 ;;; DAP
 (install-packages dape)
 (setq dape-buffer-window-arrangement 'right)
@@ -195,20 +185,45 @@
 (add-hook 'dape-display-source-hook #'pulse-momentary-highlight-one-line)
 
 ;;; Display buffer
+(global-set-key (kbd "C-c w") #'window-toggle-side-windows)
+
 (defun fit-window-to-buffer-max-one-third-frame (&optional window)
-  "fit window to buffer size, but use max half of current frame height."
+  "fit window to buffer size, but use max one third of current frame height."
   (interactive)
   (let ((wnd (or window (selected-window)))
         (max-height (/ (frame-height) 3)))
     (fit-window-to-buffer window max-height)))
   
-(add-to-list 'display-buffer-alist '("\\*Completions\\*"
-				     display-buffer-reuse-mode-window
-				     display-buffer-in-side-window
-				     (mode completion-list-mode)
-				     (side . bottom)
-				     (slot . -1)
-				     (window-height . fit-window-to-buffer-max-one-third-frame)))
+(add-to-list 'display-buffer-alist
+	     '("\\*Completions\\*"
+	       (display-buffer-reuse-mode-window
+	       display-buffer-in-side-window)
+	       (mode completion-list-mode)
+	       (side . bottom)
+	       (slot . -1)
+	       (dedicated . t)
+	       (window-height . fit-window-to-buffer-max-one-third-frame)))
+
+(add-to-list 'display-buffer-alist
+	     '("\\*e?shell\\*"
+	       display-buffer-in-side-window
+	       (side . bottom)
+	       (dedicated . t)
+	       (slot . 1)
+	       (window-parameters . ((no-delete-other-windows . t)))
+	       (window-height . 0.33)))
+
+(add-to-list 'display-buffer-alist
+             `((or (derived-mode . org-mode)
+                   (derived-mode . org-agenda-mode))
+               (display-buffer-in-tab)
+               (ignore-current-tab . t)
+               (tab- . "Org Files")))
+
+;;; Tab bar
+(setq tab-bar-select-tab-modifiers '(meta))
+(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
+(setq tab-bar-show 1)
 
 ;;; Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
