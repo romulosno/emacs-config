@@ -31,8 +31,8 @@
 
 ;;; Font and faces
 (cond
- ((find-font (font-spec :name "Inconsolata"))
-  (set-face-font 'default "Inconsolata-11"))
+ ((find-font (font-spec :name "JetBrains Mono"))
+  (set-face-font 'default "JetBrains Mono-10"))
  ((find-font (font-spec :name "Ubuntu Mono"))
   (set-face-font 'default "Ubuntu Mono-11")))
 
@@ -181,16 +181,22 @@
 	       (window-parameters . ((no-delete-other-windows . t)))
 	       (window-height . 0.3)))
 
+;;; Faces
+(set-face-attribute 'default nil :background "#fffff8" :foreground "black")
+(set-face-attribute 'fringe nil :background "#fffff8" :foreground "black")
+(set-face-attribute 'mode-line nil :background "#dbdbcc" :box "#dbdbcc")
+
+(set-face-attribute 'font-lock-keyword-face nil :foreground "black" :weight 'bold)
+(set-face-attribute 'font-lock-comment-face nil :foreground "#75756d" :slant 'italic)
+(set-face-attribute 'font-lock-string-face nil :foreground "#1b3f59")
+(set-face-attribute 'font-lock-function-name-face nil :foreground "#001040")
+(set-face-attribute 'font-lock-type-face nil :foreground "#1b2e00")
+(set-face-attribute 'font-lock-constant-face nil :foreground "#294009")
+(set-face-attribute 'minibuffer-prompt nil :foreground "#45453b")
+
 ;;; Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
-
-(setq frame-background-mode 'light)
-(set-face-attribute 'default nil :background "#f0f0f0" :foreground "#000000")
-(set-face-attribute 'font-lock-comment-face nil :foreground "#6a737d")
-(set-face-attribute 'font-lock-keyword-face nil :foreground "dark blue")
-(set-face-attribute 'mode-line nil :background "gray85" :box "gray80")
-
 
 ;; Local Variables:
 ;; page-delimiter: ";;;"
