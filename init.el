@@ -36,6 +36,7 @@
  ((find-font (font-spec :name "Ubuntu Mono"))
   (set-face-font 'default "Ubuntu Mono-11")))
 
+(load-theme 'modus-operandi t)
 
 ;;; Init screen
 (setq inhibit-startup-screen t)
@@ -115,19 +116,6 @@
 (global-set-key (kbd "C-c g") #'grep)
 (global-set-key (kbd "C-c r") #'rgrep)
 
-;; Outline
-(global-set-key (kbd "C-c o") #'outline-minor-mode)
-
-(setq outline-minor-mode-prefix (kbd "M-o"))
-(setq outline-minor-mode-cycle t)
-(setq outline-minor-mode-cycle-filter 'bolp)
-
-(add-hook 'outline-minor-mode-hook
-	  (lambda ()
-	    (if outline-minor-mode
-		(reveal-mode 1)
-	      (reveal-mode 0))))
-
 ;;; Code
 (global-set-key (kbd "<f5>") #'compile)
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
@@ -157,42 +145,6 @@
   (define-key eglot-mode-map (kbd "<f5>") #'eglot-code-actions)
   (define-key eglot-mode-map (kbd "<f6>") #'eglot-rename)
   (define-key eglot-mode-map (kbd "<f7>") #'eglot-format))
-
-;;; Buffer and frame positions
-(setq window-resize-pixelwise t)
-(global-set-key (kbd "C-c w") #'window-toggle-side-windows)
-
-(defun fit-window-to-buffer-max-one-quarter-frame (&optional window)
-  "fit window to buffer size, but use max one third of current frame height."
-  (interactive)
-  (let ((wnd (or window (selected-window)))
-        (max-height (/ (frame-height) 4)))
-    (fit-window-to-buffer window max-height)))
-
-(add-to-list 'display-buffer-alist
-	     '("\\*Completions\\*"
-	       display-buffer-below-selected
-	       (window-height . fit-window-to-buffer-max-one-quarter-frame)))
-
-(add-to-list 'display-buffer-alist
-	     '("\\*\\(?:shell\\|compilation\\)\\*"
-	       display-buffer-in-side-window
-	       (side . bottom) (dedicated . t) (slot . 1)
-	       (window-parameters . ((no-delete-other-windows . t)))
-	       (window-height . 0.3)))
-
-;;; Faces
-(set-face-attribute 'default nil :background "#fffff8" :foreground "black")
-(set-face-attribute 'fringe nil :background "#fffff8" :foreground "black")
-(set-face-attribute 'mode-line nil :background "#dbdbcc" :box "#dbdbcc")
-
-(set-face-attribute 'font-lock-keyword-face nil :foreground "black" :weight 'bold)
-(set-face-attribute 'font-lock-comment-face nil :foreground "#75756d" :slant 'italic)
-(set-face-attribute 'font-lock-string-face nil :foreground "#1b3f59")
-(set-face-attribute 'font-lock-function-name-face nil :foreground "#001040")
-(set-face-attribute 'font-lock-type-face nil :foreground "#1b2e00")
-(set-face-attribute 'font-lock-constant-face nil :foreground "#294009")
-(set-face-attribute 'minibuffer-prompt nil :foreground "#45453b")
 
 ;;; Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
