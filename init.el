@@ -98,8 +98,23 @@
 (setq org-use-speed-commands t)
 (setq org-startup-indented t)
 
+;;; Outline
+(global-set-key (kbd "C-c O") #'outline-minor-mode)
+
+(setq outline-minor-mode-prefix (kbd "C-c o"))
+(setq outline-minor-mode-cycle t)
+(setq outline-minor-mode-cycle-filter 'bolp)
+
+(add-hook 'outline-minor-mode-hook
+	  (lambda ()
+	    (if outline-minor-mode
+		(reveal-mode 1)
+	      (reveal-mode 0))))
+
 ;;; Version Control
 (setq vc-git-show-stash 0)
+(setq vc-git-print-log-follow t)
+
 (setq make-backup-files nil)
 (setq smerge-command-prefix "\e")
 
@@ -142,7 +157,7 @@
 (setq eglot-sync-connect nil)
 
 (with-eval-after-load 'eglot
-  (define-key eglot-mode-map (kbd "<f5>") #'eglot-code-actions)
+  (define-key eglot-mode-map (kbd "<f8>") #'eglot-code-actions)
   (define-key eglot-mode-map (kbd "<f6>") #'eglot-rename)
   (define-key eglot-mode-map (kbd "<f7>") #'eglot-format))
 
