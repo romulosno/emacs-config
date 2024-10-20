@@ -29,14 +29,14 @@
 (save-place-mode 1)
 (global-so-long-mode 1)
 
-;;; Font and faces
+;;; Theme and Font
 (load-theme 'cores-claras t)
 
 (cond
  ((find-font (font-spec :name "Ubuntu Mono"))
   (set-face-font 'default "Ubuntu Mono-11"))
  ((find-font (font-spec :name "JetBrains Mono"))
-  (set-face-font 'default "JetBrains Mono-10")))
+  (set-face-font 'default "JetBrains Mono-9.5")))
 
 ;;; Init screen
 (setq inhibit-startup-screen t)
@@ -107,6 +107,11 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-keep-variants nil)
 
+;;; Tab-bar
+(setq tab-bar-new-button-show nil)
+(setq tab-bar-close-button-show nil)
+(setq tab-bar-show 1)
+
 ;; Case control
 (global-set-key (kbd "M-c") #'capitalize-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
@@ -150,9 +155,6 @@
   (define-key eglot-mode-map (kbd "<f6>") #'eglot-rename)
   (define-key eglot-mode-map (kbd "<f7>") #'eglot-format)
   (define-key eglot-mode-map (kbd "<f8>") #'eglot-code-actions))
-
-(setq tab-bar-new-button-show nil
-      tab-bar-close-button-show nil)
 
 ;;; Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
