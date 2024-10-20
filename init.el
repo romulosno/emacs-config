@@ -69,6 +69,8 @@
 (setq completions-max-height 20)
 (setq tab-always-indent 'complete)
 
+(define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
+
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
@@ -155,4 +157,3 @@
 ;;; Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
-
