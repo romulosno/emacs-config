@@ -1,18 +1,18 @@
-;; Config
 ;;; Packages config
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (setq package-archive-priorities '(("elpa" . 3)
 				   ("melpa" . 2)
 				   ("nongnu" . 1)))
 
-(defvar packages-to-install '(dockerfile-mode
-			      eglot
-			      git-timemachine
-			      go-mode
-			      groovy-mode
-			      kotlin-mode
-			      yaml-mode
-			      markdown-mode))
+(defvar packages-to-install
+  '(dockerfile-mode
+    eglot
+    git-timemachine
+    go-mode
+    groovy-mode
+    kotlin-mode
+    yaml-mode
+    markdown-mode))
 
 (dolist (pac packages-to-install)
   (unless (package-installed-p pac)
@@ -30,13 +30,13 @@
 (global-so-long-mode 1)
 
 ;;; Font and faces
-(cond
- ((find-font (font-spec :name "JetBrains Mono"))
-  (set-face-font 'default "JetBrains Mono-10"))
- ((find-font (font-spec :name "Ubuntu Mono"))
-  (set-face-font 'default "Ubuntu Mono-11")))
+(load-theme 'cores-claras t)
 
-(load-theme 'modus-operandi t)
+(cond
+ ((find-font (font-spec :name "Ubuntu Mono"))
+  (set-face-font 'default "Ubuntu Mono-11"))
+ ((find-font (font-spec :name "JetBrains Mono"))
+  (set-face-font 'default "JetBrains Mono-10")))
 
 ;;; Init screen
 (setq inhibit-startup-screen t)
@@ -81,9 +81,6 @@
 (global-set-key (kbd "C-z") #'repeat)
 (repeat-mode 1)
 
-(setq icomplete-compute-delay 0.0)
-(setq icomplete-prospects-height 1)
-
 ;;; Dired
 (require 'dired)
 (require 'dired-aux)
@@ -97,19 +94,6 @@
 (setq org-tags-column 0)
 (setq org-use-speed-commands t)
 (setq org-startup-indented t)
-
-;;; Outline
-(global-set-key (kbd "C-c O") #'outline-minor-mode)
-
-(setq outline-minor-mode-prefix (kbd "C-c o"))
-(setq outline-minor-mode-cycle t)
-(setq outline-minor-mode-cycle-filter 'bolp)
-
-(add-hook 'outline-minor-mode-hook
-	  (lambda ()
-	    (if outline-minor-mode
-		(reveal-mode 1)
-	      (reveal-mode 0))))
 
 ;;; Version Control
 (setq vc-git-show-stash 0)
@@ -161,11 +145,10 @@
   (define-key eglot-mode-map (kbd "<f6>") #'eglot-rename)
   (define-key eglot-mode-map (kbd "<f7>") #'eglot-format))
 
+(setq tab-bar-new-button-show nil
+      tab-bar-close-button-show nil)
+
 ;;; Custom
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
 
-;; Local Variables:
-;; page-delimiter: ";;;"
-;; eval: (outline-minor-mode 1)
-;; End:
