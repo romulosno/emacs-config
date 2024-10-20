@@ -62,10 +62,11 @@
 
 ;;; Completions
 (add-to-list 'completion-styles 'substring t)
+(add-to-list 'completion-styles 'flex t)
 
+(setq completion-auto-select 'second-tab)
 (setq completions-format 'one-column)
 (setq completion-show-help nil)
-(setq completion-auto-help t)
 (setq completions-max-height 20)
 (setq tab-always-indent 'complete)
 

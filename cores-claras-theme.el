@@ -8,6 +8,7 @@
 (custom-theme-set-faces
  'cores-claras
  '(default ((t (:foreground "black" :background "gray95"))))
+ '(fringe ((t (:foreground "black" :background "gray94"))))
  '(mode-line ((t (:foreground "black" :background "gray85" :box (:line-width (-1 . 1) :color "gray60")))))
  '(tab-bar ((t (:foreground "black" :background "gray85"))))
  '(tab-bar-tab ((t (:box (:line-width (-1 . 1) :color "gray60")))))
