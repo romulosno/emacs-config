@@ -64,7 +64,6 @@
 (add-to-list 'completion-styles 'substring t)
 (add-to-list 'completion-styles 'flex t)
 
-(setq completion-auto-select 'second-tab)
 (setq completions-format 'one-column)
 (setq completion-show-help nil)
 (setq completions-max-height 20)
@@ -111,6 +110,10 @@
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-u") #'upcase-dwim)
 
+;; Other window
+(global-set-key (kbd "M-o") #'other-window)
+(global-set-key (kbd "M-O") #'other-frame)
+
 ;; Search
 (global-set-key (kbd "C-c f") #'find-name-dired)
 (global-set-key (kbd "C-c g") #'grep)
@@ -142,9 +145,9 @@
 (setq eglot-sync-connect nil)
 
 (with-eval-after-load 'eglot
-  (define-key eglot-mode-map (kbd "<f8>") #'eglot-code-actions)
   (define-key eglot-mode-map (kbd "<f6>") #'eglot-rename)
-  (define-key eglot-mode-map (kbd "<f7>") #'eglot-format))
+  (define-key eglot-mode-map (kbd "<f7>") #'eglot-format)
+  (define-key eglot-mode-map (kbd "<f8>") #'eglot-code-actions))
 
 (setq tab-bar-new-button-show nil
       tab-bar-close-button-show nil)
