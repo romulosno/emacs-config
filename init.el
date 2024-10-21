@@ -29,6 +29,17 @@
 (save-place-mode 1)
 (global-so-long-mode 1)
 
+;;; Scroll
+(setq scroll-conservatively 10000)
+(setq mouse-wheel-progressive-speed nil)
+(setq pixel-scroll-precision-large-scroll-height 40)
+(pixel-scroll-precision-mode 1)
+
+;;; Repeat
+(setq repeat-exit-key "RET")
+(global-set-key (kbd "C-z") #'repeat)
+(repeat-mode 1)
+
 ;;; Theme and Font
 (load-theme 'cores-claras t)
 
@@ -46,7 +57,7 @@
 ;;; Misc
 (setq use-short-answers t)
 (setq kill-whole-line t)
-(setq visible-bell t)
+(setq ring-bell-function #'ignore)
 (setq view-read-only t)
 (setq visible-bell t)
 (setq imenu-auto-rescan t)
@@ -77,11 +88,6 @@
 (setq-default abbrev-mode t)
 (setq dabbrev-case-fold-search nil)
 (setq save-abbrevs 'silently)
-
-;;; Repeat
-(setq repeat-exit-key "RET")
-(global-set-key (kbd "C-z") #'repeat)
-(repeat-mode 1)
 
 ;;; Dired
 (require 'dired)
