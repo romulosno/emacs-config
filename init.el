@@ -40,8 +40,15 @@
 (setq vc-make-backup-files t)
 (setq delete-old-versions t)
 (setq version-control t)
+
 (setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "auto-save-list" user-emacs-directory) t)))
+      `(("." ,(expand-file-name "auto-save-list" user-emacs-directory) t)))
+
+(setq backup-directory-alist
+      `(("." . ,(expand-file-name "backups" user-emacs-directory))))
+
+(setq tramp-backup-directory-alist nil
+      tramp-auto-save-directory nil)
 
 ;;; Font and theme
 (cond
