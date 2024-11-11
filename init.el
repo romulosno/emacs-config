@@ -52,8 +52,8 @@
 
 ;;; Font and theme
 (cond
- ((find-font (font-spec :name "DejaVu Sans Mono"))
-  (set-face-font 'default "DejaVu Sans Mono-10"))
+ ;; ((find-font (font-spec :name "DejaVu Sans Mono"))
+ ;;  (set-face-font 'default "DejaVu Sans Mono-10"))
  ((find-font (font-spec :name "Ubuntu Mono"))
   (set-face-font 'default "Ubuntu Mono-11")))
 
@@ -146,6 +146,7 @@
 
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c l") #'org-store-link)
+(add-hook 'org-mode-hook #'auto-fil-mode)
 
 ;;; Outline
 (setq outline-minor-mode-prefix "\C-co")
