@@ -21,7 +21,10 @@
 (save-place-mode 1)
 (global-so-long-mode 1)
 (winner-mode 1)
+
+;;; Recentf
 (recentf-mode 1)
+(global-set-key (kbd "C-c r") #'recentf)
 
 ;;; History
 (setq history-delete-duplicates t)
@@ -173,17 +176,13 @@
 (global-set-key [remap count-words-region] #'count-words)
 (global-set-key (kbd "M-o") #'other-window)
 (global-set-key (kbd "M-O") #'other-frame)
+(global-set-key (kbd "C-c f") #'find-name-dired)
+(global-set-key (kbd "C-c k") #'kill-current-buffer)
 
 ;; Case control
 (global-set-key [remap capitalize-word] #'capitalize-dwim)
 (global-set-key [remap downcase-word] #'downcase-dwim)
 (global-set-key [remap upcase-word] #'upcase-dwim)
-
-;; Search
-(global-set-key (kbd "C-c f") #'find-name-dired)
-(global-set-key (kbd "C-c g") #'grep)
-(global-set-key (kbd "C-c r") #'rgrep)
-(global-set-key (kbd "C-c k") #'kill-current-buffer)
 
 ;;; Code
 (global-set-key (kbd "<f5>") #'compile)
