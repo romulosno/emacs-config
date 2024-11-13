@@ -1,4 +1,5 @@
 (setq gc-cons-threshold 12800000)
+(setq gc-cons-percentage 0.2)
 
 (blink-cursor-mode -1)
 (tool-bar-mode -1)
