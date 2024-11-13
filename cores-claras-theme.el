@@ -24,6 +24,6 @@
  '(font-lock-type-face ((t (:foreground "#0a3078"))))
  '(font-lock-variable-name-face ((t (:foreground "dark slate gray"))))
  '(minibuffer-prompt ((t (:foreground "dark slate blue"))))
- '(region ((t (:background "gray80")))))
+ '(region ((t (:background "gray75")))))
 
 (provide-theme 'cores-claras)
