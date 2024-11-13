@@ -13,7 +13,7 @@
  '(diff-refine-added ((t (:background "#bae09f"))))
  '(diff-refine-removed ((t (:background "#edabab"))))
  '(fringe ((t (:foreground "black" :background "gray87"))))
- '(mode-line ((t (:foreground "black" :background "gray80" :box (:line-width (-1 . 1) :color "gray60")))))
+ '(mode-line ((t (:foreground "black" :background "gray75" :box (:line-width (-1 . 1) :color "gray60")))))
  '(tab-bar ((t (:foreground "black" :background "gray85"))))
  '(tab-bar-tab ((t (:box (:line-width (-1 . 1) :color "gray60")))))
  '(font-lock-comment-face ((t (:foreground "gray33"))))
