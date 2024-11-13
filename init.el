@@ -142,11 +142,11 @@
 	("CANCELED" . "gray30")))
 
 (with-eval-after-load 'org
-  (define-key org-mode-map "C-M-<return>" #'org-insert-subheading))
+  (define-key org-mode-map (kbd "C-M-<return>") #'org-insert-subheading))
 
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c l") #'org-store-link)
-(add-hook 'org-mode-hook #'auto-fil-mode)
+(add-hook 'org-mode-hook #'auto-fill-mode)
 
 ;;; Outline
 (setq outline-minor-mode-prefix "\C-co")
