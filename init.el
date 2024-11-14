@@ -1,7 +1,15 @@
-;;; init.el --- Init file -*- lexical-binding: t; -*-
+;;; Font and theme
+(cond
+ ;; ((find-font (font-spec :name "DejaVu Sans Mono"))
+ ;;  (set-face-font 'default "DejaVu Sans Mono-10"))
+ ((find-font (font-spec :name "Ubuntu Mono"))
+  (set-face-font 'default "Ubuntu Mono-11")))
 
-;;; Packages config
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(load-theme 'cores-claras t)
+
+;;; Packages
+(with-eval-after-load 'package
+    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
 
 (defvar packages-to-install
   '(dockerfile-mode
@@ -41,26 +49,15 @@
 
 ;;; Backups
 (setq vc-make-backup-files t)
+(setq backup-by-copying t)
 (setq delete-old-versions t)
 (setq version-control t)
-
-(setq auto-save-file-name-transforms
-      `(("." ,(expand-file-name "auto-save-list" user-emacs-directory) t)))
 
 (setq backup-directory-alist
       `(("." . ,(expand-file-name "backups" user-emacs-directory))))
 
 (setq tramp-backup-directory-alist nil
       tramp-auto-save-directory nil)
-
-;;; Font and theme
-(cond
- ;; ((find-font (font-spec :name "DejaVu Sans Mono"))
- ;;  (set-face-font 'default "DejaVu Sans Mono-10"))
- ((find-font (font-spec :name "Ubuntu Mono"))
-  (set-face-font 'default "Ubuntu Mono-11")))
-
-(load-theme 'cores-claras t)
 
 ;;; Init screen
 (setq inhibit-startup-screen t)
@@ -92,6 +89,7 @@
 (setq completion-show-help nil)
 (setq completions-max-height 20)
 (setq tab-always-indent 'complete)
+(setq completion-cycle-threshold 3)
 
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
@@ -167,6 +165,8 @@
 ;;; Version Control
 (setq vc-git-show-stash 0)
 (setq vc-git-print-log-follow t)
+(setq vc-handled-backends '(Git))
+
 (setq smerge-command-prefix "\e")
 (setq diff-default-read-only t)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
