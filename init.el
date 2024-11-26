@@ -28,6 +28,7 @@
 (save-place-mode 1)
 (global-so-long-mode 1)
 (winner-mode 1)
+(minibuffer-depth-indicate-mode 1)
 
 ;;; Recentf
 (recentf-mode 1)
@@ -61,8 +62,14 @@
 
 ;;; Init screen
 (setq inhibit-startup-screen t)
+(setq inhibit-x-resources t)
 (setq initial-major-mode 'fundamental-mode)
 (setq initial-scratch-message nil)
+(setq inhibit-splash-screen t)
+
+;;;; Bidi
+(setq-default bidi-display-reordering 'left-to-right
+              bidi-paragraph-direction 'left-to-right)
 
 ;;; Misc
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -74,6 +81,7 @@
 (setq imenu-auto-rescan t)
 (setq read-minibuffer-restore-windows nil)
 (setq use-dialog-box nil)
+(setq use-file-dialog nil)
 (setq sentence-end-double-space nil)
 
 ;;; Enable commands
