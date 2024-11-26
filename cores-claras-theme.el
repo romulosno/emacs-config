@@ -24,6 +24,9 @@
  '(font-lock-type-face ((t (:foreground "#0a3078"))))
  '(font-lock-variable-name-face ((t (:foreground "dark slate gray"))))
  '(minibuffer-prompt ((t (:foreground "dark slate blue"))))
- '(region ((t (:background "gray75")))))
+ '(region ((t (:background "gray75"))))
+ '(error ((t (:foreground "Firebrick" :weight bold))))
+ '(success ((t (:foreground "dark green" :weight bold))))
+ '(warning ((t (:foreground "Goldenrod4" :weight bold)))))
 
 (provide-theme 'cores-claras)
