@@ -56,9 +56,13 @@
 
 (setq backup-directory-alist
       `(("." . ,(expand-file-name "backups" user-emacs-directory))))
+(setq tramp-backup-directory-alist backup-directory-alist)
 
-(setq tramp-backup-directory-alist nil
-      tramp-auto-save-directory nil)
+;;; Autosave
+(setq auto-save-list-file-prefix
+      (expand-file-name "autosave/" user-emacs-directory))
+(setq tramp-auto-save-directory
+      (expand-file-name "tramp-autosave/" user-emacs-directory))
 
 ;;; Init screen
 (setq inhibit-startup-screen t)
@@ -83,10 +87,32 @@
 (setq use-dialog-box nil)
 (setq use-file-dialog nil)
 (setq sentence-end-double-space nil)
+(setq uniquify-buffer-name-style 'forward)
+(setq frame-resize-pixelwise t)
+(setq-default make-window-start-visible t)
+
+;; Scroll
+(setq fast-but-imprecise-scrolling t)
+(setq scroll-conservatively 10)
+(setq scroll-step 1)
+(setq hscroll-margin 2)
+(setq hscroll-step 1)
+
+;;; Symlinks
+(setq find-file-visit-truename t)
+(setq vc-follow-symlinks t)
+
+;;; Splits
+(setq split-width-threshold 170)
+(setq split-height-threshold nil)
 
 ;;; Enable commands
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+
+;;; Smart parens
+(setq show-paren-when-point-inside-paren t)
+(setq show-paren-when-point-in-periphery t)
 
 ;;; Isearch
 (setq isearch-lazy-count t)
@@ -105,6 +131,7 @@
 (setq-default abbrev-mode t)
 (setq dabbrev-case-fold-search nil)
 (setq save-abbrevs 'silently)
+(setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
 
 (define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
 (add-hook 'completion-list-mode-hook
@@ -213,7 +240,9 @@
 
 ;;; Compilation
 (setq compilation-max-output-line-length nil)
+(setq compilation-scroll-output 'first-error)
 (setq compilation-auto-jump-to-first-error 'if-location-known)
+(setq compilation-ask-about-save nil)
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
 ;;; Eldoc
