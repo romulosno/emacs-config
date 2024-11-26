@@ -1,7 +1,7 @@
 ;;; Font and theme
 (cond
- ((find-font (font-spec :name "Liberation Mono"))
-  (set-face-font 'default "Liberation Mono-10")))
+ ((find-font (font-spec :name "Terminus (TTF)"))
+  (set-face-font 'default "Terminus (TTF)-10")))
 
 (load-theme 'cores-claras t)
 
