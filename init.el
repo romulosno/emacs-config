@@ -1,15 +1,14 @@
 ;;; Font and theme
 (cond
- ;; ((find-font (font-spec :name "DejaVu Sans Mono"))
- ;;  (set-face-font 'default "DejaVu Sans Mono-10"))
- ((find-font (font-spec :name "Ubuntu Mono"))
-  (set-face-font 'default "Ubuntu Mono-11")))
+ ((find-font (font-spec :name "Liberation Mono"))
+  (set-face-font 'default "Liberation Mono-10")))
 
 (load-theme 'cores-claras t)
 
 ;;; Packages
 (with-eval-after-load 'package
-    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
+  (add-to-list 'package-archives
+	       '("melpa" . "https://melpa.org/packages/") t))
 
 (defvar packages-to-install
   '(dockerfile-mode
@@ -40,6 +39,7 @@
       '(kill-ring
         search-ring
         regexp-search-ring))
+
 (savehist-mode 1)
 
 ;;; Repeat
@@ -99,10 +99,8 @@
 (setq save-abbrevs 'silently)
 
 (define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
-(add-to-list 'completion-styles 'flex t)
 (add-hook 'completion-list-mode-hook
-	  (lambda ()
-	    (setq-local truncate-lines t)))
+	  (lambda () (setq-local truncate-lines t)))
 
 ;;; Dired
 (require 'dired)
