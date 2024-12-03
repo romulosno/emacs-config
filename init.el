@@ -123,7 +123,9 @@
 (setq completion-show-help nil)
 (setq completions-max-height 20)
 (setq tab-always-indent 'complete)
-(setq completion-cycle-threshold 3)
+
+(add-to-list 'completion-styles 'substring t)
+(add-to-list 'completion-styles 'flex t)
 
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
@@ -269,8 +271,3 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
 
-;;; init.el ends here
-
-;; Local Variables:
-;; eval: (outline-minor-mode 1)
-;; End:
