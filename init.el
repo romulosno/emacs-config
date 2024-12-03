@@ -1,7 +1,7 @@
 ;;; Font and theme
 (cond
- ((find-font (font-spec :name "Ubuntu Mono"))
-  (set-face-font 'default "Ubuntu Mono-11")))
+ ((find-font (font-spec :name "Hack"))
+  (set-face-font 'default "Hack-10")))
 
 (load-theme 'cores-claras t)
 
