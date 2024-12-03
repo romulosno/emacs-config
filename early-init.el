@@ -7,9 +7,6 @@
 (scroll-bar-mode -1)
 (tooltip-mode -1)
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 ;; Remove init items
 (advice-add #'display-startup-echo-area-message :override #'ignore)
 (advice-add #'display-startup-screen :override #'ignore)
-
