@@ -223,23 +223,6 @@
 (global-set-key (kbd "<f5>") #'compile)
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
 
-;;;; Java
-(add-hook 'java-mode-hook
-	  (lambda ()
-            (setq c-basic-offset 4
-                  tab-width 4
-                  indent-tabs-mode t)))
-
-(defun c-indent-and-complete ()
-  (interactive)
-  (let ((p (point)))
-    (c-indent-line-or-region)
-    (when (= p (point))
-      (call-interactively #'completion-at-point))))
-
-(with-eval-after-load 'cc-mode
-  (define-key java-mode-map (kbd "<tab>") #'c-indent-and-complete))
-
 ;;; Compilation
 (setq compilation-max-output-line-length nil)
 (setq compilation-scroll-output 'first-error)
