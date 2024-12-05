@@ -1,9 +1,7 @@
-;;; Font and theme
+;;; Font
 (cond
- ((find-font (font-spec :name "Hack"))
-  (set-face-font 'default "Hack-10")))
-
-(load-theme 'cores-claras t)
+ ((find-font (font-spec :name "Liberation Mono"))
+  (set-face-font 'default "Liberation Mono-10")))
 
 ;;; Packages
 (with-eval-after-load 'package
@@ -130,11 +128,13 @@
 (setq read-buffer-completion-ignore-case t)
 (setq read-file-name-completion-ignore-case t)
 
+;;; Abbrev
 (setq-default abbrev-mode t)
 (setq dabbrev-case-fold-search nil)
 (setq save-abbrevs 'silently)
 (setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
 
+;;; Switch to completions
 (define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
 (add-hook 'completion-list-mode-hook
 	  (lambda () (setq-local truncate-lines t)))
