@@ -251,11 +251,29 @@
   (define-key flymake-mode-map (kbd "C-c [") #'flymake-goto-prev-error)
   (define-key flymake-mode-map (kbd "C-c ]") #'flymake-goto-next-error))
 
-;;; Display
+;;; Display buffer
+(setq switch-to-buffer-in-dedicated-window 'pop)
+(setq switch-to-buffer-obey-display-actions t)
+
 (add-to-list 'display-buffer-alist
-             '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
+             '("\\*\\(Warnings\\|Compile-Log\\)\\*"
                (display-buffer-no-window)
                (allow-no-window . t)))
+
+(add-to-list 'display-buffer-alist
+             '("\\*Buffer List\\*"
+               (display-buffer-pop-up-window)
+	       (body-function . select-window)))
+
+(add-to-list 'display-buffer-alist
+	     '("\\*Occur\\*"
+	       (display-buffer-reuse-mode-window
+		display-buffer-in-side-window)
+	       (side . bottom)
+	       (slot . 0)
+	       (window-height . 20)
+	       (dedicated . t)
+	       (body-function . select-window)))
 
 ;;; Custom
 (setq custom-file (locate-user-emacs-file "custom.el"))

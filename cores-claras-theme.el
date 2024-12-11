@@ -8,12 +8,12 @@
 (custom-theme-set-faces
  'cores-claras
  '(cursor ((t (:background "#162d73"))))
- '(default ((t (:foreground "black" :background "gray90"))))
+ '(default ((t (:foreground "black" :background "gray95"))))
  '(diff-added ((t (:background "#d3ebc3"))))
  '(diff-removed ((t (:background "#e8c1c1"))))
  '(diff-refine-added ((t (:background "#bae09f"))))
  '(diff-refine-removed ((t (:background "#edabab"))))
- '(fringe ((t (:foreground "black" :background "gray90"))))
+ '(fringe ((t (:foreground "black" :background "gray95"))))
  '(mode-line ((t (:foreground "black" :background "gray80" :box (:line-width (-1 . 1) :color "gray60")))))
  '(tab-bar ((t (:foreground "black" :background "gray80"))))
  '(tab-bar-tab ((t (:box (:line-width (-1 . 1) :color "gray60")))))
