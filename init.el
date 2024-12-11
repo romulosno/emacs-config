@@ -251,7 +251,13 @@
   (define-key flymake-mode-map (kbd "C-c [") #'flymake-goto-prev-error)
   (define-key flymake-mode-map (kbd "C-c ]") #'flymake-goto-next-error))
 
+;;; Display
+(add-to-list 'display-buffer-alist
+             '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
+               (display-buffer-no-window)
+               (allow-no-window . t)))
+
 ;;; Custom
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
 
