@@ -1,7 +1,5 @@
-;;; Font
-(cond
- ((find-font (font-spec :name "Liberation Mono"))
-  (set-face-font 'default "Liberation Mono-10")))
+;;; Theme
+(load-theme 'cores-claras t)
 
 ;;; Packages
 (with-eval-after-load 'package
@@ -11,6 +9,7 @@
 (defvar packages-to-install
   '(dockerfile-mode
     eglot
+    feature-mode
     go-mode
     groovy-mode
     kotlin-mode
