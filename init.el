@@ -2,9 +2,9 @@
 (load-theme 'cores-claras t)
 
 ;;; Packages
-(with-eval-after-load 'package
-  (add-to-list 'package-archives
-	       '("melpa" . "https://melpa.org/packages/") t))
+(require 'package)
+(package-initialize)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (defvar packages-to-install
   '(dockerfile-mode
@@ -33,12 +33,10 @@
 
 ;;; History
 (setq history-delete-duplicates t)
-(setq savehist-additional-variables
-      '(kill-ring
-        search-ring
-        regexp-search-ring))
-
-(savehist-mode 1)
+(setq savehist-additional-variables '(kill-ring
+				      search-ring
+				      regexp-search-ring))
+(add-hook 'after-init-hook #'savehist-mode)
 
 ;;; Repeat
 (setq repeat-exit-key "RET")
@@ -145,7 +143,11 @@
 
 (setq dired-kill-when-opening-new-dired-buffer t)
 (setq delete-by-moving-to-trash t)
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
+
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+(add-hook 'dired-mode-hook #'hl-line-mode)
 
 ;;; Org
 (setq org-tags-column 0)
