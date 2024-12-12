@@ -83,8 +83,6 @@
 (setq use-file-dialog nil)
 (setq sentence-end-double-space nil)
 (setq uniquify-buffer-name-style 'forward)
-(setq frame-resize-pixelwise t)
-(setq-default make-window-start-visible t)
 
 ;; Scroll
 (setq fast-but-imprecise-scrolling t)
@@ -251,7 +249,11 @@
   (define-key flymake-mode-map (kbd "C-c [") #'flymake-goto-prev-error)
   (define-key flymake-mode-map (kbd "C-c ]") #'flymake-goto-next-error))
 
-;;; Display buffer
+;;; Window control
+(setq-default make-window-start-visible t)
+(setq-default truncate-lines t)
+
+(setq frame-resize-pixelwise t)
 (setq switch-to-buffer-in-dedicated-window 'pop)
 (setq switch-to-buffer-obey-display-actions t)
 
@@ -271,7 +273,7 @@
 		display-buffer-in-side-window)
 	       (side . bottom)
 	       (slot . 0)
-	       (window-height . 20)
+	       (window-height . 0.3)
 	       (dedicated . t)
 	       (body-function . select-window)))
 
