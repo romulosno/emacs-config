@@ -7,5 +7,3 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tooltip-mode -1)
-
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
