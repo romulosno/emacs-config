@@ -1,4 +1,4 @@
-;; -*- lexical-binding: t; -*-
+;;; init.el --- emacs config -*- lexical-binding: t; -*-
 
 ;;; Packages
 (require 'package)
@@ -43,14 +43,14 @@
 (setq auto-save-list-file-prefix (locate-user-emacs-file "autosave/"))
 (setq tramp-auto-save-directory (locate-user-emacs-file "tramp-autosave/"))
 
-;; Init screen
+;;; Init screen
 (setq initial-major-mode 'fundamental-mode
       inhibit-startup-screen t
       inhibit-splash-screen t
       initial-scratch-message nil)
 
 ;;; Misc
-(load-theme 'modus-operandi t)
+(load-theme 'cores-claras t)
 
 (setq use-short-answers t)
 (setq enable-recursive-minibuffers t)
@@ -118,6 +118,7 @@
 (setq outline-minor-mode-cycle-filter 'bolp)
 
 (put 'outline-default-state 'safe-local-variable #'integerp)
+(put 'outline-default-state 'safe-local-variable #'symbolp)
 
 (add-hook 'outline-minor-mode-hook
 	  (lambda ()
@@ -126,6 +127,8 @@
 	      (reveal-mode -1))))
 
 ;;; Org
+(add-hook 'org-mode-hook 'auto-fill-mode)
+
 (setq org-tags-column 0
       org-use-speed-commands t
       org-export-with-sub-superscripts nil
@@ -163,6 +166,9 @@
 
 ;;; Code
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
+(add-hook 'prog-mode-hook (lambda()
+			    (hs-minor-mode 1)
+			    (hs-hide-initial-comment-block)))
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
 (setq compilation-max-output-line-length nil
@@ -178,38 +184,6 @@
       eglot-sync-connect nil
       eglot-events-buffer-config '(:size 500000))
 
-;;; Keymaps
-(define-key global-map [remap count-words-region] #'count-words)
-(define-key global-map [remap capitalize-word] #'capitalize-dwim)
-(define-key global-map [remap downcase-word] #'downcase-dwim)
-(define-key global-map [remap upcase-word] #'upcase-dwim)
-(define-key global-map [remap list-buffers] #'electric-buffer-list)
-
-(define-key global-map (kbd "C-c f") #'find-name-dired)
-(define-key global-map (kbd "C-c k") #'kill-current-buffer)
-(define-key global-map (kbd "C-c r") #'recentf)
-
-(define-key global-map (kbd "C-c a") #'org-agenda)
-(define-key global-map (kbd "C-c l") #'org-store-link)
-
-(define-key global-map (kbd "C-z") #'repeat)
-
-(define-key global-map (kbd "<f6>") #'outline-minor-mode)
-(define-key global-map (kbd "<f5>") #'compile)
-
-(define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
-
-(with-eval-after-load 'eglot
-  (define-key eglot-mode-map (kbd "C-c c r") #'eglot-rename)
-  (define-key eglot-mode-map (kbd "C-c c f") #'eglot-format)
-  (define-key eglot-mode-map (kbd "C-c c a") #'eglot-code-actions))
-
-(with-eval-after-load 'flymake
-  (define-key flymake-mode-map (kbd "C-c e") #'flymake-show-project-diagnostics))
-
-(with-eval-after-load 'org
-  (define-key org-mode-map (kbd "C-M-<return>") #'org-insert-subheading))
-
 ;;; Global modes
 (column-number-mode 1)
 (save-place-mode 1)
@@ -220,7 +194,53 @@
 (savehist-mode 1)
 (repeat-mode 1)
 
+;;; Keybindings
+
+;;;; Remaps
+(global-set-key [remap count-words-region] #'count-words)
+(global-set-key [remap capitalize-word] #'capitalize-dwim)
+(global-set-key [remap downcase-word] #'downcase-dwim)
+(global-set-key [remap upcase-word] #'upcase-dwim)
+(global-set-key [remap list-buffers] #'electric-buffer-list)
+
+;;;; Ctrl-c prefix
+(global-set-key (kbd "C-c f") #'find-name-dired)
+(global-set-key (kbd "C-c k") #'kill-current-buffer)
+(global-set-key (kbd "C-c r") #'recentf)
+
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c l") #'org-store-link)
+
+(global-set-key (kbd "C-z") #'repeat)
+
+(global-set-key (kbd "<f6>") #'outline-minor-mode)
+(global-set-key (kbd "<f5>") #'compile)
+
+;;;; Completions
+(define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
+
+;;;; Eglot
+(with-eval-after-load 'eglot
+  (define-key eglot-mode-map (kbd "C-c c r") #'eglot-rename)
+  (define-key eglot-mode-map (kbd "C-c c f") #'eglot-format)
+  (define-key eglot-mode-map (kbd "C-c c a") #'eglot-code-actions))
+
+;;;; Flymake
+(with-eval-after-load 'flymake
+  (define-key flymake-mode-map (kbd "C-c e") #'flymake-show-project-diagnostics)
+  (define-key flymake-mode-map (kbd "<f7>") #'flymake-goto-next-error)
+  (define-key flymake-mode-map (kbd "<f8>") #'flymake-goto-prev-error))
+
+;;;; Org
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-M-<return>") #'org-insert-subheading))
+
+
 ;;; Custom
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
 
+;;; Local
+;; Local Variables:
+;; outline-default-state: outline-show-only-headings
+;; End:
