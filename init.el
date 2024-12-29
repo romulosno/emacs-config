@@ -1,6 +1,16 @@
 ;;; init.el --- emacs config -*- lexical-binding: t; -*-
+(setq gc-cons-threshold 51200000)
+(setq gc-cons-percentage 0.4)
 
-;;; Theme
+;;; UI
+(blink-cursor-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tooltip-mode -1)
+
+(add-to-list 'default-frame-alist '(font . "Fira Code-10"))
+
 (setopt custom-theme-directory (locate-user-emacs-file "themes"))
 (load-theme 'cores-claras t)
 (load-theme 'cores-escuras t t)
@@ -138,7 +148,8 @@
       org-use-speed-commands t
       org-export-with-sub-superscripts nil
       org-return-follows-link t
-      org-startup-folded nil)
+      org-startup-folded nil
+      org-startup-indented t)
 
 (setq org-agenda-show-log t
       org-log-done 'time
@@ -213,7 +224,7 @@
 (require 'my-treesit)
 (require 'my-window-setup)
 (require 'my-keybindings)
-
+  
 ;;; Custom
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
