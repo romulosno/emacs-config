@@ -1,8 +1,5 @@
 ;;; my-keybindings.el --- Keybindings configuration  -*- lexical-binding: t; -*-
 
-;;; Remaps
-
-;;; Remaps
 (global-set-key [remap count-words-region] #'count-words)
 (global-set-key [remap capitalize-word] #'capitalize-dwim)
 (global-set-key [remap downcase-word] #'downcase-dwim)
@@ -16,7 +13,6 @@
 
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c l") #'org-store-link)
-
 
 ;;; Misc
 (global-set-key (kbd "M-o") #'other-window)
