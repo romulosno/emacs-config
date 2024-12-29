@@ -1,7 +1,11 @@
 ;;; init.el --- emacs config -*- lexical-binding: t; -*-
 
-;;; Packages
-(require 'package)
+;;; Theme
+(setopt custom-theme-directory (locate-user-emacs-file "themes"))
+(load-theme 'cores-claras t)
+(load-theme 'cores-escuras t t)
+
+;;; Package
 (package-initialize)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
@@ -52,8 +56,7 @@
       initial-scratch-message nil)
 
 ;;; Misc
-(load-theme 'cores-claras t)
-
+(setq-default truncate-lines t)
 (setq use-short-answers t)
 (setq enable-recursive-minibuffers t)
 (setq kill-whole-line t)
@@ -179,6 +182,11 @@
       compilation-scroll-output 'first-error
       compilation-auto-jump-to-first-error 'if-location-known
       compilation-ask-about-save nil)
+
+(setopt project-compilation-buffer-name-function
+        (lambda (name-of-mode)
+          (generate-new-buffer-name
+           (project-prefixed-buffer-name name-of-mode))))
 
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
       eldoc-echo-area-use-multiline-p 3)
