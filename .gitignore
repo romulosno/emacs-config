@@ -22,3 +22,5 @@ eclipse.jdt.ls
 ede-projects.el
 .lsp-session*
 dape-breakpoints
+autosave
+network-security.data
