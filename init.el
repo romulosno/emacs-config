@@ -1,38 +1,20 @@
 ;;; init.el --- emacs config -*- lexical-binding: t; -*-
-(setopt custom-theme-directory (locate-user-emacs-file "themes"))
 (load-theme 'cores-claras t)
-(load-theme 'cores-escuras t t)
 
 ;;; Package
-(package-initialize)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-
-(defvar packages-to-install
-  '(dockerfile-mode
-    dockerfile-ts-mode
-    eglot
-    go-mode
-    kotlin-mode
-    yaml-mode
-    yaml-ts-mode
-    markdown-mode))
-
 (unless package-archives
   (package-refresh-contents))
 
-(dolist (pac packages-to-install)
-  (unless (package-installed-p pac)
-    (package-install pac)))
-
-;;; History
-(setq history-delete-duplicates t)
-(setq savehist-additional-variables
-      '(kill-ring
-	search-ring
-	regexp-search-ring))
-
-;;; Repeat
-(setq repeat-exit-key "RET")
+(let ((package-list
+       '(dockerfile-mode
+	 eglot
+	 go-mode
+	 kotlin-mode
+	 yaml-mode
+	 markdown-mode)))
+  (dolist (p package-list)
+    (unless (package-installed-p p)
+      (package-install p))))
 
 ;;; Backups
 (setq vc-make-backup-files t)
@@ -64,8 +46,7 @@
 (setq read-minibuffer-restore-windows nil)
 (setq sentence-end-double-space nil)
 (setq uniquify-buffer-name-style 'forward)
-
-;; Visit symlink
+(setq repeat-exit-key "RET")
 (setq find-file-visit-truename t)	
 
 ;; Scroll
@@ -91,6 +72,8 @@
 
 (setq tab-always-indent 'complete
       completion-show-help nil
+      completions-header-format nil
+      completions-format 'one-column
       completions-max-height 20)
 
 (setq completion-styles
@@ -191,6 +174,7 @@
 ;;; Global modes
 (column-number-mode 1)
 (save-place-mode 1)
+(auto-save-visited-mode 1)
 (global-so-long-mode 1)
 (winner-mode 1)
 (minibuffer-depth-indicate-mode 1)
@@ -203,7 +187,7 @@
 (global-set-key [remap capitalize-word] #'capitalize-dwim)
 (global-set-key [remap downcase-word] #'downcase-dwim)
 (global-set-key [remap upcase-word] #'upcase-dwim)
-(global-set-key [remap list-buffers] #'electric-buffer-list)
+;; (global-set-key [remap list-buffers] #'electric-buffer-list)
 
 ;;;; Ctrl-c prefix
 (global-set-key (kbd "C-c f") #'find-name-dired)
@@ -237,26 +221,6 @@
 ;;;; Org
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-M-<return>") #'org-insert-subheading))
-
-;;; Window position
-(add-hook 'org-mode-hook
-	  (lambda ()
-	    (setq-local beginning-of-defun-function
-			(lambda () (org-previous-visible-heading 1)))
-	    (setq-local end-of-defun-function
-			(lambda () (org-next-visible-heading 1)))))
-
-(add-hook 'diff-mode-hook
-            (lambda ()
-              (setq-local beginning-of-defun-function #'diff-beginning-of-hunk)
-              (setq-local end-of-defun-function	#'diff-end-of-hunk)))
-
-(add-hook 'outline-mode-hook
-	  (lambda ()
-	    (setq-local beginning-of-defun-function
-			(lambda () (outline-previous-visible-heading 1)))
-	    (setq-local end-of-defun-function
-			(lambda () (outline-next-visible-heading 1)))))
 
 ;;; Custom
 (setq custom-file (locate-user-emacs-file "custom.el"))
