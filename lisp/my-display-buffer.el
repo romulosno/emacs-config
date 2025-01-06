@@ -12,6 +12,23 @@
       (display-buffer-in-direction buffer actions)
     (display-buffer-below-selected buffer actions)))
 
+(defun customize-frame-create ()
+  (make-frame '((top . 0.5)
+		(left . 0.5)
+		(name . "Customize")
+		(width . 80)
+		(height . 30)
+		(auto-hide-function . delete-frame)
+		(unsplittable . t))))
+
+(defun display-buffer-customize-frame (buffer _)
+  "Display completion buffer."
+  (let* ((customize-frame (select-frame
+			  (or (cdr (assoc-string "Customize" (make-frame-names-alist)))
+			      (customize-frame-create))))
+	 (customize-window (car (window-list customize-frame))))
+    (set-window-buffer customize-window buffer)
+    (set-window-dedicated-p customize-window t)))
 
 (setq switch-to-buffer-obey-display-actions t)
 (setq display-buffer-alist
@@ -68,7 +85,10 @@
 	 (window-width . 30)
 	 (body-function . select-window)
 	 (window-parameters . ((no-other-window . t)
-			       (mode-line-format . ("" mode-line-buffer-identification)))))))
+			       (mode-line-format . ("" mode-line-buffer-identification)))))
+
+	("\\*Customize*"
+	 (display-buffer-customize-frame))))
 
 (provide 'my-display-buffer)
 ;;; my-display-buffer.el ends here
