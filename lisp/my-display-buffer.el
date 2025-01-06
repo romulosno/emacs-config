@@ -23,7 +23,7 @@
 	 (window-parameters . ((mode-line-format . (" " mode-line-buffer-identification))))
 	 (window-height . fit-window-to-buffer-max-fifth-frame))
 
-	("\\*Flymake\\|Buffer List*"
+	("\\*\\(Flymake\\|Buffer List\\)"
 	 display-buffer-in-side-window
          (side . bottom)
 	 (slot . -1)
@@ -36,7 +36,7 @@
 			       (mode-line-format . (" " mode-line-buffer-identification)))))
 
 	("\\*Messages\\*"
-	  display-buffer-in-side-window
+	 display-buffer-in-side-window
 	 (side . bottom)
 	 (slot . 1)
 	 (dedicated . t)
