@@ -17,7 +17,7 @@
       (package-install p))))
 
 ;;; Theme and font
-(load-theme 'modus-operandi-tinted t)
+(load-theme 'modus-operandi t)
 
 ;;; Backups
 (setq backup-by-copying t)
