@@ -1,22 +1,20 @@
 ;;; init.el --- emacs config -*- lexical-binding: t; eval: (outline-minor-mode 1); -*-
 
-;;; Package
+;;; Packages
 (unless package-archives
   (package-refresh-contents))
 
-(let ((package-list
-       '(dockerfile-mode
-	 eglot
-	 go-mode
-	 kotlin-mode
-	 yaml-mode
-	 markdown-mode
-	 modus-themes)))
+(let ((package-list '(dockerfile-mode
+		      eglot
+		      go-mode
+		      kotlin-mode
+		      yaml-mode
+		      markdown-mode)))
   (dolist (p package-list)
     (unless (package-installed-p p)
       (package-install p))))
 
-;;; Theme and font
+;;; Theme
 (load-theme 'modus-operandi t)
 
 ;;; Backups
@@ -43,7 +41,6 @@
 (setq kill-whole-line t)
 (setq view-read-only t)
 (setq visible-bell t)
-(setq imenu-auto-rescan t)
 (setq read-minibuffer-restore-windows nil)
 (setq sentence-end-double-space nil)
 (setq uniquify-buffer-name-style 'forward)
@@ -60,13 +57,7 @@
 
 ;; Other keys
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
-(global-set-key (kbd "M-o") #'other-window)
-(global-set-key (kbd "M-O") #'other-frame)
 (global-set-key (kbd "C-z") #'repeat)
-
-;;; Smart parens
-(setq show-paren-when-point-inside-paren t)
-(setq show-paren-when-point-in-periphery t)
 
 ;;; Isearch
 (setq isearch-lazy-count t)
@@ -75,15 +66,20 @@
 (setq isearch-lazy-highlight 'all-windows)
 
 ;;; Completions
-(setq read-buffer-completion-ignore-case t)
-(setq read-file-name-completion-ignore-case t)
-
 (setq tab-always-indent 'complete)
 (setq completion-show-help nil)
 (setq completions-header-format nil)
 (setq completion-styles '(basic partial-completion emacs22 substring initials))
 
 (define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
+(define-key completion-in-region-mode-map (kbd "C-s") #'search-in-completions)
+
+(defun search-in-completions ()
+  (interactive)
+  (switch-to-completions)
+  (beginning-of-buffer)
+  (isearch-forward))
+
 
 ;;; Abbrev
 (setq-default abbrev-mode t)
@@ -109,25 +105,6 @@
 
 (global-set-key (kbd "C-c f") #'find-name-dired)
 
-;;; Outline
-(setq outline-minor-mode-prefix "\C-co")
-(setq outline-minor-mode-cycle t)
-(setq outline-minor-mode-cycle-filter 'bolp)
-
-(put 'outline-default-state 'safe-local-variable #'integerp)
-(put 'outline-default-state 'safe-local-variable #'symbolp)
-
-(global-set-key (kbd "<f6>") #'outline-minor-mode)
-
-(add-hook 'outline-minor-mode-hook
-	  (lambda ()
-	    (if (null outline-minor-mode)
-		(reveal-mode -1)
-	      (outline-hide-sublevels 100)
-	      (reveal-mode 1))))
-
-
-
 ;;; Org
 (setq org-tags-column 0)
 (setq org-use-speed-commands t)
@@ -147,9 +124,9 @@
 
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c l") #'org-store-link)
+
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-M-<return>") #'org-insert-subheading))
-
 
 ;;; Version Control
 (setq vc-git-show-stash 0)
@@ -164,12 +141,7 @@
 (setq diff-default-read-only t)
 
 ;;; Code
-(add-hook 'prog-mode-hook
-	  (lambda ()
-	    (electric-pair-local-mode 1)
-	    (hs-minor-mode 1)
-	    (hs-hide-initial-comment-block)))
-
+(add-hook 'prog-mode-hook #'electric-pair-local-mode)
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
 (global-set-key (kbd "<f5>") #'compile)

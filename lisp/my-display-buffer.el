@@ -1,4 +1,5 @@
 ;;; my-display-buffer.el ---                         -*- lexical-binding: t; -*-
+
 (defun fit-window-to-buffer-max-fifth-frame (&optional window)
   "Fit WINDOW to buffer size, but max height is 20% of the frame height."
   (interactive)
@@ -23,15 +24,15 @@
 
 (defun display-buffer-customize-frame (buffer actions)
   "Display completion buffer."
-  (let ((frame (select-frame
-			  (or (cdr (assoc-string "Customize" (make-frame-names-alist)))
-			      (customize-frame-create)))))
+  (let ((frame (select-frame (or (cdr (assoc-string "Customize" (make-frame-names-alist)))
+				 (customize-frame-create)))))
     (with-selected-frame frame
       (with-selected-window (selected-window)
 	(display-buffer-same-window buffer actions)
 	(set-window-dedicated-p (selected-window) t)))))
 
 (setq switch-to-buffer-obey-display-actions t)
+
 (setq display-buffer-alist
       '(("\\*Completions\\*"
 	 (display-completion-buffer)
