@@ -11,7 +11,7 @@
 	 kotlin-mode
 	 yaml-mode
 	 markdown-mode)))
-  (dolist (p package-list)
+  (dolist (p package-list)		;
     (unless (package-installed-p p)
       (package-install p))))
 
@@ -195,25 +195,6 @@
 (setq switch-to-buffer-obey-display-actions t)
 (setq split-width-threshold nil)
 
-(setq even-window-sizes nil)
-
-(defun display-buffer-completion-list (buf alist)
-  "Display completion list BUF using ALIST."
-  (cond
-   ;; Minibuffer or full height window
-   ((or (minibuffer-window-active-p (selected-window))
-	(and (window-at-side-p (selected-window) 'bottom)
-	     (window-at-side-p (selected-window) 'top)))
-    (display-buffer-below-selected buf alist))
-
-   ;; Free right 
-   ((and (window-at-side-p (selected-window) 'right)
-	 (< (car (window-edges)) 50))
-    (display-buffer-in-direction buf alist))
-
-   ;; Others
-   (t (display-buffer-below-selected))))
-
 (setq display-buffer-alist
       '(("\\*\\(shell\\|Flymake\\|*term\\|*eshell\\|compilation\\|Async Shell Command\\|Occur\\|xref\\).*\\*"
          display-buffer-in-side-window
@@ -221,8 +202,7 @@
          (window-height . 0.3))
 	
 	("\\*Completions\\*"
-	 display-buffer-completion-list
-	 (direction . right))))
+	 display-buffer-below-selected)))
 
 ;;; Custom
 (setq custom-file (locate-user-emacs-file "custom.el"))
