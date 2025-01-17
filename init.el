@@ -4,18 +4,20 @@
 (unless package-archives
   (package-refresh-contents))
 
-(let ((package-list '(dockerfile-mode
-		      eglot
-		      go-mode
-		      kotlin-mode
-		      yaml-mode
-		      markdown-mode)))
+(let ((package-list
+       '(dockerfile-mode
+	 eglot
+	 go-mode
+	 kotlin-mode
+	 yaml-mode
+	 markdown-mode)))
   (dolist (p package-list)
     (unless (package-installed-p p)
       (package-install p))))
 
+
 ;;; Theme and font
-(load-theme 'modus-operandi t)
+(load-theme 'rom-colors t)
 (set-face-font 'default "Fira Code-10")
 
 ;;; Backups
@@ -45,7 +47,7 @@
 (setq read-minibuffer-restore-windows nil)
 (setq sentence-end-double-space nil)
 (setq uniquify-buffer-name-style 'forward)
-(setq find-file-visit-truename t)	
+(setq find-file-visit-truename t)
 
 (put 'narrow-to-region 'disabled nil)
 
@@ -54,7 +56,6 @@
 (global-set-key [remap capitalize-word] #'capitalize-dwim)
 (global-set-key [remap downcase-word] #'downcase-dwim)
 (global-set-key [remap upcase-word] #'upcase-dwim)
-(global-set-key [remap list-buffers] #'electric-buffer-list)
 
 ;; Other keys
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
@@ -70,6 +71,7 @@
 (setq tab-always-indent 'complete)
 (setq completion-show-help nil)
 (setq completions-header-format nil)
+(setq completions-max-height 20)
 (setq completion-styles '(basic partial-completion emacs22 substring initials))
 
 (define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
@@ -182,59 +184,16 @@
 (setq repeat-exit-key "RET")
 (repeat-mode 1)
 
-(defun fit-window-to-buffer-max-fifth-frame (&optional window)
-  "Fit WINDOW to buffer size, but max height is 20% of the frame height."
-  (interactive)
-  (let ((window (or window (selected-window)))
-        (max-height (/ (frame-height) 5)))
-    (fit-window-to-buffer window max-height)))
-
-(defun display-completion-buffer (buffer actions)
-  "Display completion buffer."
-  (if (minibuffer-window-active-p (selected-window))
-      (display-buffer-in-direction buffer actions)
-    (display-buffer-below-selected buffer actions)))
-
-(defun customize-frame-create ()
-  (make-frame '((top . 0.5)
-		(left . 0.5)
-		(name . "Customize")
-		(width . 80)
-		(height . 30)
-		(auto-hide-function . delete-frame)
-		(unsplittable . t))))
-
-(defun display-buffer-customize-frame (buffer actions)
-  "Display completion buffer."
-  (let ((frame (select-frame (or (cdr (assoc-string "Customize" (make-frame-names-alist)))
-				 (customize-frame-create)))))
-    (with-selected-frame frame
-      (with-selected-window (selected-window)
-	(display-buffer-same-window buffer actions)
-	(set-window-dedicated-p (selected-window) t)))))
-
 (setq switch-to-buffer-obey-display-actions t)
 (setq split-width-threshold nil)
 
+(setq even-window-sizes nil)
+
 (setq display-buffer-alist
-      '(("\\*Completions\\*"
-	 (display-completion-buffer)
-	 (dedicated . t)
-	 (direction . down)
-	 (window . root)
-	 (window-height . fit-window-to-buffer-max-fifth-frame))
-
-	("\\*\\(Flymake\\|Buffer List\\)"
-	 display-buffer-in-side-window
-         (side . bottom)
-	 (slot . -1)
-	 (window-height . 15)
-	 (dedicated . t)
-	 (preserve-size . (t . nil))
-	 (body-function . select-window))
-
-	("\\*Customize*"
-	 display-buffer-customize-frame)))
+      '(("\\*\\(shell\\|Flymake\\|*term\\|*eshell\\|compilation\\|Async Shell Command\\|Occur\\|xref\\).*\\*"
+         display-buffer-in-side-window
+         (body-function . select-window)
+         (window-height . 0.3))))
 
 ;;; Custom
 (setq custom-file (locate-user-emacs-file "custom.el"))
