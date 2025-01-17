@@ -18,7 +18,7 @@
 
 ;;; Theme and font
 (load-theme 'rom-colors t)
-(set-face-font 'default "Fira Code-10")
+(set-face-font 'default "DejaVu Sans Mono-10")
 
 ;;; Backups
 (setq backup-by-copying t)
@@ -56,6 +56,7 @@
 (global-set-key [remap capitalize-word] #'capitalize-dwim)
 (global-set-key [remap downcase-word] #'downcase-dwim)
 (global-set-key [remap upcase-word] #'upcase-dwim)
+(global-set-key [remap list-buffers] #'electric-buffer-list)
 
 ;; Other keys
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
@@ -78,6 +79,7 @@
 (define-key completion-in-region-mode-map (kbd "C-s") #'search-in-completions)
 
 (defun search-in-completions ()
+  "Search forward in completions buffer."
   (interactive)
   (switch-to-completions)
   (beginning-of-buffer)
@@ -173,6 +175,12 @@
   (define-key flymake-mode-map (kbd "<f7>") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "<f8>") #'flymake-goto-prev-error))
 
+;;; Hl line
+(global-set-key (kbd "C-c h") #'hl-line-mode)
+(add-hook 'flymake-diagnostics-mode-hook #'hl-line-mode)
+(add-hook 'flymake-project-diagnostics-mode-hook #'hl-line-mode)
+(add-hook 'occur-mode-hook #'hl-line-mode)
+
 ;;; Global modes
 (column-number-mode 1)
 (save-place-mode 1)
@@ -189,12 +197,40 @@
 
 (setq even-window-sizes nil)
 
+(defun display-buffer-completion-list (buf alist)
+  "Display completion list BUF using ALIST."
+  (cond
+   ;; Minibuffer or full height window
+   ((or (minibuffer-window-active-p (selected-window))
+	(and (window-at-side-p (selected-window) 'bottom)
+	     (window-at-side-p (selected-window) 'top)))
+    (display-buffer-below-selected buf alist))
+
+   ;; Free right 
+   ((and (window-at-side-p (selected-window) 'right)
+	 (< (car (window-edges)) 50))
+    (display-buffer-in-direction buf alist))
+
+   ;; Others
+   (t (display-buffer-below-selected))))
+
 (setq display-buffer-alist
       '(("\\*\\(shell\\|Flymake\\|*term\\|*eshell\\|compilation\\|Async Shell Command\\|Occur\\|xref\\).*\\*"
          display-buffer-in-side-window
          (body-function . select-window)
-         (window-height . 0.3))))
+         (window-height . 0.3))
+	
+	("\\*vc-dir\\*"
+	 display-buffer-in-side-window
+	 (side . left)
+	 (window-width . 60))
+
+	("\\*Completions\\*"
+	 display-buffer-completion-list
+	 (direction . right))))
 
 ;;; Custom
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
+
+;;; init.el ends here
