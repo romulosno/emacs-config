@@ -220,11 +220,6 @@
          (body-function . select-window)
          (window-height . 0.3))
 	
-	("\\*vc-dir\\*"
-	 display-buffer-in-side-window
-	 (side . left)
-	 (window-width . 60))
-
 	("\\*Completions\\*"
 	 display-buffer-completion-list
 	 (direction . right))))
