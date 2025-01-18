@@ -7,7 +7,7 @@
 
 (custom-theme-set-faces
  'rom-colors
- '(default ((t (:foreground "#000000" :background "#d6d6d6"))))
+ '(default ((t (:foreground "#000000" :background "#e5e5e5"))))
  '(completions-common-part ((t (:foreground "#2a3d6b"))))
  '(completions-first-difference ((t (:foreground "#1b2c63" :weight bold))))
  '(compilation-info ((t (:foreground "#466b38"))))
@@ -21,10 +21,10 @@
  '(flymake-note ((t ((:underline (:color "#466b38" :style line))))))
  '(flymake-warning ((t (:underline (:color "#878335" :style line)))))
  '(flymake-error ((t (:underline (:color "#9e3a3a" :style line)))))
- '(fringe ((t (:background "#d2d2d2"))))
+ '(fringe ((t (:background "#e0dede"))))
  '(highlight ((t (:background "#b8c1d6"))))
  '(hl-line ((t (:background "#b3c2e6"))))
- '(mode-line ((t (:foreground "#282828" :background "#b3b9c1"))))
+ '(mode-line ((t (:foreground "#000000" :background "#b3b9c1" :box "#9ea4ad"))))
  '(region ((t (:background "#b8b8b8"))))
  '(secondary-selection ((t (:background "#9fc9b8"))))
  '(font-lock-builtin-face ((t (:foreground "#30327a"))))
