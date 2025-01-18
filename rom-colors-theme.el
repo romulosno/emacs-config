@@ -21,7 +21,7 @@
  '(flymake-note ((t ((:underline (:color "#466b38" :style line))))))
  '(flymake-warning ((t (:underline (:color "#878335" :style line)))))
  '(flymake-error ((t (:underline (:color "#9e3a3a" :style line)))))
- '(fringe ((t (:background "#e0dede"))))
+ '(fringe ((t (:background "#e3e3e3"))))
  '(highlight ((t (:background "#b8c1d6"))))
  '(hl-line ((t (:background "#b3c2e6"))))
  '(mode-line ((t (:foreground "#000000" :background "#b3b9c1" :box "#9ea4ad"))))
