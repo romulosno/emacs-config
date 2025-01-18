@@ -5,6 +5,10 @@
   :kind 'color-scheme
   :background-mode 'light)
 
+(custom-theme-set-variables
+ 'rom-colors
+ '(frame-background-mode 'light))
+
 (custom-theme-set-faces
  'rom-colors
  '(default ((t (:foreground "#000000" :background "#e5e5e5"))))
