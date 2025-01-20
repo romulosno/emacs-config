@@ -11,10 +11,9 @@
 	 kotlin-mode
 	 yaml-mode
 	 markdown-mode)))
-  (dolist (p package-list)		;
+  (dolist (p package-list)
     (unless (package-installed-p p)
       (package-install p))))
-
 
 ;;; Theme and font
 (load-theme 'rom-colors t)
