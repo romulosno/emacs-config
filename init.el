@@ -18,11 +18,8 @@
 ;;; Theme and font
 (load-theme 'rom-colors t)
 
-(cond
- ((find-font (font-spec :name "IBM Plex Mono"))
-  (set-face-font 'default "IBM Plex Mono-10"))
- ((find-font (font-spec :name "Ubuntu Mono"))
-  (set-face-font 'default "Ubuntu Mono-10")))
+(when (find-font (font-spec :name "Liberation Mono"))
+  (set-face-font 'default "Liberation Mono-10"))
 
 ;;; Backups
 (setq backup-by-copying t)
