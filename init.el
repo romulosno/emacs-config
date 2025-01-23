@@ -18,8 +18,11 @@
 ;;; Theme and font
 (load-theme 'rom-colors t)
 
-(when (find-font (font-spec :name "Liberation Mono"))
-  (set-face-font 'default "Liberation Mono-10"))
+(cond
+ ((find-font (font-spec :name "Maple Mono NF"))
+  (set-face-font 'default "Maple Mono NF-10"))
+ ((find-font (font-spec :name "DejaVu Sans Mono"))
+  (set-face-font 'default "DejaVu Sans Mono-10")))
 
 ;;; Backups
 (setq backup-by-copying t)
@@ -194,13 +197,20 @@
 (repeat-mode 1)
 
 (setq switch-to-buffer-obey-display-actions t)
-(setq split-width-threshold nil)
+(setq split-height-threshold nil)
 
 (setq display-buffer-alist
-      '(("\\*\\(shell\\|Flymake\\|*term\\|*eshell\\|compilation\\|Async Shell Command\\|Occur\\|xref\\).*\\*"
+      '(("\\*\\(shell\\|*term\\|*eshell\\|Async Shell Command\\|Occur\\|xref\\).*\\*"
          display-buffer-in-side-window
          (body-function . select-window)
-         (window-height . 0.3))
+         (window-height . 0.3)
+	 (slot . -1))
+
+	("\\*\\(Flymake\\|compilation\\).*\\*"
+         display-buffer-in-side-window
+         (body-function . select-window)
+         (window-height . 0.3)
+	 (slot . 1))
 	
 	("\\*Completions\\*"
 	 display-buffer-below-selected)))
