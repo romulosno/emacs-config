@@ -1,6 +1,8 @@
 ;;; init.el --- emacs config -*- lexical-binding: t; -*-
 
 ;;; Packages
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
 (unless package-archives
   (package-refresh-contents))
 
@@ -9,6 +11,7 @@
 	 eglot
 	 go-mode
 	 kotlin-mode
+	 treesit-auto
 	 yaml-mode
 	 markdown-mode)))
   (dolist (p package-list)
@@ -108,8 +111,11 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 
-(add-hook 'dired-mode-hook #'dired-hide-details-mode)
-(add-hook 'dired-mode-hook #'hl-line-mode)
+(add-hook 'dired-mode-hook
+	  (lambda ()
+	    (setq truncate-lines t)
+	    (dired-hide-details-mode 1)
+	    (hl-line-mode 1)))
 
 (global-set-key (kbd "C-c f") #'find-name-dired)
 
