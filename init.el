@@ -9,6 +9,7 @@
 (let ((package-list
        '(dockerfile-mode
 	 eglot
+	 exec-path-from-shell
 	 go-mode
 	 kotlin-mode
 	 treesit-auto
