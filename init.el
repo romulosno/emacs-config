@@ -19,12 +19,14 @@
     (unless (package-installed-p p)
       (package-install p))))
 
+(exec-path-from-shell-initialize)
+
 ;;; Theme and font
 (load-theme 'rom-colors t)
 
 (cond
- ((find-font (font-spec :name "Maple Mono NF"))
-  (set-face-font 'default "Maple Mono NF-10"))
+ ((find-font (font-spec :name "CommitMono"))
+  (set-face-font 'default "CommitMono-10"))
  ((find-font (font-spec :name "DejaVu Sans Mono"))
   (set-face-font 'default "DejaVu Sans Mono-10")))
 
@@ -81,7 +83,7 @@
 (setq completion-show-help nil)
 (setq completions-header-format nil)
 (setq completions-max-height 20)
-(setq completion-styles '(basic partial-completion emacs22 substring initials))
+(add-to-list 'completion-styles 'flex t)
 
 (define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
 (define-key completion-in-region-mode-map (kbd "C-s") #'search-in-completions)
@@ -202,25 +204,6 @@
 
 (setq repeat-exit-key "RET")
 (repeat-mode 1)
-
-(setq switch-to-buffer-obey-display-actions t)
-(setq split-height-threshold nil)
-
-(setq display-buffer-alist
-      '(("\\*\\(shell\\|*term\\|*eshell\\|Async Shell Command\\|Occur\\|xref\\).*\\*"
-         display-buffer-in-side-window
-         (body-function . select-window)
-         (window-height . 0.3)
-	 (slot . -1))
-
-	("\\*\\(Flymake\\|compilation\\).*\\*"
-         display-buffer-in-side-window
-         (body-function . select-window)
-         (window-height . 0.3)
-	 (slot . 1))
-	
-	("\\*Completions\\*"
-	 display-buffer-below-selected)))
 
 ;;; Custom
 (setq custom-file (locate-user-emacs-file "custom.el"))
