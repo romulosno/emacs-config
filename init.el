@@ -1,6 +1,7 @@
 ;;; init.el --- emacs config -*- lexical-binding: t; -*-
 
 ;;; Packages
+(setq package-install-upgrade-built-in t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (unless package-archives
@@ -19,16 +20,8 @@
     (unless (package-installed-p p)
       (package-install p))))
 
-(exec-path-from-shell-initialize)
-
 ;;; Theme and font
 (load-theme 'rom-colors t)
-
-(cond
- ((find-font (font-spec :name "CommitMono"))
-  (set-face-font 'default "CommitMono-10"))
- ((find-font (font-spec :name "DejaVu Sans Mono"))
-  (set-face-font 'default "DejaVu Sans Mono-10")))
 
 ;;; Backups
 (setq backup-by-copying t)
@@ -49,6 +42,8 @@
 (setq initial-scratch-message nil)
 
 ;;; Misc
+(add-hook 'after-init-hook #'exec-path-from-shell-initialize)
+
 (setq use-short-answers t)
 (setq enable-recursive-minibuffers t)
 (setq kill-whole-line t)
