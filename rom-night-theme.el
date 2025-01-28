@@ -1,14 +1,18 @@
-(deftheme rom-dark)
+(deftheme rom-night
+  "My dark theme."
+  :family 'rom
+  :kind 'color-scheme
+  :background-mode 'dark)
 
 (custom-theme-set-variables
- 'rom-dark
- '(background-mode dark))
+ 'rom-night
+ '(frame-background-mode 'dark))
 
 (custom-theme-set-faces
- 'rom-dark
+ 'rom-night
  '(default ((t (:foreground "#f7f1d4" :background "#272c30"))))
  '(cursor ((t (:background "#fdf4c1"))))
- '(diff-refine-changed ((t (:background "#274527"))))
+ '(diff-refine-added ((t (:background "#274527"))))
  '(diff-refine-removed ((t (:background "#452424"))))
  '(fringe ((t (:background "#23272a"))))
  '(mode-line ((t (:foreground "#ededed" :background "#4b5157"))))
@@ -28,12 +32,4 @@
  '(tab-bar-tab ((t (:foreground "#ededed" :background "#4b5157"))))
  '(tab-bar-tab-inactive ((t (:foreground "#a3a3a3" :background "#4b5157")))))
 
-;;;###autoload
-(and load-file-name
-    (boundp 'custom-theme-load-path)
-    (add-to-list 'custom-theme-load-path
-                 (file-name-as-directory
-                  (file-name-directory load-file-name))))
-;; Automatically add this theme to the load path
-
-(provide-theme 'rom-dark)
+(provide-theme 'rom-night)

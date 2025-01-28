@@ -25,7 +25,9 @@
 (when (find-font (font-spec :name "Source Code Pro"))
   (set-face-font 'default "Source Code Pro-10"))
 
-(load-theme 'rom-dark t)
+(setq custom-safe-themes t)
+(load-theme 'rom-night t)
+(load-theme 'rom-day t t)
 
 ;;; Backups
 (setq backup-by-copying t)
