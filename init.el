@@ -11,6 +11,7 @@
        '(dockerfile-mode
 	 eglot
 	 exec-path-from-shell
+	 flymake
 	 go-mode
 	 kotlin-mode
 	 treesit-auto
@@ -21,7 +22,10 @@
       (package-install p))))
 
 ;;; Theme and font
-(load-theme 'rom-colors t)
+(cond ((find-font (font-spec :name "Courier Prime Code"))
+       (set-face-font 'default "Courier Prime Code-10")))
+
+(load-theme 'modus-operandi t)
 
 ;;; Backups
 (setq backup-by-copying t)
@@ -182,6 +186,13 @@
   (define-key flymake-mode-map (kbd "C-c e") #'flymake-show-project-diagnostics)
   (define-key flymake-mode-map (kbd "<f7>") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "<f8>") #'flymake-goto-prev-error))
+
+;;; Java
+(add-hook 'java-mode-hook
+	  (lambda ()
+            (setq c-basic-offset 4
+                  tab-width 4
+                  indent-tabs-mode t)))
 
 ;;; Hl line
 (global-set-key (kbd "C-c h") #'hl-line-mode)
