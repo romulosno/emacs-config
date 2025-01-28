@@ -22,10 +22,10 @@
       (package-install p))))
 
 ;;; Theme and font
-(cond ((find-font (font-spec :name "Courier Prime Code"))
-       (set-face-font 'default "Courier Prime Code-10")))
+(when (find-font (font-spec :name "Source Code Pro"))
+  (set-face-font 'default "Source Code Pro-10"))
 
-(load-theme 'modus-operandi t)
+(load-theme 'rom-dark t)
 
 ;;; Backups
 (setq backup-by-copying t)
@@ -82,7 +82,7 @@
 (setq completion-show-help nil)
 (setq completions-header-format nil)
 (setq completions-max-height 20)
-(add-to-list 'completion-styles 'flex t)
+(add-to-list 'completion-styles 'substring t)
 
 (define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
 (define-key completion-in-region-mode-map (kbd "C-s") #'search-in-completions)
@@ -120,6 +120,11 @@
 	    (hl-line-mode 1)))
 
 (global-set-key (kbd "C-c f") #'find-name-dired)
+
+;;; Outline
+(global-set-key (kbd "C-c o") #'outline-minor-mode)
+(setq outline-minor-mode-cycle t)
+(setq outline-minor-mode-cycle-filter 'bolp)
 
 ;;; Org
 (setq org-tags-column 0)
