@@ -26,8 +26,8 @@
   (set-face-font 'default "Source Code Pro-10"))
 
 (setq custom-safe-themes t)
-(load-theme 'rom-night t)
 (load-theme 'rom-day t t)
+(load-theme 'rom-night t nil)
 
 ;;; Backups
 (setq backup-by-copying t)
@@ -70,6 +70,7 @@
 (global-set-key [remap list-buffers] #'electric-buffer-list)
 
 ;; Other keys
+(global-set-key (kbd "C-c j") #'join-line)
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
 (global-set-key (kbd "C-z") #'repeat)
 
