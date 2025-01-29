@@ -22,12 +22,12 @@
       (package-install p))))
 
 ;;; Theme and font
-(when (find-font (font-spec :name "Source Code Pro"))
-  (set-face-font 'default "Source Code Pro-10"))
+(when (find-font (font-spec :name "Maple Mono NF"))
+  (set-face-font 'default "Maple Mono NF-10"))
 
 (setq custom-safe-themes t)
-(load-theme 'rom-day t t)
-(load-theme 'rom-night t nil)
+(load-theme 'rom-day t nil)
+(load-theme 'rom-night t t)
 
 ;;; Backups
 (setq backup-by-copying t)
