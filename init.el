@@ -2,7 +2,10 @@
 
 ;;; Packages
 (setq package-install-upgrade-built-in t)
+
+(require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
 
 (unless package-archives
   (package-refresh-contents))
@@ -22,8 +25,8 @@
       (package-install p))))
 
 ;;; Theme and font
-(when (find-font (font-spec :name "Maple Mono NF"))
-  (set-face-font 'default "Maple Mono NF-10"))
+(when (find-font (font-spec :name "DejaVu Sans Mono"))
+  (set-face-font 'default "DejaVu Sans Mono-10"))
 
 (setq custom-safe-themes t)
 (load-theme 'rom-day t nil)
