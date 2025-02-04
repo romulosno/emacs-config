@@ -70,7 +70,6 @@
 (global-set-key [remap capitalize-word] #'capitalize-dwim)
 (global-set-key [remap downcase-word] #'downcase-dwim)
 (global-set-key [remap upcase-word] #'upcase-dwim)
-(global-set-key [remap list-buffers] #'electric-buffer-list)
 
 ;; Other keys
 (global-set-key (kbd "C-c j") #'join-line)
@@ -210,6 +209,11 @@
 (add-hook 'flymake-diagnostics-mode-hook #'hl-line-mode)
 (add-hook 'flymake-project-diagnostics-mode-hook #'hl-line-mode)
 (add-hook 'occur-mode-hook #'hl-line-mode)
+
+(add-to-list 'display-buffer-alist
+	     '("\\*Buffer List\\*"
+	       nil
+	       (body-function . select-window)))
 
 ;;; Global modes
 (column-number-mode 1)
