@@ -38,7 +38,7 @@
  '(highlight ((t (:background "#b8c1d6"))))
  '(hl-line ((t (:background "#f2efcb"))))
  '(minibuffer-prompt ((t (:foreground "#213361"))))
- '(mode-line ((t (:foreground "#000000" :background "#c5c5c5" :box "#5c5c5c"))))
+ '(mode-line ((t (:foreground "#000000" :background "#bac1d4" :box "#5c5c5c"))))
  '(region ((t (:background "#cecece"))))
  '(secondary-selection ((t (:background "#d5e1f0"))))
  '(tab-bar ((t (:foreground "black" :background "#c5c5c5" :box "#5c5c5c"))))
