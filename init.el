@@ -13,7 +13,6 @@
        '(dockerfile-mode
 	 eglot
 	 exec-path-from-shell
-	 flymake
 	 go-mode
 	 kotlin-mode
 	 treesit-auto
@@ -24,9 +23,6 @@
       (package-install p))))
 
 ;;; Theme and font
-(when (find-font (font-spec :name "DejaVu Sans Mono"))
-  (set-face-font 'default "DejaVu Sans Mono-10"))
-
 (setq custom-safe-themes t)
 (load-theme 'rom-day t nil)
 (load-theme 'rom-night t t)
