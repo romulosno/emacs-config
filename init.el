@@ -36,9 +36,6 @@
       `((,tramp-file-name-regexp . ,temporary-file-directory)
 	("." . ,(locate-user-emacs-file "backups"))))
 
-(setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "auto-save/" user-emacs-directory) t)))
-
 ;;; Init screen
 (setq initial-major-mode 'fundamental-mode
       inhibit-startup-screen t
