@@ -18,6 +18,7 @@
  '(completions-first-difference ((t (:foreground "#1b2c63" :weight bold))))
  '(cursor ((t (:background "#000000"))))
  '(default ((t (:foreground "#000000" :background "#f7f7f7"))))
+ '(diary ((t (:foreground "dark magenta"))))
  '(diff-added ((t (:background "#deedd5"))))
  '(diff-refine-added ((t :background "#c5dbb6")))
  '(diff-refine-removed ((t :background "#d1a9a9")))
