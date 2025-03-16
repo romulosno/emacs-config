@@ -67,11 +67,16 @@
       isearch-yank-on-move 'shift
       isearch-lazy-highlight 'all-windows)
 
+;;; Imenu
+(setq imenu-flatten 'prefix
+      imenu-auto-rescan t)
+
 ;;; Completions
 (setq tab-always-indent 'complete
       completion-show-help nil
       completions-header-format nil
       completions-max-height 20
+      completions-format 'one-column
       completion-styles '(basic partial-completion initials substring))
 
 (define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
@@ -194,6 +199,9 @@
 
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-M-<return>") #'org-insert-subheading))
+
+(add-hook 'latex-mode-hook #'visual-line-mode)
+(add-hook 'latex-mode-hook #'electric-pair-mode)
 
 (with-eval-after-load 'eglot
   (define-key eglot-mode-map (kbd "C-c c r") #'eglot-rename)
