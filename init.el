@@ -205,6 +205,22 @@
   (define-key flymake-mode-map (kbd "<f7>") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "<f8>") #'flymake-goto-prev-error))
 
+(add-to-list 'display-buffer-alist
+	     '("\\*terminal\\*"
+	       display-buffer-in-side-window
+	       (side . bottom)))
+
+
+(defun toggle-term-mode ()
+  (interactive)
+  (require 'term)
+  (if (term-in-line-mode)
+      (term-char-mode)
+    (term-line-mode)))
+
+(with-eval-after-load 'term
+  (define-key term-mode-map (kbd "<f8>") #'toggle-term-mode)
+  (define-key term-raw-map (kbd "<f8>") #'toggle-term-mode))
 
 ;;; Custom
 (setq custom-file (locate-user-emacs-file "custom.el"))
