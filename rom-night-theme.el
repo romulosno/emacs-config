@@ -35,4 +35,11 @@
  '(tab-bar-tab ((t (:foreground "#ededed" :background "#4b5157"))))
  '(tab-bar-tab-inactive ((t (:foreground "#a3a3a3" :background "#4b5157")))))
 
+;;;###autoload
+(and load-file-name
+    (boundp 'custom-theme-load-path)
+    (add-to-list 'custom-theme-load-path
+                 (file-name-as-directory
+                  (file-name-directory load-file-name))))
+
 (provide-theme 'rom-night)

@@ -45,6 +45,8 @@
 (add-hook 'after-init-hook #'exec-path-from-shell-initialize)
 
 (setq-default truncate-lines t)
+
+(setq frame-resize-pixelwise t)
 (setq echo-keystrokes 0.02)
 (setq use-short-answers t)
 (setq enable-recursive-minibuffers t)
