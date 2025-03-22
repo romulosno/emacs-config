@@ -1,3 +1,5 @@
+;;; rom-night-theme.el --- rom-night  -*- lexical-binding: t; -*-
+
 (deftheme rom-night
   "My dark theme."
   :family 'rom
