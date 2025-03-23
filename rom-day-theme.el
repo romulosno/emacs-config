@@ -41,7 +41,7 @@
  '(minibuffer-prompt ((t (:foreground "#080c53"))))
  '(minibuffer-prompt ((t (:foreground "#7299ff" :bold t))))
  '(mode-line ((t (:foreground "#111111" :background "#c1c4d4"))))
- '(region ((t (:background "#d0d9df"))))
+ '(region ((t (:background "#dfe1eb"))))
  '(secondary-selection ((t (:background "#ddcdea"))))
  '(tab-bar ((t (:foreground "#111111" :background "#c1c4d4"))))
  '(tab-bar-tab ((t (:foreground "#111111" :background "#b1b5cc"))))
