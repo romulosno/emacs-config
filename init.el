@@ -58,7 +58,6 @@
 (setq uniquify-buffer-name-style 'forward)
 (setq find-file-visit-truename t)
 (setq repeat-exit-key "RET")
-(setq calendar-mark-diary-entries-flag t)
 
 (put 'narrow-to-region 'disabled nil)
 
@@ -81,14 +80,6 @@
       completion-styles '(basic partial-completion initials substring))
 
 (define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
-(define-key completion-in-region-mode-map (kbd "C-s") #'search-in-completions)
-
-(defun search-in-completions ()
-  "Search forward in completions buffer."
-  (interactive)
-  (switch-to-completions)
-  (beginning-of-buffer)
-  (isearch-forward))
 
 (when (fboundp 'completion-preview-mode)
   (add-hook 'prog-mode-hook #'completion-preview-mode))
@@ -117,10 +108,6 @@
       dired-kill-when-opening-new-dired-buffer t
       dired-recursive-copies 'always
       dired-recursive-deletes 'always)
-
-;;; Outline
-(setq outline-minor-mode-cycle t
-      outline-minor-mode-cycle-filter 'bolp)
 
 ;;; Org
 (setq org-agenda-show-log t
