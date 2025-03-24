@@ -27,6 +27,8 @@
   (load-theme 'rom-day t)
   (load-theme 'rom-night t t))
 
+(global-set-key (kbd "<f8>") #'toggle-theme)
+
 ;;; Backups
 (setq backup-by-copying t
       delete-old-versions t
