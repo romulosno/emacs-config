@@ -25,6 +25,7 @@
 ;;; Theme and font
 (setq custom-safe-themes t)
 (load-theme 'rom-day t)
+(load-theme 'rom-night t t)
 
 ;;; Backups
 (setq backup-by-copying t
