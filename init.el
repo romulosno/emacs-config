@@ -22,7 +22,7 @@
     (unless (package-installed-p p)
       (package-install p))))
 
-;;; Theme and font
+;;; Theme
 (when (display-graphic-p)
   (load-theme 'rom-day t)
   (load-theme 'rom-night t t))
