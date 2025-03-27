@@ -9,6 +9,5 @@
 (scroll-bar-mode -1)
 (tooltip-mode -1)
 
-(add-to-list 'default-frame-alist '(font . "Adwaita Mono-10"))
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10"))
 (add-to-list 'default-frame-alist '(width . 100))
-
