@@ -10,7 +10,8 @@
   (package-refresh-contents))
 
 (let ((package-list
-       '(dockerfile-mode
+       '(auto-dark
+	 dockerfile-mode
 	 eglot
 	 ligature
 	 exec-path-from-shell
@@ -26,6 +27,9 @@
 ;; Theme
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
+
+(setq auto-dark-themes '((rom-night) (rom-day)))
+(auto-dark-mode 1)
 
 ;;; Ligatures
 (require 'ligature)
