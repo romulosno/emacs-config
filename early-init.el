@@ -10,5 +10,6 @@
 (tooltip-mode -1)
 
 (add-to-list 'default-frame-alist '(width . 100))
-(add-to-list 'default-frame-alist '(font . "CommitMono-10"))
+(add-to-list 'default-frame-alist '(font . "Rec Mono Duotone-10"))
+
 

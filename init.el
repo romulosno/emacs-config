@@ -24,7 +24,7 @@
     (unless (package-installed-p p)
       (package-install p))))
 
-;; Theme
+;; Theme and font
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
 

@@ -27,7 +27,7 @@
  '(flymake-note ((t ((:underline (:color "#466b38" :style line))))))
  '(flymake-warning ((t (:underline (:color "#878335" :style line)))))
  '(font-lock-builtin-face ((t (:foreground "#630352"))))
- '(font-lock-comment-face ((t (:foreground "#4f4f4f"))))
+ '(font-lock-comment-face ((t (:foreground "#4f4f4f" :italic t))))
  '(font-lock-constant-face ((t (:foreground "#005940"))))
  '(font-lock-function-name-face ((t (:foreground "#003274"))))
  '(font-lock-keyword-face ((t (:foreground "#460475"))))
