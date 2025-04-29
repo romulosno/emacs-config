@@ -168,10 +168,8 @@
 (global-set-key (kbd "C-c f") #'find-name-dired)
 (global-set-key (kbd "C-c o") #'find-file-existing)
 (global-set-key (kbd "C-c h") #'hl-line-mode)
-(global-set-key (kbd "C-c j") #'join-line)
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
 (global-set-key (kbd "C-c l") #'org-store-link)
-
 (global-set-key (kbd "<f5>") #'compile)
 (global-set-key (kbd "C-z") #'repeat)
 
