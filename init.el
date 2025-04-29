@@ -157,6 +157,7 @@
 (minibuffer-depth-indicate-mode 1)
 (savehist-mode 1)
 (repeat-mode 1)
+(global-auto-revert-mode 1)
 
 (global-set-key [remap count-words-region] #'count-words)
 (global-set-key [remap capitalize-word] #'capitalize-dwim)
