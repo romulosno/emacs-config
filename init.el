@@ -43,10 +43,15 @@
 
 (add-hook 'after-init-hook #'exec-path-from-shell-initialize)
 
+(setq-default frame-title-format "%b")
 (setq frame-resize-pixelwise t)
+
 (setq echo-keystrokes 0.02)
 (setq use-short-answers t)
+
 (setq enable-recursive-minibuffers t)
+(minibuffer-depth-indicate-mode 1)
+
 (setq kill-whole-line t)
 (setq view-read-only t)
 (setq ring-bell-function 'ignore)
@@ -58,24 +63,20 @@
 
 (put 'narrow-to-region 'disabled nil)
 
-(setq isearch-lazy-count t
-      isearch-allow-scroll t
-      isearch-yank-on-move 'shift
-      isearch-lazy-highlight 'all-windows)
+(setq isearch-lazy-count t)
+(setq isearch-allow-scroll t)
+(setq isearch-yank-on-move 'shift)
+(setq isearch-lazy-highlight 'all-windows)
 
-(setq imenu-flatten 'prefix
-      imenu-auto-rescan t)
+(setq imenu-flatten 'prefix)
+(setq imenu-auto-rescan t)
 
-(setq tab-bar-show 1
-      tab-bar-new-button-show nil
-      tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
-
-(setq tab-always-indent 'complete
-      completion-show-help nil
-      completions-header-format nil
-      completions-max-height 20
-      completions-format 'one-column
-      completion-styles '(basic partial-completion initials substring))
+(setq tab-always-indent 'complete)
+(setq completion-show-help nil)
+(setq completions-header-format nil)
+(setq completions-max-height 20)
+(setq completions-format 'one-column)
+(setq completion-styles '(basic partial-completion initials substring))
 
 (define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
 
@@ -83,9 +84,6 @@
 (setq dabbrev-case-fold-search nil)
 (setq save-abbrevs 'silently)
 (setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
-
-(when (fboundp 'completion-preview-mode)
-  (add-hook 'prog-mode-hook #'completion-preview-mode))
 
 (with-eval-after-load 'completion-preview
   (define-key completion-preview-active-mode-map (kbd "M-n") #'completion-preview-next-candidate)
@@ -95,57 +93,60 @@
 (require 'dired-x)
 (require 'ls-lisp)
 
-(setq ls-lisp-dirs-first t
-      ls-lisp-use-insert-directory-program nil)
+(setq ls-lisp-dirs-first t)
+(setq ls-lisp-use-insert-directory-program nil)
 
-(setq delete-by-moving-to-trash t
-      dired-kill-when-opening-new-dired-buffer t
-      dired-recursive-copies 'always
-      dired-recursive-deletes 'always)
+(setq delete-by-moving-to-trash t)
+(setq dired-kill-when-opening-new-dired-buffer t)
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
 
-(setq org-agenda-show-log t
-      org-export-with-sub-superscripts nil
-      org-goto-interface 'outline-path-completion
-      org-goto-max-level 10
-      org-log-done 'time
-      org-log-into-drawer t
-      org-return-follows-link t
-      org-startup-folded nil
-      org-startup-indented t
-      org-tags-column 0
-      org-use-speed-commands t)
+(setq org-agenda-show-log t)
+(setq org-export-with-sub-superscripts nil)
+(setq org-goto-interface 'outline-path-completion)
+(setq org-goto-max-level 10)
+(setq org-log-done 'time)
+(setq org-log-into-drawer t)
+(setq org-return-follows-link t)
+(setq org-startup-folded nil)
+(setq org-startup-indented t)
+(setq org-tags-column 0)
+(setq org-use-speed-commands t)
 
 (put 'org-todo-keyword-faces 'safe-local-variable #'stringp)
 
 (add-hook 'latex-mode-hook #'visual-line-mode)
 (add-hook 'latex-mode-hook #'electric-pair-mode)
 
-(setq vc-git-show-stash 0
-      vc-follow-symlinks t
-      vc-git-print-log-follow t
-      vc-handled-backends '(Git))
+(setq vc-git-show-stash 0)
+(setq vc-follow-symlinks t)
+(setq vc-git-print-log-follow t)
+(setq vc-handled-backends '(Git))
 
-(setq ediff-window-setup-function 'ediff-setup-windows-plain
-      ediff-keep-variants nil)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-keep-variants nil)
 
 (setq smerge-command-prefix "\e")
 (setq diff-default-read-only t)
 
+(when (fboundp 'completion-preview-mode)
+  (add-hook 'prog-mode-hook #'completion-preview-mode))
+
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
-(setq compilation-max-output-line-length nil
-      compilation-scroll-output 'first-error
-      compilation-auto-jump-to-first-error 'if-location-known
-      compilation-ask-about-save nil)
+(setq compilation-max-output-line-length nil)
+(setq compilation-scroll-output 'first-error)
+(setq compilation-auto-jump-to-first-error 'if-location-known)
+(setq compilation-ask-about-save nil)
 
-(setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly
-      eldoc-echo-area-use-multiline-p 3)
+(setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
+(setq eldoc-echo-area-use-multiline-p 2)
 
 (setq read-process-output-max (* 3 1024 1024))
-(setq eglot-autoshutdown t
-      eglot-sync-connect nil
-      eglot-events-buffer-config '(:size 0))
+(setq eglot-autoshutdown t)
+(setq eglot-sync-connect nil)
+(setq eglot-events-buffer-config '(:size 0))
       
 (add-to-list 'display-buffer-alist '("\\*Buffer List\\*" nil (body-function . select-window)))
 (define-key Buffer-menu-mode-map "q" #'kill-buffer-and-window)
@@ -154,7 +155,6 @@
 (save-place-mode 1)
 (global-so-long-mode 1)
 (winner-mode 1)
-(minibuffer-depth-indicate-mode 1)
 (savehist-mode 1)
 (repeat-mode 1)
 (global-auto-revert-mode 1)
