@@ -22,15 +22,12 @@
     (unless (package-installed-p p)
       (package-install p))))
 
-(setq custom-file (locate-user-emacs-file "custom.el"))
-(load custom-file t)
-
 (setq auto-dark-themes '((modus-vivendi) (modus-operandi)))
 (auto-dark-mode 1)
 
-(setq backup-by-copying t
-      delete-old-versions t
-      version-control t)
+(setq backup-by-copying t)
+(setq delete-old-versions t)
+(setq version-control t)
 
 (setq backup-directory-alist
       `((,tramp-file-name-regexp . ,temporary-file-directory)
@@ -62,6 +59,9 @@
 (setq repeat-exit-key "RET")
 
 (put 'narrow-to-region 'disabled nil)
+
+(setq eval-expression-print-level nil)
+(setq eval-expression-print-length nil)
 
 (setq isearch-lazy-count t)
 (setq isearch-allow-scroll t)
@@ -186,4 +186,6 @@
   (define-key flymake-mode-map (kbd "M-n") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "M-p") #'flymake-goto-prev-error))
 
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(load custom-file t)
 ;;; init.el ends here
