@@ -1,29 +1,20 @@
 ;;; init.el --- emacs config -*- lexical-binding: t; -*-
-
-(setq package-install-upgrade-built-in t)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
 			 ("melpa" . "https://melpa.org/packages/")))
 
-(unless package-archives
-  (package-refresh-contents))
-
 (let ((package-list
-       '(auto-dark
-	 dockerfile-mode
-	 eglot
+       '(dockerfile-mode
 	 exec-path-from-shell
 	 go-mode
 	 kotlin-mode
-	 treesit-auto
 	 yaml-mode
 	 markdown-mode)))
   (dolist (p package-list)
     (unless (package-installed-p p)
       (package-install p))))
 
-(setq auto-dark-themes '((modus-vivendi) (modus-operandi)))
-(auto-dark-mode 1)
+(load-theme 'modus-operandi-tinted t)
 
 (setq backup-by-copying t)
 (setq delete-old-versions t)
@@ -78,16 +69,10 @@
 (setq completions-format 'one-column)
 (setq completion-styles '(basic partial-completion initials substring))
 
-(define-key completion-in-region-mode-map (kbd "M-v") #'switch-to-completions)
-
 (setq-default abbrev-mode t)
 (setq dabbrev-case-fold-search nil)
 (setq save-abbrevs 'silently)
 (setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
-
-(with-eval-after-load 'completion-preview
-  (define-key completion-preview-active-mode-map (kbd "M-n") #'completion-preview-next-candidate)
-  (define-key completion-preview-active-mode-map (kbd "M-p") #'completion-preview-prev-candidate))
 
 (require 'dired-aux)
 (require 'dired-x)
@@ -129,9 +114,6 @@
 (setq smerge-command-prefix "\e")
 (setq diff-default-read-only t)
 
-(when (fboundp 'completion-preview-mode)
-  (add-hook 'prog-mode-hook #'completion-preview-mode))
-
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
@@ -149,42 +131,45 @@
 (setq eglot-events-buffer-config '(:size 0))
       
 (add-to-list 'display-buffer-alist '("\\*Buffer List\\*" nil (body-function . select-window)))
-(define-key Buffer-menu-mode-map "q" #'kill-buffer-and-window)
 
 (column-number-mode 1)
-(save-place-mode 1)
-(global-so-long-mode 1)
-(winner-mode 1)
-(savehist-mode 1)
-(repeat-mode 1)
 (global-auto-revert-mode 1)
+(global-completion-preview-mode 1)
+(global-so-long-mode 1)
+(repeat-mode 1)
+(save-place-mode 1)
+(savehist-mode 1)
+(winner-mode 1)
 
-(global-set-key [remap count-words-region] #'count-words)
-(global-set-key [remap capitalize-word] #'capitalize-dwim)
-(global-set-key [remap downcase-word] #'downcase-dwim)
-(global-set-key [remap upcase-word] #'upcase-dwim)
+(keymap-set global-map "<remap> <count-words-region>" #'count-words)
+(keymap-set global-map "<remap> <capitalize-word>" #'capitalize-dwim)
+(keymap-set global-map "<remap> <downcase-word>" #'downcase-dwim)
+(keymap-set global-map "<remap> <upcase-word>" #'upcase-dwim)
 
-(global-set-key (kbd "C-c a") #'org-agenda)
-(global-set-key (kbd "C-c f") #'find-name-dired)
-(global-set-key (kbd "C-c o") #'find-file-existing)
-(global-set-key (kbd "C-c h") #'hl-line-mode)
-(global-set-key (kbd "C-c k") #'kill-current-buffer)
-(global-set-key (kbd "C-c l") #'org-store-link)
-(global-set-key (kbd "<f5>") #'compile)
-(global-set-key (kbd "C-z") #'repeat)
+(keymap-set global-map "C-c a" #'org-agenda)
+(keymap-set global-map "C-c f" #'find-name-dired)
+(keymap-set global-map "C-c o" #'find-file-existing)
+(keymap-set global-map "C-c h" #'hl-line-mode)
+(keymap-set global-map "C-c k" #'kill-current-buffer)
+(keymap-set global-map "C-c l" #'org-store-link)
+(keymap-set global-map "<f5>" #'compile)
+(keymap-set global-map "C-z" #'repeat)
+
+(keymap-set Buffer-menu-mode-map "q" #'kill-buffer-and-window)
+(keymap-set completion-in-region-mode-map "M-v" #'switch-to-completions)
 
 (with-eval-after-load 'org
-  (define-key org-mode-map (kbd "C-M-<return>") #'org-insert-subheading))
+  (keymap-set org-mode-map "C-M-<return>" #'org-insert-subheading))
 
 (with-eval-after-load 'eglot
-  (define-key eglot-mode-map (kbd "C-c c r") #'eglot-rename)
-  (define-key eglot-mode-map (kbd "C-c c f") #'eglot-format)
-  (define-key eglot-mode-map (kbd "C-c c a") #'eglot-code-actions))
+  (keymap-set eglot-mode-map "C-c c r" #'eglot-rename)
+  (keymap-set eglot-mode-map "C-c c f" #'eglot-format)
+  (keymap-set eglot-mode-map "C-c c a" #'eglot-code-actions))
 
 (with-eval-after-load 'flymake
-  (define-key flymake-mode-map (kbd "C-c e") #'flymake-show-project-diagnostics)
-  (define-key flymake-mode-map (kbd "M-n") #'flymake-goto-next-error)
-  (define-key flymake-mode-map (kbd "M-p") #'flymake-goto-prev-error))
+  (keymap-set flymake-mode-map "C-c e" #'flymake-show-project-diagnostics)
+  (keymap-set flymake-mode-map "M-n" #'flymake-goto-next-error)
+  (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error))
 
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
