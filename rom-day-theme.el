@@ -2,6 +2,10 @@
 
 (deftheme rom-day)
 
+(custom-theme-set-variables
+ 'rom-night
+ '(frame-background-mode 'light))
+
 (custom-theme-set-faces
  'rom-day
  '(default ((t (:foreground "#000000" :background "#f5f5f5"))))

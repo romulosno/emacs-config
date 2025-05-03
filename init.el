@@ -4,7 +4,8 @@
 			 ("melpa" . "https://melpa.org/packages/")))
 
 (let ((package-list
-       '(dockerfile-mode
+       '(auto-dark
+	 dockerfile-mode
 	 exec-path-from-shell
 	 go-mode
 	 kotlin-mode
@@ -14,8 +15,8 @@
     (unless (package-installed-p p)
       (package-install p))))
 
-(load-theme 'rom-day t)
-(setq-default line-spacing 1)
+(setq auto-dark-themes '((rom-night) (rom-day)))
+(auto-dark-mode 1)
 
 (setq backup-by-copying t)
 (setq delete-old-versions t)
