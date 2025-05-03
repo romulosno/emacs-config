@@ -14,7 +14,8 @@
     (unless (package-installed-p p)
       (package-install p))))
 
-(load-theme 'modus-operandi-tinted t)
+(load-theme 'rom-day t)
+(setq-default line-spacing 1)
 
 (setq backup-by-copying t)
 (setq delete-old-versions t)
@@ -170,6 +171,10 @@
   (keymap-set flymake-mode-map "C-c e" #'flymake-show-project-diagnostics)
   (keymap-set flymake-mode-map "M-n" #'flymake-goto-next-error)
   (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error))
+
+(with-eval-after-load 'completion-preview
+  (keymap-set completion-preview-active-mode-map "M-n" #'completion-preview-next-candidate)
+  (keymap-set completion-preview-active-mode-map "M-p" #'completion-preview-prev-candidate))
 
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
