@@ -15,6 +15,7 @@
     (unless (package-installed-p p)
       (package-install p))))
 
+(setq custom-safe-themes t)
 (setq auto-dark-themes '((rom-night) (rom-day)))
 (auto-dark-mode 1)
 
@@ -179,4 +180,5 @@
 
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
+
 ;;; init.el ends here

@@ -3,7 +3,7 @@
 (deftheme rom-day)
 
 (custom-theme-set-variables
- 'rom-night
+ 'rom-day
  '(frame-background-mode 'light))
 
 (custom-theme-set-faces
