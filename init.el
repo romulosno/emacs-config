@@ -27,12 +27,21 @@
       `((,tramp-file-name-regexp . ,temporary-file-directory)
 	("." . ,(locate-user-emacs-file "backups"))))
 
+(setq auto-save-list-file-prefix
+      (expand-file-name "auto-save/" user-emacs-directory))
+(setq tramp-auto-save-directory
+      (expand-file-name "tramp-auto-save/" user-emacs-directory))
+
 (setq initial-major-mode 'fundamental-mode
       inhibit-startup-screen t
       inhibit-splash-screen t
       initial-scratch-message nil)
 
 (add-hook 'after-init-hook #'exec-path-from-shell-initialize)
+
+(setq-default truncate-lines t)
+(setq fast-but-imprecise-scrolling t)
+(setq scroll-preserve-screen-position t)
 
 (setq-default frame-title-format "%b")
 (setq frame-resize-pixelwise t)
