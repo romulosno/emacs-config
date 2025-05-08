@@ -40,8 +40,14 @@
 (add-hook 'after-init-hook #'exec-path-from-shell-initialize)
 
 (setq-default truncate-lines t)
-(setq fast-but-imprecise-scrolling t)
-(setq scroll-preserve-screen-position t)
+
+(setq scroll-margin 0
+      scroll-conservatively 101
+      scroll-preserve-screen-position t
+      fast-but-imprecise-scrolling t)
+
+(setq hscroll-margin 2
+      hscroll-step 1)
 
 (setq-default frame-title-format "%b")
 (setq frame-resize-pixelwise t)
@@ -68,8 +74,13 @@
 
 (put 'narrow-to-region 'disabled nil)
 
-(setq eval-expression-print-level nil)
-(setq eval-expression-print-length nil)
+(setq window-divider-default-bottom-width 0
+      window-divider-default-places t
+      window-divider-default-right-width 1)
+(window-divider-mode 1)
+
+(setq eval-expression-print-level nil
+      eval-expression-print-length nil)
 
 (setq isearch-lazy-count t
       isearch-allow-scroll t
@@ -79,14 +90,13 @@
 (setq imenu-flatten 'prefix
       imenu-auto-rescan t)
 
-(setq tab-always-indent 'complete
-      completion-show-help nil
-      completions-header-format nil
-      completions-max-height 20
-      completions-format 'one-column
-      completion-styles '(basic partial-completion initials substring))
-
 (global-completion-preview-mode 1)
+(setq completion-styles '(basic partial-completion initials substring))
+(setq tab-always-indent 'complete
+      completions-format 'one-column
+      completions-max-height 20
+      completion-show-help nil
+      completions-header-format nil)
 
 (setq-default abbrev-mode t)
 (setq dabbrev-case-fold-search nil)
@@ -100,7 +110,6 @@
 	mark-ring
 	global-mark-ring
 	search-ring regexp-search-ring))
-
 (savehist-mode 1)
 
 (require 'dired-aux)
