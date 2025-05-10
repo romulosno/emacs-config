@@ -96,9 +96,9 @@
 		(vc-mode vc-mode)
 		project-mode-line-format
 		mode-line-format-right-align
-		mode-name "  "
-		mode-line-misc-info
-		" "(flymake-mode flymake-mode-line-counters)" "
+		mode-name " "
+		mode-line-misc-info " "
+		(flymake-mode flymake-mode-line-counters) " "
 		mode-line-process  "  "
 		mode-line-end-spaces))
 
