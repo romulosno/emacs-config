@@ -110,15 +110,17 @@
 		(:propertize
 		 ("" mode-line-mule-info mode-line-client mode-line-modified mode-line-remote)
 		 display (min-width (3.0)))
-		(:propertize " %8b " face mode-line-buffer-id)
-		"[%l,%c] "
-		(vc-mode vc-mode)
+		(:propertize " %10b  " face mode-line-buffer-id)
+		mode-name
 		project-mode-line-format
+		(vc-mode vc-mode)
 		mode-line-format-right-align
-		mode-name " "
+		
 		mode-line-misc-info " "
 		(flymake-mode flymake-mode-line-counters) " "
-		mode-line-process  "  "
+		mode-line-process
+		" [%l,%c] "
+		"  "
 		mode-line-end-spaces))
 
 (add-to-list 'display-buffer-alist '("\\*Buffer List\\*" nil (body-function . select-window)))
