@@ -73,7 +73,8 @@
 (setq kill-whole-line t)
 (setq view-read-only t)
 (setq ring-bell-function 'ignore)
-(setq read-minibuffer-restore-windows nil)
+(setq confirm-nonexistent-file-or-buffer nil)
+
 (setq sentence-end-double-space nil)
 (setq uniquify-buffer-name-style 'forward)
 (setq delete-by-moving-to-trash t)
@@ -92,6 +93,11 @@
 
 (setq repeat-exit-key "RET")
 (repeat-mode 1)
+
+(setq read-minibuffer-restore-windows nil)
+(setq minibuffer-prompt-properties
+      '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
+(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
@@ -145,21 +151,25 @@
 	register-alist
 	mark-ring
 	global-mark-ring
-	search-ring regexp-search-ring))
+	search-ring
+	regexp-search-ring))
 (savehist-mode 1)
 
-(column-number-mode 1)
+(setq save-place-file (expand-file-name "save-place" user-emacs-directory))
+(save-place-mode 1)
+
 (global-auto-revert-mode 1)
 (global-so-long-mode 1)
-(save-place-mode 1)
 (winner-mode 1)
 
 (require 'dired-aux)
 (require 'dired-x)
 
 (setq dired-kill-when-opening-new-dired-buffer t)
+(setq dired-create-destination-dirs 'ask)
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
+(setq dired-vc-rename-file t)
 
 (setq ls-lisp-dirs-first t)
 (setq ls-lisp-use-insert-directory-program nil)
@@ -199,6 +209,9 @@
 (setq compilation-max-output-line-length nil)
 (setq compilation-scroll-output 'first-error)
 (setq compilation-auto-jump-to-first-error 'if-location-known)
+
+(setq xref-show-definitions-function 'xref-show-definitions-completing-read)
+(setq xref-show-xrefs-function 'xref-show-definitions-completing-read)
 
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 2)
