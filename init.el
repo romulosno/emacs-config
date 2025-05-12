@@ -20,7 +20,7 @@
 (setq auto-dark-themes '((rom-night) (rom-day)))
 (auto-dark-mode 1)
 
-(require 'ligature)
+(require 'ligature nil nil)
 (ligature-set-ligatures
  'prog-mode
  '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
@@ -189,6 +189,9 @@
 (setq org-use-speed-commands t)
 
 (put 'org-todo-keyword-faces 'safe-local-variable #'stringp)
+
+(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
+(setq tab-bar-select-tab-modifiers '(meta))
 
 (setq vc-git-show-stash 0)
 (setq vc-git-print-log-follow t)

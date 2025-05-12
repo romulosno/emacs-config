@@ -35,8 +35,8 @@
  '(secondary-selection ((t (:background "#cddbec"))))
  '(success ((t :foreground "#1c6625")))
  '(tab-bar ((t (:foreground "#000000" :background "#cacaca"))))
- '(tab-bar-tab ((t (:box (:line-width (1 . 1) :color "#969696" :style nil) :foreground "#000000" :background "#cacaca"))))
- '(tab-bar-tab-inactive ((t (:inherit tab-bar-tab :foreground "#4d4d4d"))))
+ '(tab-bar-tab ((t (:box (:line-width (2 . 2) :color "#f5f5f5" :style nil) :foreground "#000000" :background "#f5f5f5"))))
+ '(tab-bar-tab-inactive ((t (:inherit tab-bar :italic t))))
  '(warning ((t (:foreground "#805801")))))
 
 
