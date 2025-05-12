@@ -101,13 +101,12 @@
 		(:propertize " %10b " face mode-line-buffer-id)
 		project-mode-line-format
 		(vc-mode vc-mode)
-		mode-line-format-right-align		
+		mode-line-format-right-align
 		mode-line-misc-info " "
 		(flymake-mode flymake-mode-line-counters) " "
 		mode-name
 		mode-line-process
-		" [%l,%c] "
-		"  "
+		" [%l,%c]  "
 		mode-line-end-spaces))
 
 (add-to-list 'display-buffer-alist '("\\*Buffer List\\*" nil (body-function . select-window)))
