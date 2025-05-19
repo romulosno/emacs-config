@@ -92,23 +92,6 @@
 (setq eval-expression-print-level nil)
 (setq eval-expression-print-length nil)
 
-(setq display-time-default-load-average nil)
-(setq-default mode-line-format
-	      '("%e" mode-line-front-space
-		(:propertize
-		 ("" mode-line-mule-info mode-line-client mode-line-modified mode-line-remote)
-		 display (min-width (3.0)))
-		(:propertize " %10b " face mode-line-buffer-id)
-		project-mode-line-format
-		(vc-mode vc-mode)
-		mode-line-format-right-align
-		mode-line-misc-info " "
-		(flymake-mode flymake-mode-line-counters) " "
-		mode-name
-		mode-line-process
-		" [%l,%c]  "
-		mode-line-end-spaces))
-
 (add-to-list 'display-buffer-alist '("\\*Buffer List\\*" nil (body-function . select-window)))
 
 (global-completion-preview-mode 1)
