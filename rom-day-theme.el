@@ -9,7 +9,7 @@
 (custom-theme-set-faces
  'rom-day
  '(cursor ((t (:background "#000000"))))
- '(default ((t (:foreground "#000000" :background "#f5f5f5"))))
+ '(default ((t (:foreground "#000000" :background "#f7f7f7"))))
  '(diff-added ((t (:background "#daebda"))))
  '(diff-refine-added ((t (:background "#bce2be"))))
  '(diff-refine-removed ((t (:background "#f1caca"))))
@@ -30,12 +30,12 @@
  '(fringe ((t (:background "#eef0f0"))))
  '(isearch ((t (:foreground "#b0e2ff" :background "#4682b4"))))
  '(minibuffer-prompt ((t (:foreground "#323d5b"))))
- '(mode-line ((t (:box (:line-width (1 . 1) :color "#969696" :style nil) :foreground "#000000" :background "#cacaca"))))
+ '(mode-line ((t (:box (:line-width (1 . 1) :color "#969696" :style nil) :foreground "#000000" :background "#cad2e0"))))
  '(region ((t (:background "#cccccc"))))
  '(secondary-selection ((t (:background "#cddbec"))))
  '(success ((t :foreground "#1c6625")))
- '(tab-bar ((t (:foreground "#000000" :background "#cacaca"))))
- '(tab-bar-tab ((t (:box (:line-width (2 . 2) :color "#f5f5f5" :style nil) :foreground "#000000" :background "#f5f5f5"))))
+ '(tab-bar ((t (:foreground "#000000" :background "#cad2e0"))))
+ '(tab-bar-tab ((t (:box (:line-width (2 . 2) :color "#f7f7f7" :style nil) :foreground "#000000" :background "#f7f7f7"))))
  '(tab-bar-tab-inactive ((t (:inherit tab-bar :italic t))))
  '(warning ((t (:foreground "#805801")))))
 
