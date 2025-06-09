@@ -96,7 +96,7 @@
 
 (global-completion-preview-mode 1)
 
-(setq completion-styles '(basic partial-completion initials substring))
+(setq completion-styles '(basic partial-completion initials substring flex))
 (setq tab-always-indent 'complete)
 (setq completions-format 'one-column)
 (setq completions-max-height 20)
@@ -175,9 +175,6 @@
 (setq compilation-max-output-line-length nil)
 (setq compilation-scroll-output 'first-error)
 (setq compilation-auto-jump-to-first-error 'if-location-known)
-
-(setq xref-show-definitions-function 'xref-show-definitions-completing-read)
-(setq xref-show-xrefs-function 'xref-show-definitions-completing-read)
 
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 2)
