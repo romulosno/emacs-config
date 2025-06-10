@@ -24,7 +24,7 @@
  '(font-lock-function-name-face ((t (:foreground "#67078f"))))
  '(font-lock-keyword-face ((t (:foreground "#0d0782"))))
  '(font-lock-string-face ((t (:foreground "#085f77"))))
- '(font-lock-type-face ((t (:foreground "#41026b"))))
+ '(font-lock-type-face ((t (:foreground "#963930"))))
  '(font-lock-variable-name-face ((t (:foreground "#573170"))))
  '(font-lock-warning-face ((t (:foreground "#805801" :bold t))))
  '(fringe ((t (:background "#eef0f0"))))
