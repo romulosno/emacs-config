@@ -1,5 +1,5 @@
 ;;; early-init.el --- emacs early init config -*- lexical-binding: t; -*-
-(setq gc-cons-threshold 51200000)
+(setq gc-cons-threshold 102400000)
 (setq gc-cons-percentage 0.4)
 
 ;;; UI

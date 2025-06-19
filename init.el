@@ -94,8 +94,6 @@
 
 (add-to-list 'display-buffer-alist '("\\*Buffer List\\*" nil (body-function . select-window)))
 
-(global-completion-preview-mode 1)
-
 (setq completion-styles '(basic partial-completion initials substring flex))
 (setq tab-always-indent 'complete)
 (setq completions-format 'one-column)
@@ -136,22 +134,6 @@
 
 (setq ls-lisp-dirs-first t)
 (setq ls-lisp-use-insert-directory-program nil)
-
-(setq org-agenda-show-log t)
-(setq org-log-done 'time)
-(setq org-log-into-drawer t)
-
-(setq org-goto-interface 'outline-path-completion)
-(setq org-goto-max-level 10)
-
-(setq org-export-with-sub-superscripts nil)
-(setq org-return-follows-link t)
-(setq org-startup-folded nil)
-(setq org-startup-indented t)
-(setq org-tags-column 0)
-(setq org-use-speed-commands t)
-
-(put 'org-todo-keyword-faces 'safe-local-variable #'stringp)
 
 (setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
 (setq tab-bar-select-tab-modifiers '(meta))
@@ -212,10 +194,6 @@
   (keymap-set flymake-mode-map "C-c e" #'flymake-show-project-diagnostics)
   (keymap-set flymake-mode-map "M-n" #'flymake-goto-next-error)
   (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error))
-
-(with-eval-after-load 'completion-preview
-  (keymap-set completion-preview-active-mode-map "M-n" #'completion-preview-next-candidate)
-  (keymap-set completion-preview-active-mode-map "M-p" #'completion-preview-prev-candidate))
 
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
