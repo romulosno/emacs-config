@@ -94,7 +94,11 @@
 
 (add-to-list 'display-buffer-alist '("\\*Buffer List\\*" nil (body-function . select-window)))
 
-(setq completion-styles '(basic partial-completion initials substring flex))
+(setq completion-styles '(basic partial-completion substring))
+(setq completion-category-overrides
+      '((file (styles . (basic partial-completion substring flex)))
+        (project-file (styles . (basic flex initials)))))
+
 (setq tab-always-indent 'complete)
 (setq completions-format 'one-column)
 (setq completions-max-height 20)
