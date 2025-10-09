@@ -4,7 +4,7 @@
 			 ("melpa" . "https://melpa.org/packages/")))
 
 (let ((package-list
-       '(auto-dark
+       '(ace-window
 	 dockerfile-mode
 	 exec-path-from-shell
 	 groovy-mode
@@ -16,9 +16,7 @@
     (unless (package-installed-p p)
       (package-install p))))
 
-(setq custom-safe-themes t)
-(setq auto-dark-themes '((rom-night) (rom-day)))
-(auto-dark-mode 1)
+(load-theme 'rom-day t)
 
 (setq initial-major-mode 'fundamental-mode
       inhibit-startup-screen t
@@ -112,12 +110,7 @@
 (setq abbrev-file-name (expand-file-name "abbrev_defs" user-emacs-directory))
 
 (setq savehist-additional-variables
-      '(kill-ring
-	register-alist
-	mark-ring
-	global-mark-ring
-	search-ring
-	regexp-search-ring))
+      '(kill-ring register-alist mark-ring global-mark-ring search-ring	regexp-search-ring))
 (savehist-mode 1)
 
 (setq save-place-file (expand-file-name "save-place" user-emacs-directory))
@@ -174,6 +167,7 @@
 (keymap-global-set "<remap> <downcase-word>" #'downcase-dwim)
 (keymap-global-set "<remap> <upcase-word>" #'upcase-dwim)
 
+(keymap-global-set "M-o" #'ace-window)
 (keymap-global-set "C-c a" #'org-agenda)
 (keymap-global-set "C-c f" #'find-name-dired)
 (keymap-global-set "C-c o" #'find-file-existing)
