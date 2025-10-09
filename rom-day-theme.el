@@ -32,7 +32,7 @@
  '(highlight ((t (:background "#c2cbd3"))))
  '(isearch ((t (:foreground "#b0e2ff" :background "#4682b4"))))
  '(minibuffer-prompt ((t (:foreground "#171f34"))))
- '(mode-line ((t (:foreground "#000000" :background "#b2c9d6"))))
+ '(mode-line ((t (:foreground "#000000" :background "#bfbfbf" :box "#a6a6a6"))))
  '(region ((t (:background "#cccccc"))))
  '(secondary-selection ((t (:background "#cad8db"))))
  '(success ((t :foreground "#1c6625")))
