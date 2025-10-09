@@ -36,8 +36,8 @@
  '(region ((t (:background "#cccccc"))))
  '(secondary-selection ((t (:background "#cad8db"))))
  '(success ((t :foreground "#1c6625")))
- '(tab-bar ((t (:foreground "#000000" :background "#c5d7e0"))))
- '(tab-bar-tab ((t (:foreground "#000000" :background "#dfe8ed"))))
+ '(tab-bar ((t (:foreground "#000000" :background "#c5c5c5"))))
+ '(tab-bar-tab ((t (:foreground "#000000" :background "#e5e5e5"))))
  '(tab-bar-tab-inactive ((t (:inherit tab-bar :italic t))))
  '(warning ((t (:foreground "#805801")))))
 
