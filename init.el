@@ -1,28 +1,12 @@
 ;;; init.el --- Emacs config -*- lexical-binding: t; -*-
-
-(setq gc-cons-threshold 102400000)
-(setq gc-cons-percentage 0.4)
-
-(setq package-archives '(("gnu"    . "https://elpa.gnu.org/packages/")
-			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-			 ("melpa"  . "https://melpa.org/packages/")))
-(let ((package-list
-       '(dockerfile-mode
-         exec-path-from-shell
-         go-mode
-         kotlin-mode
-         yaml-mode
-         markdown-mode)))
-  (dolist (p package-list)
-    (unless (package-installed-p p)
-      (package-install p))))
-
 (setq initial-major-mode 'fundamental-mode)
 (setq inhibit-startup-screen t)
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
+(setq read-process-output-max (* 3 1024 1024))
+(setq use-short-answers t)
 
-(add-hook 'after-init-hook #'exec-path-from-shell-initialize)
+(load-theme 'rom-day t)
 
 ;; Files / Backup / Autosave
 (setq backup-by-copying t)
@@ -35,35 +19,6 @@
 (setq tramp-auto-save-directory (expand-file-name "tramp-auto-save/" user-emacs-directory))
 (setq save-place-file (expand-file-name "save-place" user-emacs-directory))
 (save-place-mode 1)
-
-(setq read-process-output-max (* 3 1024 1024))
-(setq use-short-answers t)
-
-;; UI
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(tooltip-mode -1)
-
-(defun set-font (frame)
-  (let ((font-name "Hermit"))
-    (when (find-font (font-spec :name font-name))
-      (with-selected-frame frame
-	(set-frame-font font-name)))))
-
-(set-font (selected-frame))
-(add-to-list 'after-make-frame-functions #'set-font t)
-
-(setq-default truncate-lines t)
-
-(setq window-divider-default-bottom-width 0)
-(setq window-divider-default-places t)
-(setq window-divider-default-right-width 1)
-(window-divider-mode 1)
-
-(setq hscroll-margin 2)
-(setq hscroll-step 1)
-
-(load-theme 'rom-day t)
 
 ;; Prog
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
@@ -79,7 +34,7 @@
 
 (setq eglot-autoshutdown t)
 (setq eglot-sync-connect nil)
-(setq eglot-events-buffer-config '(:size 0)))
+(setq eglot-events-buffer-config '(:size 0))
 
 (with-eval-after-load 'eglot
   (keymap-set eglot-mode-map "C-c c r" #'eglot-rename)
@@ -93,7 +48,6 @@
 
 ;; Completions
 (completion-preview-mode 1)
-
 (setq completion-styles '(basic partial-completion substring))
 (setq tab-always-indent 'complete)
 (setq completions-format 'one-column)
@@ -110,7 +64,8 @@
 ;; Minibuffer
 (setq enable-recursive-minibuffers t)
 (setq read-minibuffer-restore-windows nil)
-(setq minibuffer-prompt-properties '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
+(setq minibuffer-prompt-properties
+      '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
 
 (set-window-scroll-bars (minibuffer-window) nil nil nil nil 1)
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
