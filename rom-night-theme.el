@@ -1,15 +1,15 @@
 ;;; rom-night-theme.el --- rom-night
-(deftheme rom-night)
-
-(custom-theme-set-variables
- 'rom-night
- '(frame-background-mode 'dark))
+(deftheme rom-night
+  "Dark theme."
+  :kind 'color-scheme
+  :family 'rom
+  :background-mode 'dark)
 
 (custom-theme-set-faces
  'rom-night
- '(default ((t (:foreground "#edece8" :background "#030e20"))))
- '(cursor ((t (:background "#2f7e90"))))
- '(fringe ((t (:background "#030c1c"))))
+ '(default ((t (:foreground "#edece8" :background "#051330"))))
+ '(cursor ((t (:background "#f7caa6"))))
+ '(fringe ((t (:background "#030e24"))))
  '(mode-line ((t (:foreground "#edece8" :background "#363f4f" :box "#5c6378"))))
  '(region ((t (:background "#474747"))))
  '(secondary-selection ((t (:background "#3e3834"))))

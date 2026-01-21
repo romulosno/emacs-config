@@ -1,10 +1,10 @@
 ;;; rom-day-theme.el --- rom-day
 
-(deftheme rom-day)
-
-(custom-theme-set-variables
- 'rom-day
- '(frame-background-mode 'light))
+(deftheme rom-day
+  "Light theme."
+  :kind 'color-scheme
+  :family 'rom
+  :background-mode 'light)
 
 (custom-theme-set-faces
  'rom-day

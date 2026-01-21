@@ -7,6 +7,9 @@
 (setq use-short-answers t)
 
 (load-theme 'rom-day t)
+(load-theme 'rom-night t t)
+
+(setq-default truncate-lines t)
 
 ;; Files / Backup / Autosave
 (setq backup-by-copying t)
@@ -83,6 +86,7 @@
 (setq dired-vc-rename-file t)
 (setq ls-lisp-dirs-first t)
 (setq ls-lisp-use-insert-directory-program nil)
+(setq delete-by-moving-to-trash t)
 
 ;; Version Control
 (setq vc-git-show-stash 0)
@@ -110,7 +114,9 @@
 (keymap-global-set "C-z" #'repeat)
 (keymap-global-set "C-c m" #'point-to-register)
 (keymap-global-set "C-c '" #'jump-to-register)
+
 (keymap-set Buffer-menu-mode-map "q" #'kill-buffer-and-window)
+(keymap-set completion-in-region-mode-map "C-<return>" #'switch-to-completions)
 
 ;; Custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
