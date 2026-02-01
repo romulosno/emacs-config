@@ -6,10 +6,7 @@
 (setq read-process-output-max (* 3 1024 1024))
 (setq use-short-answers t)
 
-(load-theme 'rom-day t)
-(load-theme 'rom-night t t)
-
-(setq-default truncate-lines t)
+(load-theme 'modus-operandi t)
 
 ;; Files / Backup / Autosave
 (setq backup-by-copying t)
@@ -18,9 +15,9 @@
 (setq backup-directory-alist `((,tramp-file-name-regexp . ,temporary-file-directory)
 			       ("." . ,(locate-user-emacs-file "backups"))))
 
-(setq auto-save-list-file-prefix (expand-file-name "auto-save/" user-emacs-directory))
+(setq auto-save-file-name-transforms `((".*" ,(expand-file-name "auto-save/" user-emacs-directory))))
 (setq tramp-auto-save-directory (expand-file-name "tramp-auto-save/" user-emacs-directory))
-(setq save-place-file (expand-file-name "save-place" user-emacs-directory))
+
 (save-place-mode 1)
 
 ;; Prog
@@ -49,8 +46,9 @@
   (keymap-set flymake-mode-map "M-n" #'flymake-goto-next-error)
   (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error))
 
+(add-hook 'c-mode-hook (lambda () (setq font-lock-maximum-decoration 2)))
+
 ;; Completions
-(completion-preview-mode 1)
 (setq completion-styles '(basic partial-completion substring))
 (setq tab-always-indent 'complete)
 (setq completions-format 'one-column)
@@ -70,7 +68,6 @@
 (setq minibuffer-prompt-properties
       '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
 
-(set-window-scroll-bars (minibuffer-window) nil nil nil nil 1)
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 (minibuffer-depth-indicate-mode 1)
 (savehist-mode 1)
@@ -79,6 +76,7 @@
 (require 'dired-aux)
 (require 'dired-x)
 
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
 (setq dired-kill-when-opening-new-dired-buffer t)
 (setq dired-create-destination-dirs 'ask)
 (setq dired-recursive-copies 'always)
@@ -110,10 +108,10 @@
 (keymap-global-set "C-c h" #'hl-line-mode)
 (keymap-global-set "C-c k" #'kill-current-buffer)
 (keymap-global-set "C-c l" #'org-store-link)
-(keymap-global-set "<f5>" #'compile)
-(keymap-global-set "C-z" #'repeat)
 (keymap-global-set "C-c m" #'point-to-register)
 (keymap-global-set "C-c '" #'jump-to-register)
+(keymap-global-set "<f5>" #'compile)
+(keymap-global-set "C-z" #'repeat)
 
 (keymap-set Buffer-menu-mode-map "q" #'kill-buffer-and-window)
 (keymap-set completion-in-region-mode-map "C-<return>" #'switch-to-completions)
