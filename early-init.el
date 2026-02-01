@@ -6,4 +6,5 @@
 (tooltip-mode -1)
 (scroll-bar-mode -1)
 
-(setq default-frame-alist '((font . "Adwaita Mono-11")))
+(setq default-frame-alist '((font . "Commit Mono-11")
+			    (width . 120)))

@@ -6,7 +6,7 @@
 (setq read-process-output-max (* 3 1024 1024))
 (setq use-short-answers t)
 
-(load-theme 'modus-operandi t)
+(load-theme 'rom-day t)
 
 ;; Files / Backup / Autosave
 (setq backup-by-copying t)
@@ -93,6 +93,17 @@
 (setq ediff-keep-variants nil)
 (setq smerge-command-prefix "\e")
 (setq diff-default-read-only t)
+
+(defun multi-occur-match-in-all-buffers ()
+  (interactive)
+  (let ((current-prefix-arg '(4)))
+    (call-interactively #'multi-occur-in-matching-buffers)))
+
+(defun delete-multi-empty-lines ()
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (replace-regexp "\n\\{2,\\}" "\n\n")))
 
 ;; Keymaps
 (keymap-global-set "<remap> <count-words-region>" #'count-words)
