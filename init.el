@@ -1,4 +1,7 @@
 ;;; init.el --- Emacs config -*- lexical-binding: t; -*-
+(when (find-font (font-spec :name "Hack"))
+  (add-to-list 'default-frame-alist '(font . "Hack-11")))
+
 (setq initial-major-mode 'fundamental-mode)
 (setq inhibit-startup-screen t)
 (setq inhibit-splash-screen t)
@@ -51,7 +54,7 @@
 ;; Completions
 (setq completion-styles '(basic partial-completion substring))
 (setq tab-always-indent 'complete)
-(setq completions-format 'one-column)
+(setq completions-format 'vertical)
 (setq completions-max-height 20)
 (setq completion-show-help nil)
 (setq completions-header-format nil)
