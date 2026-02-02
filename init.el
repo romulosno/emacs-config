@@ -1,15 +1,74 @@
 ;;; init.el --- Emacs config -*- lexical-binding: t; -*-
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+			 ("melpa" . "https://melpa.org/packages/")))
+
+;; UI
 (when (find-font (font-spec :name "Hack"))
   (add-to-list 'default-frame-alist '(font . "Hack-11")))
 
+(load-theme 'rom-day t)
+(load-theme 'rom-night t t)
+
+(add-to-list 'display-buffer-alist '("\\*Buffer List\\*" nil (body-function . select-window)))
+
+(defun center-frame (frame)
+  (let* ((display (frame-parameter frame 'display))
+         (display-width (display-pixel-width display))
+         (display-height (display-pixel-height display))
+         (frame-width (frame-pixel-width frame))
+         (frame-height (frame-pixel-height frame))
+         (x (/ (- display-width  frame-width) 2))
+         (y (/ (- display-height frame-height) 2)))
+    (set-frame-position frame x y)))
+
+(center-frame (selected-frame))
+(add-to-list 'after-make-frame-functions #'center-frame t)
+
+;; Init screen
 (setq initial-major-mode 'fundamental-mode)
 (setq inhibit-startup-screen t)
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
-(setq read-process-output-max (* 3 1024 1024))
-(setq use-short-answers t)
 
-(load-theme 'rom-day t)
+;; Mode line
+(setq-default mode-line-format
+              '("%e"
+                mode-line-front-space
+                (:propertize ("" mode-line-mule-info mode-line-modified)
+			     display (min-width (6.0)))
+                " " mode-line-buffer-identification
+                " " mode-line-modes
+                mode-line-format-right-align
+                (project-mode-line project-mode-line-format)
+                (vc-mode vc-mode)
+                "  "
+                mode-line-misc-info
+                "[L:%l/C:%c] "
+                mode-line-percent-position " "
+                mode-line-end-spaces))
+
+;; Pulse line
+(defun pulse-line (&rest _)
+  (pulse-momentary-highlight-one-line (point)))
+
+(dolist (command '(scroll-up-command
+                   scroll-down-command
+                   recenter-top-bottom
+                   other-window))
+  (advice-add command :after #'pulse-line))
+
+;; Misc
+(setq frame-resize-pixelwise t)
+(setq echo-keystrokes 0.02)
+(setq use-short-answers t)
+(setq kill-whole-line t)
+(setq view-read-only t)
+(setq ring-bell-function 'ignore)
+(setq confirm-nonexistent-file-or-buffer nil)
+(setq sentence-end-double-space nil)
+(setq uniquify-buffer-name-style 'forward)
+(setq delete-by-moving-to-trash t)
 
 ;; Files / Backup / Autosave
 (setq backup-by-copying t)
@@ -22,6 +81,29 @@
 (setq tramp-auto-save-directory (expand-file-name "tramp-auto-save/" user-emacs-directory))
 
 (save-place-mode 1)
+
+;; Isearch
+(setq isearch-lazy-count t)
+(setq isearch-allow-scroll t)
+(setq isearch-yank-on-move 'shift)
+(setq isearch-lazy-highlight 'all-windows)
+
+;; Imenu
+(setq imenu-flatten 'prefix)
+(setq imenu-auto-rescan t)
+
+;; Scroll
+(setq scroll-preserve-screen-position t)
+(setq fast-but-imprecise-scrolling t)
+
+(setq hscroll-margin 2)
+(setq hscroll-step 1)
+
+;; Window divider
+(setq window-divider-default-bottom-width 0)
+(setq window-divider-default-places t)
+(setq window-divider-default-right-width 1)
+(window-divider-mode 1)
 
 ;; Prog
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
@@ -38,6 +120,7 @@
 (setq eglot-autoshutdown t)
 (setq eglot-sync-connect nil)
 (setq eglot-events-buffer-config '(:size 0))
+(setq read-process-output-max (* 3 1024 1024))
 
 (with-eval-after-load 'eglot
   (keymap-set eglot-mode-map "C-c c r" #'eglot-rename)
@@ -52,16 +135,18 @@
 (add-hook 'c-mode-hook (lambda () (setq font-lock-maximum-decoration 2)))
 
 ;; Completions
+(global-completion-preview-mode 1)
 (setq completion-styles '(basic partial-completion substring))
 (setq tab-always-indent 'complete)
+(setq dabbrev-case-fold-search nil)
 (setq completions-format 'vertical)
 (setq completions-max-height 20)
 (setq completion-show-help nil)
-(setq completions-header-format nil)
 (setq completion-category-overrides
       '((file         (styles . (basic partial-completion substring flex)))
         (project-file (styles . (basic flex initials)))))
 
+;; Repeat
 (setq repeat-exit-key "RET")
 (repeat-mode 1)
 
@@ -73,29 +158,57 @@
 
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 (minibuffer-depth-indicate-mode 1)
+
+;; Savehist
+(setq savehist-additional-variables
+      '(kill-ring register-alist mark-ring global-mark-ring search-ring	regexp-search-ring))
 (savehist-mode 1)
+
+;; Eval expression
+(setq eval-expression-print-level nil)
+(setq eval-expression-print-length nil)
 
 ;; Dired
 (require 'dired-aux)
 (require 'dired-x)
 
 (add-hook 'dired-mode-hook #'dired-hide-details-mode)
+
 (setq dired-kill-when-opening-new-dired-buffer t)
 (setq dired-create-destination-dirs 'ask)
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 (setq dired-vc-rename-file t)
+
 (setq ls-lisp-dirs-first t)
 (setq ls-lisp-use-insert-directory-program nil)
-(setq delete-by-moving-to-trash t)
+
+;; Symlinks
+(setq find-file-visit-truename t)
+(setq vc-follow-symlinks t)
 
 ;; Version Control
 (setq vc-git-show-stash 0)
 (setq vc-git-print-log-follow t)
+(setq vc-handled-backends '(Git))
+
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-keep-variants nil)
-(setq smerge-command-prefix "\e")
 (setq diff-default-read-only t)
+(setq smerge-command-prefix "\e")
+
+;; Tab bar
+(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
+(setq tab-bar-select-tab-modifiers '(meta))
+
+(require 'tab-bar)
+
+(defun maybe-disable-tab-bar (&rest _)
+  (when (= (length (tab-bar-tabs)) 2) 	;tab-bar eh bugado, num de tabs -1
+    (tab-bar-mode -1)))
+(setq tab-bar-tab-post-select-functions'(maybe-disable-tab-bar))
+
+;; Utils functions
 
 (defun multi-occur-match-in-all-buffers ()
   (interactive)
@@ -129,6 +242,9 @@
 
 (keymap-set Buffer-menu-mode-map "q" #'kill-buffer-and-window)
 (keymap-set completion-in-region-mode-map "C-<return>" #'switch-to-completions)
+
+(with-eval-after-load 'org
+  (keymap-set org-mode-map "C-M-<return>" #'org-insert-subheading))
 
 ;; Custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
