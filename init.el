@@ -12,19 +12,6 @@
 
 (add-to-list 'display-buffer-alist '("\\*Buffer List\\*" nil (body-function . select-window)))
 
-(defun center-frame (frame)
-  (let* ((display (frame-parameter frame 'display))
-         (display-width (display-pixel-width display))
-         (display-height (display-pixel-height display))
-         (frame-width (frame-pixel-width frame))
-         (frame-height (frame-pixel-height frame))
-         (x (/ (- display-width  frame-width) 2))
-         (y (/ (- display-height frame-height) 2)))
-    (set-frame-position frame x y)))
-
-(center-frame (selected-frame))
-(add-to-list 'after-make-frame-functions #'center-frame t)
-
 ;; Init screen
 (setq initial-major-mode 'fundamental-mode)
 (setq inhibit-startup-screen t)
