@@ -122,7 +122,6 @@
 (add-hook 'c-mode-hook (lambda () (setq font-lock-maximum-decoration 2)))
 
 ;; Completions
-(global-completion-preview-mode 1)
 (setq completion-styles '(basic partial-completion substring))
 (setq tab-always-indent 'complete)
 (setq dabbrev-case-fold-search nil)
@@ -183,6 +182,11 @@
 (setq ediff-keep-variants nil)
 (setq diff-default-read-only t)
 (setq smerge-command-prefix "\e")
+
+;; Org
+(setq org-log-into-drawer t)
+(setq org-hide-emphasis-markers t)
+(setq org-return-follows-link t)
 
 ;; Tab bar
 (setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)

@@ -6,7 +6,6 @@
 (tooltip-mode -1)
 (scroll-bar-mode -1)
 
-(setq default-frame-alist '((height . 35)
-			    (width . 120)
+(setq default-frame-alist '((fullscreen . maximized)
 			    (vertical-scroll-bars . nil)
 			    (horizontal-scroll-bars . nil)))
