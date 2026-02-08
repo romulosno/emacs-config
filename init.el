@@ -4,8 +4,8 @@
 			 ("melpa" . "https://melpa.org/packages/")))
 
 ;; UI
-(when (find-font (font-spec :name "Input Mono")) 
-  (add-to-list 'default-frame-alist '(font . "Input Mono-11")))
+(when (find-font (font-spec :name "Rec Mono Linear")) 
+  (add-to-list 'default-frame-alist '(font . "Rec Mono Linear-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
@@ -190,6 +190,7 @@
 (setq smerge-command-prefix "\e")
 
 ;; Org
+(setq org-use-speed-commands t)
 (setq org-log-into-drawer t)
 (setq org-hide-emphasis-markers t)
 (setq org-return-follows-link t)
