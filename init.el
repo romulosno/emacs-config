@@ -4,8 +4,8 @@
 			 ("melpa" . "https://melpa.org/packages/")))
 
 ;; UI
-(when (find-font (font-spec :name "Hack"))
-  (add-to-list 'default-frame-alist '(font . "Hack-11")))
+(when (find-font (font-spec :name "Input Mono")) 
+  (add-to-list 'default-frame-alist '(font . "Input Mono-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
@@ -92,6 +92,12 @@
 (setq window-divider-default-right-width 1)
 (window-divider-mode 1)
 
+;; JIT
+(setq jit-lock-defer-time 0.1)
+(setq jit-lock-chunk-size 3500)
+(setq jit-lock-stealth-time 0.5)
+(setq font-lock-maximum-decoration '((c-mode . 2) (c++-mode . 2) (t . t)))
+
 ;; Prog
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
@@ -118,8 +124,6 @@
   (keymap-set flymake-mode-map "C-c e" #'flymake-show-project-diagnostics)
   (keymap-set flymake-mode-map "M-n" #'flymake-goto-next-error)
   (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error))
-
-(add-hook 'c-mode-hook (lambda () (setq font-lock-maximum-decoration 2)))
 
 ;; Completions
 (setq completion-styles '(basic partial-completion substring))
