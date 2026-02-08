@@ -95,7 +95,7 @@
 ;; JIT
 (when (> (buffer-size) (* 2 1024 1024))
   (setq-local jit-lock-defer-time 0.1)
-  (setq-local jit-lock-stealth-time 0.5))
+  (setq-local jit-lock-stealth-time 0.1))
 
 (setq jit-lock-chunk-size 3500)
 (setq font-lock-maximum-decoration '((c-mode . 2) (c++-mode . 2) (t . t)))
