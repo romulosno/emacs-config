@@ -93,9 +93,11 @@
 (window-divider-mode 1)
 
 ;; JIT
-(setq jit-lock-defer-time 0.1)
+(when (> (buffer-size) (* 2 1024 1024))
+  (setq-local jit-lock-defer-time 0.1)
+  (setq-local jit-lock-stealth-time 0.5))
+
 (setq jit-lock-chunk-size 3500)
-(setq jit-lock-stealth-time 0.5)
 (setq font-lock-maximum-decoration '((c-mode . 2) (c++-mode . 2) (t . t)))
 
 ;; Prog
