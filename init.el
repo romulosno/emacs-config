@@ -1,16 +1,17 @@
 ;;; init.el --- Emacs config -*- lexical-binding: t; -*-
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-			 ("melpa" . "https://melpa.org/packages/")))
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+                         ("melpa" . "https://melpa.org/packages/")))
 
 ;; UI
-(when (find-font (font-spec :name "Rec Mono Linear")) 
-  (add-to-list 'default-frame-alist '(font . "Rec Mono Linear-11")))
+(when (find-font (font-spec :name "Hermit"))
+  (add-to-list 'default-frame-alist '(font . "Hermit-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
 
-(add-to-list 'display-buffer-alist '("\\*Buffer List\\*" nil (body-function . select-window)))
+(add-to-list 'display-buffer-alist
+             '("\\*Buffer List\\*" nil (body-function . select-window)))
 
 ;; Init screen
 (setq initial-major-mode 'fundamental-mode)
@@ -23,7 +24,7 @@
               '("%e"
                 mode-line-front-space
                 (:propertize ("" mode-line-mule-info mode-line-modified)
-			     display (min-width (6.0)))
+                             display (min-width (6.0)))
                 " " mode-line-buffer-identification
                 " " mode-line-modes
                 mode-line-format-right-align
@@ -45,8 +46,17 @@
                    other-window))
   (advice-add command :after #'pulse-line))
 
+;; Indentation
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq c-basic-offset 2)
+(setq js-indent-level 2)
+
+
 ;; Misc
 (setq frame-resize-pixelwise t)
+(setq frame-inhibit-implied-resize t)
+
 (setq echo-keystrokes 0.02)
 (setq use-short-answers t)
 (setq kill-whole-line t)
@@ -56,16 +66,20 @@
 (setq sentence-end-double-space nil)
 (setq uniquify-buffer-name-style 'forward)
 (setq delete-by-moving-to-trash t)
+(setq save-interprogram-paste-before-kill t)
+(setq require-final-newline t)
 
 ;; Files / Backup / Autosave
 (setq backup-by-copying t)
 (setq delete-old-versions t)
 (setq version-control t)
-(setq backup-directory-alist `((,tramp-file-name-regexp . ,temporary-file-directory)
-			       ("." . ,(locate-user-emacs-file "backups"))))
-
-(setq auto-save-file-name-transforms `((".*" ,(expand-file-name "auto-save/" user-emacs-directory))))
-(setq tramp-auto-save-directory (expand-file-name "tramp-auto-save/" user-emacs-directory))
+(setq backup-directory-alist
+      `((,tramp-file-name-regexp . ,temporary-file-directory)
+        ("." . ,(locate-user-emacs-file "backups"))))
+(setq auto-save-file-name-transforms
+      `((".*" ,(expand-file-name "auto-save/" user-emacs-directory))))
+(setq tramp-auto-save-directory
+      (expand-file-name "tramp-auto-save/" user-emacs-directory))
 
 (save-place-mode 1)
 
@@ -82,6 +96,7 @@
 ;; Scroll
 (setq scroll-preserve-screen-position t)
 (setq fast-but-imprecise-scrolling t)
+(setq scroll-conservatively 1)
 
 (setq hscroll-margin 2)
 (setq hscroll-step 1)
@@ -103,6 +118,8 @@
 ;; Prog
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
+
+(setq tags-revert-without-query t)
 
 (setq compilation-ask-about-save nil)
 (setq compilation-max-output-line-length nil)
@@ -128,15 +145,21 @@
   (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error))
 
 ;; Completions
-(setq completion-styles '(basic partial-completion substring))
+(setq completion-styles '(basic substring partial-completion))
 (setq tab-always-indent 'complete)
 (setq dabbrev-case-fold-search nil)
 (setq completions-format 'vertical)
 (setq completions-max-height 20)
 (setq completion-show-help nil)
 (setq completion-category-overrides
-      '((file         (styles . (basic partial-completion substring flex)))
+      '((file         (styles . (basic substring partial-completion flex)))
         (project-file (styles . (basic flex initials)))))
+
+(setq completion-ignore-case t)
+(setq read-file-name-completion-ignore-case t)
+(setq read-buffer-completion-ignore-case t)
+
+(add-to-list 'completion-ignored-extensions ".exe")
 
 ;; Repeat
 (setq repeat-exit-key "RET")
@@ -152,8 +175,12 @@
 (minibuffer-depth-indicate-mode 1)
 
 ;; Savehist
-(setq savehist-additional-variables
-      '(kill-ring register-alist mark-ring global-mark-ring search-ring	regexp-search-ring))
+(setq savehist-additional-variables '(kill-ring
+                                      register-alist
+                                      mark-ring
+                                      global-mark-ring
+                                      search-ring
+                                      regexp-search-ring))
 (savehist-mode 1)
 
 ;; Eval expression
@@ -224,6 +251,13 @@
 (keymap-global-set "<remap> <capitalize-word>" #'capitalize-dwim)
 (keymap-global-set "<remap> <downcase-word>" #'downcase-dwim)
 (keymap-global-set "<remap> <upcase-word>" #'upcase-dwim)
+(keymap-global-set "<remap> <zap-to-char>" #'zap-up-to-char)
+
+(keymap-global-set "C-s" #'isearch-forward-regexp)
+(keymap-global-set "C-r" #'isearch-backward-regexp)
+(keymap-global-set "C-M-s" #'isearch-forward)
+(keymap-global-set "C-M-r" #'isearch-backward)
+
 (keymap-global-set "M-o" #'other-window)
 (keymap-global-set "C-c t" #'transpose-regions)
 (keymap-global-set "C-c a" #'org-agenda)
@@ -247,5 +281,7 @@
 ;; Custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
+
+(eshell)
 
 ;;; init.el ends here
