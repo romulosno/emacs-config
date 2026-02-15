@@ -37,7 +37,7 @@
  '(org-date ((t (:foreground "#3b3b3b" :underline t))))
  '(org-done ((t (:foreground "#6b8e23" :weight bold))))
  '(org-headline-done ((t (:foreground "#042b75"))))
- '(org-level-1 ((t (:extend nil :foreground "#02112fp" :bold t))))
+ '(org-level-1 ((t (:extend nil :foreground "#02112f" :bold t))))
  '(org-level-2 ((t (:extend nil :foreground "#02163b" :bold t))))
  '(org-level-3 ((t (:extend nil :foreground "#031e52" :bold t))))
  '(org-level-4 ((t (:extend nil :foreground "#03225e" :bold t))))
