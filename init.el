@@ -4,8 +4,8 @@
                          ("melpa" . "https://melpa.org/packages/")))
 
 ;; UI
-(when (find-font (font-spec :name "Hermit"))
-  (add-to-list 'default-frame-alist '(font . "Hermit-11")))
+(when (find-font (font-spec :name "Hack"))
+  (add-to-list 'default-frame-alist '(font . "Hack-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
@@ -246,6 +246,12 @@
     (goto-char (point-min))
     (replace-regexp "\n\\{2,\\}" "\n\n")))
 
+;; Outline
+(add-to-list 'load-path (locate-user-emacs-file "lisp"))
+(require 'outline-imenu-sync)
+
+(global-outline-imenu-sync-mode 1)
+
 ;; Keymaps
 (keymap-global-set "<remap> <count-words-region>" #'count-words)
 (keymap-global-set "<remap> <capitalize-word>" #'capitalize-dwim)
@@ -281,7 +287,5 @@
 ;; Custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
-
-(eshell)
 
 ;;; init.el ends here
