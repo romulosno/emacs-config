@@ -36,16 +36,6 @@
                 mode-line-percent-position " "
                 mode-line-end-spaces))
 
-;; Pulse line
-(defun pulse-line (&rest _)
-  (pulse-momentary-highlight-one-line (point)))
-
-(dolist (command '(scroll-up-command
-                   scroll-down-command
-                   recenter-top-bottom
-                   other-window))
-  (advice-add command :after #'pulse-line))
-
 ;; Indentation
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -145,14 +135,14 @@
   (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error))
 
 ;; Completions
-(setq completion-styles '(basic substring partial-completion))
+(setq completion-styles '(basic partial-completion substring))
 (setq tab-always-indent 'complete)
 (setq dabbrev-case-fold-search nil)
 (setq completions-format 'vertical)
 (setq completions-max-height 20)
 (setq completion-show-help nil)
 (setq completion-category-overrides
-      '((file         (styles . (basic substring partial-completion flex)))
+      '((file         (styles . (basic partial-completion substring flex)))
         (project-file (styles . (basic flex initials)))))
 
 (setq completion-ignore-case t)
@@ -258,11 +248,6 @@
 (keymap-global-set "<remap> <downcase-word>" #'downcase-dwim)
 (keymap-global-set "<remap> <upcase-word>" #'upcase-dwim)
 (keymap-global-set "<remap> <zap-to-char>" #'zap-up-to-char)
-
-(keymap-global-set "C-s" #'isearch-forward-regexp)
-(keymap-global-set "C-r" #'isearch-backward-regexp)
-(keymap-global-set "C-M-s" #'isearch-forward)
-(keymap-global-set "C-M-r" #'isearch-backward)
 
 (keymap-global-set "M-o" #'other-window)
 (keymap-global-set "C-c t" #'transpose-regions)
