@@ -74,6 +74,7 @@
 (setq isearch-allow-scroll t)
 (setq isearch-yank-on-move 'shift)
 (setq isearch-lazy-highlight 'all-windows)
+(setq search-upper-case t)
 
 ;; Imenu
 (setq imenu-flatten 'prefix)
@@ -233,13 +234,7 @@
 ;; Tab bar
 (setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
 (setq tab-bar-select-tab-modifiers '(meta))
-
-(require 'tab-bar)
-
-(defun maybe-disable-tab-bar (&rest _)
-  (when (= (length (tab-bar-tabs)) 2) 	;tab-bar eh bugado, num de tabs -1
-    (tab-bar-mode -1)))
-(setq tab-bar-tab-post-select-functions'(maybe-disable-tab-bar))
+(setq tab-bar-show 1)
 
 ;; Empty lines
 (defun delete-multi-empty-lines ()
