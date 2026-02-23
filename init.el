@@ -4,8 +4,8 @@
                          ("melpa" . "https://melpa.org/packages/")))
 
 ;; UI
-(when (find-font (font-spec :name "Hack"))
-  (add-to-list 'default-frame-alist '(font . "Hack-11")))
+(when (find-font (font-spec :name "Adwaita Mono"))
+  (add-to-list 'default-frame-alist '(font . "Adwaita Mono-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
@@ -41,7 +41,6 @@
 (setq-default tab-width 4)
 (setq c-basic-offset 2)
 (setq js-indent-level 2)
-
 
 ;; Misc
 (setq frame-resize-pixelwise t)
@@ -137,17 +136,12 @@
 ;; Completions
 (setq completion-styles '(basic partial-completion substring))
 (setq tab-always-indent 'complete)
-(setq dabbrev-case-fold-search nil)
 (setq completions-format 'vertical)
 (setq completions-max-height 20)
 (setq completion-show-help nil)
 (setq completion-category-overrides
       '((file         (styles . (basic partial-completion substring flex)))
         (project-file (styles . (basic flex initials)))))
-
-(setq completion-ignore-case t)
-(setq read-file-name-completion-ignore-case t)
-(setq read-buffer-completion-ignore-case t)
 
 (add-to-list 'completion-ignored-extensions ".exe")
 
