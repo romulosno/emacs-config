@@ -10,9 +10,6 @@
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
 
-(add-to-list 'display-buffer-alist
-             '("\\*Buffer List\\*" nil (body-function . select-window)))
-
 ;; Init screen
 (setq initial-major-mode 'fundamental-mode)
 (setq inhibit-startup-screen t)
@@ -96,6 +93,12 @@
 (setq window-divider-default-right-width 1)
 (window-divider-mode 1)
 
+;; Buffer menu
+(add-to-list 'display-buffer-alist
+             '("\\*Buffer List\\*" nil (body-function . select-window)))
+
+(keymap-set Buffer-menu-mode-map "q" #'kill-buffer-and-window)
+
 ;; JIT
 (when (> (buffer-size) (* 2 1024 1024))
   (setq-local jit-lock-defer-time 0.1)
@@ -114,6 +117,7 @@
 (setq compilation-max-output-line-length nil)
 (setq compilation-scroll-output 'first-error)
 (setq compilation-auto-jump-to-first-error 'if-location-known)
+(keymap-global-set "<f5>" #'compile)
 
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 2)
@@ -140,10 +144,11 @@
 (setq completions-max-height 20)
 (setq completion-show-help nil)
 (setq completion-category-overrides
-      '((file         (styles . (basic partial-completion substring flex)))
-        (project-file (styles . (basic flex initials)))))
+      '((project-file (styles . (basic flex initials)))))
 
 (add-to-list 'completion-ignored-extensions ".exe")
+
+(keymap-set completion-in-region-mode-map "C-<return>" #'switch-to-completions)
 
 ;; Repeat
 (setq repeat-exit-key "RET")
@@ -186,6 +191,14 @@
 (setq ls-lisp-dirs-first t)
 (setq ls-lisp-use-insert-directory-program nil)
 
+(defun dired-goto-existing-file (filename)
+  (interactive (nbutlast (find-file-read-args "Find existing file: " t)))
+  (dired-goto-file (expand-file-name filename)))
+
+(keymap-set dired-mode-map "j" #'dired-goto-existing-file)
+(keymap-global-set "C-c n" #'find-name-dired)
+(keymap-global-set "C-c f" #'find-file-existing)
+
 ;; Symlinks
 (setq find-file-visit-truename t)
 (setq vc-follow-symlinks t)
@@ -206,6 +219,12 @@
 (setq org-hide-emphasis-markers t)
 (setq org-return-follows-link t)
 
+(keymap-global-set "C-c l" #'org-store-link)
+(keymap-global-set "C-c a" #'org-agenda)
+
+(with-eval-after-load 'org
+  (keymap-set org-mode-map "C-M-<return>" #'org-insert-subheading))
+
 ;; Tab bar
 (setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
 (setq tab-bar-select-tab-modifiers '(meta))
@@ -217,26 +236,14 @@
     (tab-bar-mode -1)))
 (setq tab-bar-tab-post-select-functions'(maybe-disable-tab-bar))
 
-;; Utils functions
-
-(defun multi-occur-match-in-all-buffers ()
-  (interactive)
-  (let ((current-prefix-arg '(4)))
-    (call-interactively #'multi-occur-in-matching-buffers)))
-
+;; Empty lines
 (defun delete-multi-empty-lines ()
   (interactive)
   (save-excursion
     (goto-char (point-min))
     (replace-regexp "\n\\{2,\\}" "\n\n")))
 
-;; Outline
-(add-to-list 'load-path (locate-user-emacs-file "lisp"))
-(require 'outline-imenu-sync)
-
-(global-outline-imenu-sync-mode 1)
-
-;; Keymaps
+;; Keybindings
 (keymap-global-set "<remap> <count-words-region>" #'count-words)
 (keymap-global-set "<remap> <capitalize-word>" #'capitalize-dwim)
 (keymap-global-set "<remap> <downcase-word>" #'downcase-dwim)
@@ -245,23 +252,11 @@
 
 (keymap-global-set "M-o" #'other-window)
 (keymap-global-set "C-c t" #'transpose-regions)
-(keymap-global-set "C-c a" #'org-agenda)
-(keymap-global-set "C-c n" #'find-name-dired)
-(keymap-global-set "C-c o" #'multi-occur-match-in-all-buffers)
-(keymap-global-set "C-c f" #'find-file-existing)
 (keymap-global-set "C-c h" #'hl-line-mode)
 (keymap-global-set "C-c k" #'kill-current-buffer)
-(keymap-global-set "C-c l" #'org-store-link)
 (keymap-global-set "C-c m" #'point-to-register)
 (keymap-global-set "C-c '" #'jump-to-register)
-(keymap-global-set "<f5>" #'compile)
 (keymap-global-set "C-z" #'repeat)
-
-(keymap-set Buffer-menu-mode-map "q" #'kill-buffer-and-window)
-(keymap-set completion-in-region-mode-map "C-<return>" #'switch-to-completions)
-
-(with-eval-after-load 'org
-  (keymap-set org-mode-map "C-M-<return>" #'org-insert-subheading))
 
 ;; Custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
