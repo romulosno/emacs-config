@@ -98,6 +98,7 @@
              '("\\*Buffer List\\*" nil (body-function . select-window)))
 
 (keymap-set Buffer-menu-mode-map "q" #'kill-buffer-and-window)
+(keymap-set Buffer-menu-mode-map "O" #'Buffer-menu-multi-occur)
 
 ;; JIT
 (when (> (buffer-size) (* 2 1024 1024))
