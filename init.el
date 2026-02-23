@@ -101,9 +101,12 @@
 (keymap-set Buffer-menu-mode-map "O" #'Buffer-menu-multi-occur)
 
 ;; JIT
-(when (> (buffer-size) (* 2 1024 1024))
+(defun optimize-large-files ()
+  (when (> (buffer-size) (* 2 1024 1024))
   (setq-local jit-lock-defer-time 0.1)
-  (setq-local jit-lock-stealth-time 0.1))
+  (setq-local jit-lock-stealth-time 0.1)))
+
+(add-hook 'find-file-hook #'optimize-large-files)
 
 (setq jit-lock-chunk-size 3500)
 (setq font-lock-maximum-decoration '((c-mode . 2) (c++-mode . 2) (t . t)))
@@ -127,6 +130,7 @@
 (setq eglot-sync-connect nil)
 (setq eglot-events-buffer-config '(:size 0))
 (setq read-process-output-max (* 3 1024 1024))
+(setq eglot-ignored-server-capabilities '(:hoverProvider :documentHighlightProvider))
 
 (with-eval-after-load 'eglot
   (keymap-set eglot-mode-map "C-c c r" #'eglot-rename)
