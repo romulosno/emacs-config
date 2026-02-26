@@ -34,7 +34,6 @@
                 mode-line-end-spaces))
 
 ;; Indentation
-(setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq c-basic-offset 2)
 (setq js-indent-level 2)
