@@ -97,8 +97,8 @@
 (add-to-list 'display-buffer-alist
              '("\\*Buffer List\\*" nil (body-function . select-window)))
 
-(keymap-set Buffer-menu-mode-map "q" #'kill-buffer-and-window)
-(keymap-set Buffer-menu-mode-map "O" #'Buffer-menu-multi-occur)
+(define-key Buffer-menu-mode-map (kbd "q") #'kill-buffer-and-window)
+(define-key Buffer-menu-mode-map (kbd "O") #'Buffer-menu-multi-occur)
 
 ;; JIT
 (defun optimize-large-files ()
@@ -121,7 +121,7 @@
 (setq compilation-max-output-line-length nil)
 (setq compilation-scroll-output 'first-error)
 (setq compilation-auto-jump-to-first-error 'if-location-known)
-(keymap-global-set "<f5>" #'compile)
+(global-set-key (kbd "<f5>") #'compile)
 
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 2)
@@ -133,14 +133,14 @@
 (setq eglot-ignored-server-capabilities '(:hoverProvider :documentHighlightProvider))
 
 (with-eval-after-load 'eglot
-  (keymap-set eglot-mode-map "C-c c r" #'eglot-rename)
-  (keymap-set eglot-mode-map "C-c c f" #'eglot-format)
-  (keymap-set eglot-mode-map "C-c c a" #'eglot-code-actions))
+  (define-key eglot-mode-map (kbd "C-c c r") #'eglot-rename)
+  (define-key eglot-mode-map (kbd "C-c c f") #'eglot-format)
+  (define-key eglot-mode-map (kbd "C-c c a") #'eglot-code-actions))
 
 (with-eval-after-load 'flymake
-  (keymap-set flymake-mode-map "C-c e" #'flymake-show-project-diagnostics)
-  (keymap-set flymake-mode-map "M-n" #'flymake-goto-next-error)
-  (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error))
+  (define-key flymake-mode-map (kbd "C-c e") #'flymake-show-project-diagnostics)
+  (define-key flymake-mode-map (kbd "M-n") #'flymake-goto-next-error)
+  (define-key flymake-mode-map (kbd "M-p") #'flymake-goto-prev-error))
 
 ;; Completions
 (setq completion-styles '(basic partial-completion substring))
@@ -153,7 +153,7 @@
 
 (add-to-list 'completion-ignored-extensions ".exe")
 
-(keymap-set completion-in-region-mode-map "C-<return>" #'switch-to-completions)
+(define-key completion-in-region-mode-map (kbd "C-<return>") #'switch-to-completions)
 
 ;; Repeat
 (setq repeat-exit-key "RET")
@@ -200,9 +200,9 @@
   (interactive (nbutlast (find-file-read-args "Find existing file: " t)))
   (dired-goto-file (expand-file-name filename)))
 
-(keymap-set dired-mode-map "j" #'dired-goto-existing-file)
-(keymap-global-set "C-c n" #'find-name-dired)
-(keymap-global-set "C-c f" #'find-file-existing)
+(define-key dired-mode-map (kbd "j") #'dired-goto-existing-file)
+(global-set-key (kbd "C-c n") #'find-name-dired)
+(global-set-key (kbd "C-c f") #'find-file-existing)
 
 ;; Symlinks
 (setq find-file-visit-truename t)
@@ -224,11 +224,11 @@
 (setq org-hide-emphasis-markers t)
 (setq org-return-follows-link t)
 
-(keymap-global-set "C-c l" #'org-store-link)
-(keymap-global-set "C-c a" #'org-agenda)
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
 
 (with-eval-after-load 'org
-  (keymap-set org-mode-map "C-M-<return>" #'org-insert-subheading))
+  (define-key org-mode-map (kbd "C-M-<return>") #'org-insert-subheading))
 
 ;; Tab bar
 (setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
@@ -243,19 +243,18 @@
     (replace-regexp "\n\\{2,\\}" "\n\n")))
 
 ;; Keybindings
-(keymap-global-set "<remap> <count-words-region>" #'count-words)
-(keymap-global-set "<remap> <capitalize-word>" #'capitalize-dwim)
-(keymap-global-set "<remap> <downcase-word>" #'downcase-dwim)
-(keymap-global-set "<remap> <upcase-word>" #'upcase-dwim)
-(keymap-global-set "<remap> <zap-to-char>" #'zap-up-to-char)
+(global-set-key (kbd "<remap> <count-words-region>") #'count-words)
+(global-set-key (kbd "<remap> <capitalize-word>") #'capitalize-dwim)
+(global-set-key (kbd "<remap> <downcase-word>") #'downcase-dwim)
+(global-set-key (kbd "<remap> <upcase-word>") #'upcase-dwim)
+(global-set-key (kbd "<remap> <zap-to-char>") #'zap-up-to-char)
 
-(keymap-global-set "M-o" #'other-window)
-(keymap-global-set "C-c t" #'transpose-regions)
-(keymap-global-set "C-c h" #'hl-line-mode)
-(keymap-global-set "C-c k" #'kill-current-buffer)
-(keymap-global-set "C-c m" #'point-to-register)
-(keymap-global-set "C-c '" #'jump-to-register)
-(keymap-global-set "C-z" #'repeat)
+(global-set-key (kbd "M-o") #'other-window)
+(global-set-key (kbd "C-c h") #'hl-line-mode)
+(global-set-key (kbd "C-c k") #'kill-current-buffer)
+(global-set-key (kbd "C-c m") #'point-to-register)
+(global-set-key (kbd "C-c '") #'jump-to-register)
+(global-set-key (kbd "C-z") #'repeat)
 
 ;; Custom file
 (setq custom-file (locate-user-emacs-file "custom.el"))
