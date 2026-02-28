@@ -4,8 +4,8 @@
                          ("melpa" . "https://melpa.org/packages/")))
 
 ;; UI
-(when (find-font (font-spec :name "Adwaita Mono"))
-  (add-to-list 'default-frame-alist '(font . "Adwaita Mono-11")))
+(when (find-font (font-spec :name "RecMono Linear"))
+  (add-to-list 'default-frame-alist '(font . "RecMono Linear-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
@@ -62,7 +62,7 @@
       `((,tramp-file-name-regexp . ,temporary-file-directory)
         ("." . ,(locate-user-emacs-file "backups"))))
 (setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "auto-save/" user-emacs-directory))))
+      `((".*" ,(expand-file-name "auto-save/" user-emacs-directory) t)))
 (setq tramp-auto-save-directory
       (expand-file-name "tramp-auto-save/" user-emacs-directory))
 

@@ -23,8 +23,8 @@
  '(mode-line ((t (:foreground "#edece8" :background "#363f4f" :box "#5c6378"))))
  '(region ((t (:background "#474747"))))
  '(secondary-selection ((t (:background "#3e3834"))))
- '(tab-bar ((t (:foreground "#edece8" :background "#4f5765"))))
- '(tab-bar-tab ((t (:foreground "#edece8" :background "#363f4f" :box "#5c6378"))))
+ '(tab-bar ((t (:foreground "#edece8" :background "#363f4f" :box "#5c6378"))))
+ '(tab-bar-tab ((t (:foreground "#edece8" :background "#202d42"))))
  '(tab-bar-tab-inactive ((t (:inherit tab-bar :italic t :foreground "#ababab")))))
 
 (provide-theme 'rom-night)
