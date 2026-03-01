@@ -18,20 +18,21 @@
 
 ;; Mode line
 (setq-default mode-line-format
-              '("%e"
+             `("%e"
                 mode-line-front-space
                 (:propertize ("" mode-line-mule-info mode-line-modified)
                              display (min-width (6.0)))
                 " " mode-line-buffer-identification
                 " " mode-line-modes
-                mode-line-format-right-align
+                ,(when (boundp 'mode-line-format-right-align)
+				   'mode-line-format-right-align)
                 (project-mode-line project-mode-line-format)
                 (vc-mode vc-mode)
                 "  "
                 mode-line-misc-info
                 "[L:%l/C:%c] "
                 mode-line-percent-position " "
-                mode-line-end-spaces))
+                mode-line-end-spaces " "))
 
 ;; Indentation
 (setq-default tab-width 4)
