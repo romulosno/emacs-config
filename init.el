@@ -4,8 +4,8 @@
                          ("melpa" . "https://melpa.org/packages/")))
 
 ;; UI
-(when (find-font (font-spec :name "Adwaita Mono"))
-  (add-to-list 'default-frame-alist '(font . "Adwaita Mono-11")))
+(when (find-font (font-spec :name "RecMono Linear"))
+  (add-to-list 'default-frame-alist '(font . "RecMono Linear-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
@@ -18,7 +18,7 @@
 
 ;; Mode line
 (setq-default mode-line-format
-              '("%e"
+             `("%e"
                 mode-line-front-space
                 (:propertize ("" mode-line-mule-info mode-line-modified)
                              display (min-width (6.0)))
@@ -30,7 +30,9 @@
                 (vc-mode vc-mode)
                 "  "
                 mode-line-misc-info
-                mode-line-end-spaces))
+                "[L:%l/C:%c] "
+                mode-line-percent-position " "
+                mode-line-end-spaces " "))
 
 ;; Indentation
 (setq-default tab-width 4)
@@ -62,7 +64,7 @@
       `((,tramp-file-name-regexp . ,temporary-file-directory)
         ("." . ,(locate-user-emacs-file "backups"))))
 (setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "auto-save/" user-emacs-directory))))
+      `((".*" ,(expand-file-name "auto-save/" user-emacs-directory) t)))
 (setq tramp-auto-save-directory
       (expand-file-name "tramp-auto-save/" user-emacs-directory))
 
@@ -262,7 +264,6 @@
 (global-set-key (kbd "<remap> <zap-to-char>") #'zap-up-to-char)
 
 (global-set-key (kbd "M-o") #'other-window)
-(global-set-key (kbd "C-c t") #'transpose-regions)
 (global-set-key (kbd "C-c h") #'hl-line-mode)
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
 (global-set-key (kbd "C-c m") #'point-to-register)
