@@ -4,8 +4,8 @@
                          ("melpa" . "https://melpa.org/packages/")))
 
 ;; UI
-(when (find-font (font-spec :name "RecMono Linear"))
-  (add-to-list 'default-frame-alist '(font . "RecMono Linear-11")))
+(when (find-font (font-spec :name "Rec Mono Linear"))
+  (add-to-list 'default-frame-alist '(font . "Rec Mono Linear-10")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
@@ -23,10 +23,9 @@
                 (:propertize ("" mode-line-mule-info mode-line-modified)
                              display (min-width (6.0)))
                 " " mode-line-buffer-identification
-				" " mode-line-percent-position
-				" (L:%l/C:%c) " 
-                " " mode-line-modes
-                (project-mode-line project-mode-line-format)
+				,(when (boundp 'mode-line-format-right-align)
+                   'mode-line-format-right-align)
+				(project-mode-line project-mode-line-format)
                 (vc-mode vc-mode)
                 "  "
                 mode-line-misc-info
