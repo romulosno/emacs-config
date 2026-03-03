@@ -23,6 +23,7 @@
                 (:propertize ("" mode-line-mule-info mode-line-modified)
                              display (min-width (6.0)))
                 " " mode-line-buffer-identification
+				" " mode-line-modes
 				,(when (boundp 'mode-line-format-right-align)
                    'mode-line-format-right-align)
 				(project-mode-line project-mode-line-format)
