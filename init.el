@@ -248,6 +248,9 @@
 (setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
 (setq tab-bar-select-tab-modifiers '(meta))
 (setq tab-bar-show 1)
+(setq tab-bar-close-button-show nil)
+(setq tab-bar-format '(tab-bar-format-tabs))
+(setq tab-bar-auto-width-max nil)
 
 ;; Empty lines
 (defun delete-multi-empty-lines ()

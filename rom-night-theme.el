@@ -25,7 +25,7 @@
  '(secondary-selection ((t (:background "#3e3834"))))
  '(tab-bar ((t (:foreground "#edece8" :background "#363f4f" :box "#5c6378"))))
  '(tab-bar-tab ((t (:foreground "#edece8" :background "#202d42"))))
- '(tab-bar-tab-inactive ((t (:inherit tab-bar :italic t :foreground "#ababab")))))
+ '(tab-bar-tab-inactive ((t (:inherit tab-bar :foreground "#ababab")))))
 
 (provide-theme 'rom-night)
 ;;; rom-night-theme.el ends here
