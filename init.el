@@ -3,9 +3,20 @@
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("melpa" . "https://melpa.org/packages/")))
 
+(setq my-packages
+	  '(dockerfile-mode
+		exec-path-from-shell
+		go-mode
+		markdown-mode
+		yaml-mode))
+
+(dolist (pac my-packages)
+  (unless (package-installed-p pac)
+	(package-install pac)))
+
 ;; UI
-(when (find-font (font-spec :name "Rec Mono Linear"))
-  (add-to-list 'default-frame-alist '(font . "Rec Mono Linear-10")))
+(when (find-font (font-spec :name "Cascadia Mono"))
+  (add-to-list 'default-frame-alist '(font . "Cascadia Mono-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
