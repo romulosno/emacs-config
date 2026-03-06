@@ -53,7 +53,7 @@
  '(success ((t :foreground "#1c6625")))
  '(tab-bar ((t (:foreground "#000000" :background "#e1e0e0"))))
  '(tab-bar-tab ((t (:foreground "#000000" :background "#d4d4d4" :box "#a3a3a3"))))
- '(tab-bar-tab-inactive ((t (:inherit tab-bar :italic t :foreground "#959292"))))
+ '(tab-bar-tab-inactive ((t (:inherit tab-bar :foreground "#959292"))))
  '(warning ((t (:foreground "#805801")))))
 
 
