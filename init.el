@@ -15,8 +15,8 @@
 	(package-install pac)))
 
 ;; UI
-(when (find-font (font-spec :name "Cascadia Mono"))
-  (add-to-list 'default-frame-alist '(font . "Cascadia Mono-11")))
+(when (find-font (font-spec :name "Maple Mono Normal NL"))
+  (add-to-list 'default-frame-alist '(font . "Maple Mono Normal NL-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
