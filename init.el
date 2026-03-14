@@ -29,7 +29,7 @@
 
 ;; Mode line
 (setq-default mode-line-format
-             `("%e"
+              `("%e"
                 mode-line-front-space
                 (:propertize ("" mode-line-mule-info mode-line-modified)
                              display (min-width (6.0)))
@@ -114,7 +114,7 @@
 
 (when (boundp 'data-directory)
   (add-to-list 'recentf-exclude (regexp-quote (expand-file-name lisp-directory)) t))
-  
+
 (recentf-mode 1)
 (global-set-key (kbd "C-c r") #'recentf-open-files)
 
@@ -128,8 +128,8 @@
 ;; JIT
 (defun optimize-large-files ()
   (when (> (buffer-size) (* 2 1024 1024))
-  (setq-local jit-lock-defer-time 0.1)
-  (setq-local jit-lock-stealth-time 0.1)))
+	(setq-local jit-lock-defer-time 0.1)
+	(setq-local jit-lock-stealth-time 0.1)))
 
 (add-hook 'find-file-hook #'optimize-large-files)
 
@@ -281,7 +281,7 @@
 (global-set-key (kbd "C-c h") #'hl-line-mode)
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
 (global-set-key (kbd "C-c m") #'point-to-register)
-(global-set-key (kbd "C-c '") #'jump-to-register)
+(global-set-key (kbd "C-c j") #'jump-to-register)
 (global-set-key (kbd "C-z") #'repeat)
 
 ;; Custom file

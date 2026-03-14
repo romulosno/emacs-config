@@ -7,5 +7,5 @@
 (scroll-bar-mode -1)
 
 (setq default-frame-alist '((vertical-scroll-bars . nil)
-			    (horizontal-scroll-bars . nil)
-			    (width . 120)))
+							(horizontal-scroll-bars . nil)
+							(width . 120)))
