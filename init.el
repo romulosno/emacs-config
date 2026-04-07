@@ -55,8 +55,11 @@
 (setq frame-inhibit-implied-resize t)
 (setq window-combination-resize t)
 
-;; Misc
+;; Short answers
 (fset 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t)
+
+;; Misc
 (setq echo-keystrokes 0.02)
 (setq kill-whole-line t)
 (setq view-read-only t)
@@ -75,13 +78,16 @@
 (setq uniquify-buffer-name-style 'forward)
 (setq uniquify-after-kill-buffer-p t)
 
-;; Files / Backup / Autosave
+;; Backups and Autosave
 (setq backup-by-copying t)
 (setq delete-old-versions t)
+(setq kept-old-versions 4)
+(setq kept-new-versions 4)
 (setq version-control t)
+
 (setq backup-directory-alist
       `((,tramp-file-name-regexp . ,temporary-file-directory)
-        ("." . ,(locate-user-emacs-file "backups"))))
+        (".*" . ,(expand-file-name "backups/" user-emacs-directory))))
 (setq auto-save-file-name-transforms
       `((".*" ,(expand-file-name "auto-save/" user-emacs-directory) t)))
 (setq tramp-auto-save-directory
