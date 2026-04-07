@@ -50,22 +50,27 @@
 (setq c-basic-offset 2)
 (setq js-indent-level 2)
 
-;; Misc
-(fset 'yes-or-no-p 'y-or-n-p)
-
+;; Resize
 (setq frame-resize-pixelwise t)
 (setq frame-inhibit-implied-resize t)
+(setq window-combination-resize t)
 
+;; Misc
+(fset 'yes-or-no-p 'y-or-n-p)
 (setq echo-keystrokes 0.02)
 (setq kill-whole-line t)
 (setq view-read-only t)
 (setq ring-bell-function 'ignore)
+(setq set-mark-command-repeat-pop t)
 (setq confirm-nonexistent-file-or-buffer nil)
 (setq sentence-end-double-space nil)
 (setq uniquify-buffer-name-style 'forward)
 (setq delete-by-moving-to-trash t)
 (setq save-interprogram-paste-before-kill t)
 (setq require-final-newline t)
+(setq reb-re-syntax 'string)
+(setq ffap-machine-p-known 'reject)
+(setq help-window-select t)
 
 ;; Files / Backup / Autosave
 (setq backup-by-copying t)
@@ -125,6 +130,9 @@
 (define-key Buffer-menu-mode-map (kbd "q") #'kill-buffer-and-window)
 (define-key Buffer-menu-mode-map (kbd "O") #'Buffer-menu-multi-occur)
 
+;;; Performance
+(setq read-process-output-max (* 3 1024 1024))
+
 ;; JIT
 (defun optimize-large-files ()
   (when (> (buffer-size) (* 2 1024 1024))
@@ -135,6 +143,12 @@
 
 (setq jit-lock-chunk-size 3500)
 (setq font-lock-maximum-decoration '((c-mode . 2) (c++-mode . 2) (t . t)))
+(setq redisplay-skip-fontification-on-input t)
+
+;; Bidi
+(setq-default bidi-display-reordering t)
+(setq-default bidi-paragraph-direction t)
+(setq bidi-inhibit-bpa t)
 
 ;; Prog
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
@@ -154,7 +168,6 @@
 (setq eglot-autoshutdown t)
 (setq eglot-sync-connect nil)
 (setq eglot-events-buffer-config '(:size 0))
-(setq read-process-output-max (* 3 1024 1024))
 (setq eglot-ignored-server-capabilities '(:hoverProvider :documentHighlightProvider))
 
 (with-eval-after-load 'eglot
@@ -184,6 +197,18 @@
 (setq repeat-exit-key "RET")
 (repeat-mode 1)
 
+;; C-x 1
+(winner-mode 1)
+
+(defun toggle-delete-other-windows ()
+  (interactive)
+  (if (and winner-mode
+           (= 1 (length (window-list))))
+      (winner-undo)
+    (delete-other-windows)))
+
+(global-set-key (kbd "C-x 1") #'toggle-delete-other-windows)
+
 ;; Minibuffer
 (setq enable-recursive-minibuffers t)
 (setq read-minibuffer-restore-windows nil)
@@ -194,12 +219,13 @@
 (minibuffer-depth-indicate-mode 1)
 
 ;; Savehist
-(setq savehist-additional-variables '(kill-ring
-                                      register-alist
-                                      mark-ring
-                                      global-mark-ring
-                                      search-ring
-                                      regexp-search-ring))
+(setq savehist-additional-variables
+	  '(kill-ring
+        register-alist
+        mark-ring
+        global-mark-ring
+        search-ring
+        regexp-search-ring))
 (savehist-mode 1)
 
 ;; Eval expression
