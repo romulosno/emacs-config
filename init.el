@@ -64,13 +64,16 @@
 (setq set-mark-command-repeat-pop t)
 (setq confirm-nonexistent-file-or-buffer nil)
 (setq sentence-end-double-space nil)
-(setq uniquify-buffer-name-style 'forward)
 (setq delete-by-moving-to-trash t)
 (setq save-interprogram-paste-before-kill t)
 (setq require-final-newline t)
 (setq reb-re-syntax 'string)
 (setq ffap-machine-p-known 'reject)
 (setq help-window-select t)
+
+;; Uniquify buffer name
+(setq uniquify-buffer-name-style 'forward)
+(setq uniquify-after-kill-buffer-p t)
 
 ;; Files / Backup / Autosave
 (setq backup-by-copying t)
