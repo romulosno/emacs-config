@@ -15,8 +15,8 @@
 	(package-install pac)))
 
 ;; UI
-(when (find-font (font-spec :name "Maple Mono Normal NL"))
-  (add-to-list 'default-frame-alist '(font . "Maple Mono Normal NL-11")))
+(when (find-font (font-spec :name "JetBrains Mono"))
+  (add-to-list 'default-frame-alist '(font . "JetBrains Mono-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
