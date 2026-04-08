@@ -218,9 +218,9 @@
            (= (length (window-list)) 1))
       (progn
         (set-window-configuration last-window-config)
-        (setq last-window-config nil)
-		(setq last-window-config (current-window-configuration))
-		(delete-other-windows))))
+        (setq last-window-config nil))
+	(setq last-window-config (current-window-configuration))
+	(delete-other-windows)))
 
 (global-set-key (kbd "C-x 1") #'toggle-single-window)
 
