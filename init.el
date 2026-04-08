@@ -75,7 +75,7 @@
 (setq help-window-select t)
 
 (put 'narrow-to-region 'disabled nil)
-(put 'dired-find-alternate-file nil)
+(put 'dired-find-alternate-file 'disabled nil)
 
 ;; Uniquify buffer name
 (setq uniquify-buffer-name-style 'forward)
@@ -219,8 +219,8 @@
       (progn
         (set-window-configuration last-window-config)
         (setq last-window-config nil)
-    (setq last-window-config (current-window-configuration))
-    (delete-other-windows)))
+		(setq last-window-config (current-window-configuration))
+		(delete-other-windows))))
 
 (global-set-key (kbd "C-x 1") #'toggle-single-window)
 
@@ -228,7 +228,7 @@
 (setq enable-recursive-minibuffers t)
 (setq read-minibuffer-restore-windows nil)
 (setq minibuffer-prompt-properties
-      '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
+	  '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
 
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 (minibuffer-depth-indicate-mode 1)
