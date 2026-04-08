@@ -216,10 +216,8 @@
       (progn
         (set-window-configuration last-window-config)
         (setq last-window-config nil)
-		(message "Layout restaurado"))
     (setq last-window-config (current-window-configuration))
-    (delete-other-windows)
-	(message "Removidas as outras")))
+    (delete-other-windows)))
 
 (global-set-key (kbd "C-x 1") #'toggle-single-window)
 
