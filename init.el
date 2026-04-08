@@ -74,6 +74,9 @@
 (setq ffap-machine-p-known 'reject)
 (setq help-window-select t)
 
+(put 'narrow-to-region 'disabled nil)
+(put 'dired-find-alternate-file nil)
+
 ;; Uniquify buffer name
 (setq uniquify-buffer-name-style 'forward)
 (setq uniquify-after-kill-buffer-p t)
