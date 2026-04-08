@@ -207,16 +207,21 @@
 (repeat-mode 1)
 
 ;; C-x 1
-(winner-mode 1)
+(defvar last-window-config nil)
 
-(defun toggle-delete-other-windows ()
+(defun toggle-single-window ()
   (interactive)
-  (if (and winner-mode
-           (= 1 (length (window-list))))
-      (winner-undo)
-    (delete-other-windows)))
+  (if (and last-window-config
+           (= (length (window-list)) 1))
+      (progn
+        (set-window-configuration last-window-config)
+        (setq last-window-config nil)
+		(message "Layout restaurado"))
+    (setq last-window-config (current-window-configuration))
+    (delete-other-windows)
+	(message "Removidas as outras")))
 
-(global-set-key (kbd "C-x 1") #'toggle-delete-other-windows)
+(global-set-key (kbd "C-x 1") #'toggle-single-window)
 
 ;; Minibuffer
 (setq enable-recursive-minibuffers t)
