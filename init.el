@@ -87,6 +87,7 @@
 (setq kept-old-versions 4)
 (setq kept-new-versions 4)
 (setq version-control t)
+(setq vc-make-backup-files t)
 
 (setq backup-directory-alist
       `((,tramp-file-name-regexp . ,temporary-file-directory)
@@ -194,12 +195,12 @@
 
 ;; Completions
 (setq completion-styles '(basic partial-completion substring))
+(setq completion-category-overrides '((project-file (styles . (basic flex initials)))))
+
 (setq tab-always-indent 'complete)
 (setq completions-format 'vertical)
 (setq completions-max-height 20)
 (setq completion-show-help nil)
-(setq completion-category-overrides
-      '((project-file (styles . (basic flex initials)))))
 
 (add-to-list 'completion-ignored-extensions ".exe")
 
