@@ -33,8 +33,8 @@
  '(highlight ((t (:bold t))))
  '(isearch ((t (:foreground "#b0e2ff" :background "#4682b4"))))
  '(minibuffer-prompt ((t (:foreground "#171f34"))))
- '(mode-line ((t (:foreground "#000000" :background "#dbdbdb"))))
- '(mode-line-inactive ((t (:foreground "#757575" :background "#dbdbdb"))))
+ '(mode-line ((t (:foreground "#000000" :background "#dbdbdb" :box (:line-width (1 . 3) :color "#dbdbdb") :overline "#afafaf"))))
+ '(mode-line-inactive ((t (:foreground "#757575" :background "#dbdbdb" :box (:line-width (1 . 3) :color "#dbdbdb")))))
  '(org-date ((t (:foreground "#3b3b3b" :underline t))))
  '(org-done ((t (:foreground "#6b8e23" :weight bold))))
  '(org-headline-done ((t (:foreground "#042b75"))))
@@ -55,7 +55,8 @@
  '(tab-bar ((t (:foreground "#000000" :background "#dbdbdb"))))
  '(tab-bar-tab ((t (:foreground "#000000" :background "#cfcfcf"))))
  '(tab-bar-tab-inactive ((t (:inherit tab-bar :foreground "#959292"))))
- '(warning ((t (:foreground "#805801")))))
+ '(warning ((t (:foreground "#805801"))))
+ '(whitespace-space ((t (:foreground "#a8a8a8")))))
 
 (provide-theme 'rom-day)
 ;;; rom-day-theme.el ends here
