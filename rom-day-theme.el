@@ -10,7 +10,7 @@
  'rom-day
  '(cursor ((t (:background "#cf8300"))))
  '(completions-common-part ((t (:foreground "#4f4941"))))
- '(default ((t (:background "#eeeeee" :foreground "#000000"))))
+ '(default ((t (:background "#f1f1f1" :foreground "#000000"))))
  '(diff-added ((t (:background "#daebda"))))
  '(diff-refine-added ((t (:background "#bce2be"))))
  '(diff-refine-removed ((t (:background "#f1caca"))))
@@ -56,7 +56,6 @@
  '(tab-bar-tab ((t (:foreground "#000000" :background "#cfcfcf"))))
  '(tab-bar-tab-inactive ((t (:inherit tab-bar :foreground "#959292"))))
  '(warning ((t (:foreground "#805801")))))
-
 
 (provide-theme 'rom-day)
 ;;; rom-day-theme.el ends here
