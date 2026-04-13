@@ -72,10 +72,26 @@
 (setq require-final-newline t)
 (setq reb-re-syntax 'string)
 (setq ffap-machine-p-known 'reject)
+(setq disabled-command-function nil)
+
+;; Split
+(setq split-height-threshold nil)
+(setq split-width-threshold 100)
+
+;; Help
 (setq help-window-select t)
 
-(put 'narrow-to-region 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
+(defun display-buffer-from-help-p (&rest _)
+  "Check if current buffer is a Help buffer."
+  (unless current-prefix-arg
+    (with-current-buffer (window-buffer)
+      (derived-mode-p '(help-mode)))))
+
+(add-to-list 'display-buffer-alist
+             '(display-buffer-from-help-p
+               display-buffer-same-window
+               (inhibit-same-window . nil)
+               (window-height . nil)))
 
 ;; Uniquify buffer name
 (setq uniquify-buffer-name-style 'forward)
@@ -98,6 +114,20 @@
       (expand-file-name "tramp-auto-save/" user-emacs-directory))
 
 (save-place-mode 1)
+
+;; Grep/Occur buffers
+(setq grep-save-buffers nil)
+(add-to-list 'display-buffer-alist
+			 `(,(rx bos "*"
+					(or "grep" "Occur")
+					"*" eos)
+			   display-buffer-in-side-window
+			   (side . bottom)
+			   (window-height . 10)
+			   (body-function . select-window)))
+
+(dolist (hook '(occur-mode-hook grep-mode-hook))
+  (add-hook hook (lambda () (setq truncate-lines t))))
 
 ;; Isearch
 (setq isearch-lazy-count t)
@@ -137,17 +167,23 @@
 (global-set-key (kbd "C-c r") #'recentf-open-files)
 
 ;; Buffer menu
-(add-to-list 'display-buffer-alist
-             '("\\*Buffer List\\*" nil (body-function . select-window)))
-
 (define-key Buffer-menu-mode-map (kbd "q") #'kill-buffer-and-window)
 (define-key Buffer-menu-mode-map (kbd "O") #'Buffer-menu-multi-occur)
+
+(advice-add 'Buffer-menu-other-window :after
+			(lambda (&rest _) (select-window (get-buffer-window "*Buffer List*"))))
+
+(add-to-list 'display-buffer-alist
+			 '("\\*Buffer List\\*"
+			   display-buffer-same-window
+			   (inhibit-same-window . nil)))
 
 ;;; Performance
 (setq read-process-output-max (* 3 1024 1024))
 
 ;; JIT
 (defun optimize-large-files ()
+  "Optimize jit configs for large files."
   (when (> (buffer-size) (* 2 1024 1024))
 	(setq-local jit-lock-defer-time 0.1)
 	(setq-local jit-lock-stealth-time 0.1)))
@@ -163,17 +199,26 @@
 (setq-default bidi-paragraph-direction t)
 (setq bidi-inhibit-bpa t)
 
-;; Prog
-(add-hook 'prog-mode-hook #'electric-pair-local-mode)
-(add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
-
-(setq tags-revert-without-query t)
-
+;; Compilation
 (setq compilation-ask-about-save nil)
 (setq compilation-max-output-line-length nil)
 (setq compilation-scroll-output 'first-error)
-(setq compilation-auto-jump-to-first-error 'if-location-known)
+
 (global-set-key (kbd "<f5>") #'compile)
+(add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
+
+(add-to-list 'display-buffer-alist
+			 `(,(rx bos "*"
+					(or "compilation")
+					"*" eos)
+			   display-buffer-in-side-window
+			   (side . bottom)
+			   (window-height . 10)))
+
+;; Prog
+(add-hook 'prog-mode-hook #'electric-pair-local-mode)
+
+(setq tags-revert-without-query t)
 
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 2)
@@ -188,10 +233,19 @@
   (define-key eglot-mode-map (kbd "C-c c f") #'eglot-format)
   (define-key eglot-mode-map (kbd "C-c c a") #'eglot-code-actions))
 
+;; Flymake
+(setq flymake-mode-line-lighter nil)
+
 (with-eval-after-load 'flymake
   (define-key flymake-mode-map (kbd "C-c e") #'flymake-show-project-diagnostics)
   (define-key flymake-mode-map (kbd "M-n") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "M-p") #'flymake-goto-prev-error))
+
+(add-to-list 'display-buffer-alist
+			 '("\\*Flymake diagnostics"
+			   display-buffer-in-side-window
+			   (side . bottom)
+			   (window-height . (lambda (window) (fit-window-to-buffer window 10)))))
 
 ;; Completions
 (setq completion-styles '(basic partial-completion substring))
@@ -199,12 +253,17 @@
 
 (setq tab-always-indent 'complete)
 (setq completions-format 'vertical)
-(setq completions-max-height 20)
+(setq completions-max-height 10)
 (setq completion-show-help nil)
 
 (add-to-list 'completion-ignored-extensions ".exe")
 
-(define-key completion-in-region-mode-map (kbd "C-<return>") #'switch-to-completions)
+(define-key completion-in-region-mode-map (kbd "S-<return>") #'switch-to-completions)
+
+(add-to-list 'display-buffer-alist
+			 '("\\*Completions\\*"
+			   display-buffer-in-side-window
+			   (side . bottom)))
 
 ;; Repeat
 (setq repeat-exit-key "RET")
@@ -214,6 +273,7 @@
 (defvar last-window-config nil)
 
 (defun toggle-single-window ()
+  "Toggle single window."
   (interactive)
   (if (and last-window-config
            (= (length (window-list)) 1))
@@ -264,6 +324,7 @@
 (setq ls-lisp-use-insert-directory-program nil)
 
 (defun dired-goto-existing-file (filename)
+  "Dired-jump but checking for existing FILENAME."
   (interactive (nbutlast (find-file-read-args "Find existing file: " t)))
   (dired-goto-file (expand-file-name filename)))
 
@@ -307,10 +368,12 @@
 
 ;; Empty lines
 (defun delete-multi-empty-lines ()
+  "Collapse multiple blank lines into one."
   (interactive)
   (save-excursion
     (goto-char (point-min))
-    (replace-regexp "\n\\{2,\\}" "\n\n")))
+	(while (re-search-forward "\n\\{2,\\}" nil t)
+      (replace-match "\n\n"))))
 
 ;; Keybindings
 (global-set-key (kbd "<remap> <count-words-region>") #'count-words)
