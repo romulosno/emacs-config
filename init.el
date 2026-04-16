@@ -15,8 +15,8 @@
 	(package-install pac)))
 
 ;; UI
-(when (find-font (font-spec :name "JetBrains Mono"))
-  (add-to-list 'default-frame-alist '(font . "JetBrains Mono-11")))
+(when (find-font (font-spec :name "Input Mono"))
+  (add-to-list 'default-frame-alist '(font . "Input Mono-11")))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
@@ -76,7 +76,7 @@
 
 ;; Split
 (setq split-height-threshold nil)
-(setq split-width-threshold 100)
+(setq split-width-threshold 120)
 
 ;; Help
 (setq help-window-select t)
@@ -236,8 +236,23 @@
 ;; Flymake
 (setq flymake-mode-line-lighter nil)
 
+(defun flymake-diagnostics-window (window)
+  "Return WINDOW if it show a flymake diagnostics buffer."
+  (string-prefix-p "*Flymake diagnostics" (buffer-name (window-buffer window))))
+
+(defun toggle-flymake-diagnostics ()
+  "Toggle flymake diagnostics buffer."
+  (interactive)
+  (let ((diagnostics-window (seq-find #'flymake-diagnostics-window (window-list))))
+	(if diagnostics-window
+		(quit-window t diagnostics-window)
+	  (if (project-current)
+          (flymake-show-project-diagnostics)
+        (flymake-show-buffer-diagnostics)))))
+
 (with-eval-after-load 'flymake
-  (define-key flymake-mode-map (kbd "C-c e") #'flymake-show-project-diagnostics)
+  (require 'project)
+  (define-key flymake-mode-map (kbd "<f6>") #'toggle-flymake-diagnostics)
   (define-key flymake-mode-map (kbd "M-n") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "M-p") #'flymake-goto-prev-error))
 
@@ -319,6 +334,7 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 (setq dired-vc-rename-file t)
+(setq dired-do-revert-buffer t)
 
 (setq ls-lisp-dirs-first t)
 (setq ls-lisp-use-insert-directory-program nil)
@@ -345,6 +361,10 @@
 (setq ediff-keep-variants nil)
 (setq diff-default-read-only t)
 (setq smerge-command-prefix "\e")
+
+(defun recenter-top (&rest _) (recenter 0))
+(advice-add 'diff-hunk-next :after #'recenter-top)
+(advice-add 'diff-hunk-prev :after #'recenter-top)
 
 ;; Org
 (setq org-use-speed-commands t)
