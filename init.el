@@ -1,7 +1,7 @@
 ;;; init.el --- Emacs config -*- lexical-binding: t; -*-
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-                         ("melpa" . "https://melpa.org/packages/")))
+						 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+						 ("melpa" . "https://melpa.org/packages/")))
 
 (setq my-packages
 	  '(dockerfile-mode
@@ -29,21 +29,21 @@
 
 ;; Mode line
 (setq-default mode-line-format
-              `("%e"
-                mode-line-front-space
-                (:propertize ("" mode-line-mule-info mode-line-modified)
-                             display (min-width (6.0)))
-                " " mode-line-buffer-identification
+			  `("%e"
+				mode-line-front-space
+				(:propertize ("" mode-line-mule-info mode-line-modified)
+							 display (min-width (6.0)))
+				" " mode-line-buffer-identification
 				" " mode-line-modes
 				,(when (boundp 'mode-line-format-right-align)
-                   'mode-line-format-right-align)
+				   'mode-line-format-right-align)
 				(project-mode-line project-mode-line-format)
-                (vc-mode vc-mode)
-                "  "
-                mode-line-misc-info
-                "[L:%l/C:%c] "
-                mode-line-percent-position " "
-                mode-line-end-spaces " "))
+				(vc-mode vc-mode)
+				"  "
+				mode-line-misc-info
+				"[L:%l/C:%c] "
+				mode-line-percent-position " "
+				mode-line-end-spaces " "))
 
 ;; Indentation
 (setq-default tab-width 4)
@@ -76,22 +76,24 @@
 
 ;; Split
 (setq split-height-threshold nil)
-(setq split-width-threshold 120)
+(setq split-width-threshold 100)
 
 ;; Help
 (setq help-window-select t)
 
+(add-hook 'help-mode #'visual-line-mode)
+
 (defun display-buffer-from-help-p (&rest _)
   "Check if current buffer is a Help buffer."
   (unless current-prefix-arg
-    (with-current-buffer (window-buffer)
-      (derived-mode-p '(help-mode)))))
+	(with-current-buffer (window-buffer)
+	  (derived-mode-p '(help-mode)))))
 
 (add-to-list 'display-buffer-alist
-             '(display-buffer-from-help-p
-               display-buffer-same-window
-               (inhibit-same-window . nil)
-               (window-height . nil)))
+			 '(display-buffer-from-help-p
+			   display-buffer-same-window
+			   (inhibit-same-window . nil)
+			   (window-height . nil)))
 
 ;; Uniquify buffer name
 (setq uniquify-buffer-name-style 'forward)
@@ -106,12 +108,12 @@
 (setq vc-make-backup-files t)
 
 (setq backup-directory-alist
-      `((,tramp-file-name-regexp . ,temporary-file-directory)
-        (".*" . ,(expand-file-name "backups/" user-emacs-directory))))
+	  `((,tramp-file-name-regexp . ,temporary-file-directory)
+		(".*" . ,(expand-file-name "backups/" user-emacs-directory))))
 (setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name "auto-save/" user-emacs-directory) t)))
+	  `((".*" ,(expand-file-name "auto-save/" user-emacs-directory) t)))
 (setq tramp-auto-save-directory
-      (expand-file-name "tramp-auto-save/" user-emacs-directory))
+	  (expand-file-name "tramp-auto-save/" user-emacs-directory))
 
 (save-place-mode 1)
 
@@ -247,8 +249,8 @@
 	(if diagnostics-window
 		(quit-window t diagnostics-window)
 	  (if (project-current)
-          (flymake-show-project-diagnostics)
-        (flymake-show-buffer-diagnostics)))))
+		  (flymake-show-project-diagnostics)
+		(flymake-show-buffer-diagnostics)))))
 
 (with-eval-after-load 'flymake
   (require 'project)
@@ -291,10 +293,10 @@
   "Toggle single window."
   (interactive)
   (if (and last-window-config
-           (= (length (window-list)) 1))
-      (progn
-        (set-window-configuration last-window-config)
-        (setq last-window-config nil))
+		   (= (length (window-list)) 1))
+	  (progn
+		(set-window-configuration last-window-config)
+		(setq last-window-config nil))
 	(setq last-window-config (current-window-configuration))
 	(delete-other-windows)))
 
@@ -312,11 +314,11 @@
 ;; Savehist
 (setq savehist-additional-variables
 	  '(kill-ring
-        register-alist
-        mark-ring
-        global-mark-ring
-        search-ring
-        regexp-search-ring))
+		register-alist
+		mark-ring
+		global-mark-ring
+		search-ring
+		regexp-search-ring))
 (savehist-mode 1)
 
 ;; Eval expression
@@ -391,9 +393,9 @@
   "Collapse multiple blank lines into one."
   (interactive)
   (save-excursion
-    (goto-char (point-min))
+	(goto-char (point-min))
 	(while (re-search-forward "\n\\{2,\\}" nil t)
-      (replace-match "\n\n"))))
+	  (replace-match "\n\n"))))
 
 ;; Keybindings
 (global-set-key (kbd "<remap> <count-words-region>") #'count-words)
