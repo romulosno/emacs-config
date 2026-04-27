@@ -15,8 +15,8 @@
 	(package-install pac)))
 
 ;; UI
-(cond ((find-font (font-spec :name "Consolas"))
-	   (add-to-list 'default-frame-alist '(font . "Consolas-10.5")))
+(cond ((find-font (font-spec :name "Cascadia Code"))
+	   (add-to-list 'default-frame-alist '(font . "Cascadia Code-10")))
 	  ((find-font (font-spec :name "Input Mono"))
 	   (add-to-list 'default-frame-alist '(font . "Input Mono-10"))))
 
