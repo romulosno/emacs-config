@@ -15,8 +15,10 @@
 	(package-install pac)))
 
 ;; UI
-(when (find-font (font-spec :name "Input Mono"))
-  (add-to-list 'default-frame-alist '(font . "Input Mono-11")))
+(cond ((find-font (font-spec :name "Consolas"))
+	   (add-to-list 'default-frame-alist '(font . "Consolas-10.5")))
+	  ((find-font (font-spec :name "Input Mono"))
+	   (add-to-list 'default-frame-alist '(font . "Input Mono-10"))))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
@@ -107,13 +109,19 @@
 (setq version-control t)
 (setq vc-make-backup-files t)
 
-(setq backup-directory-alist
-	  `((,tramp-file-name-regexp . ,temporary-file-directory)
-		(".*" . ,(expand-file-name "backups/" user-emacs-directory))))
-(setq auto-save-file-name-transforms
-	  `((".*" ,(expand-file-name "auto-save/" user-emacs-directory) t)))
-(setq tramp-auto-save-directory
-	  (expand-file-name "tramp-auto-save/" user-emacs-directory))
+(let ((backup-dir (expand-file-name "backups/" user-emacs-directory))
+      (auto-save-dir (expand-file-name "auto-save/" user-emacs-directory))
+      (tramp-dir (expand-file-name "tramp-auto-save/" user-emacs-directory)))
+
+  (dolist (dir (list backup-dir auto-save-dir tramp-dir))
+    (unless (file-exists-p dir)
+      (make-directory dir t)))
+
+  (setq backup-directory-alist
+        `((,tramp-file-name-regexp . ,temporary-file-directory)
+          (".*" . ,backup-dir)))
+  (setq auto-save-file-name-transforms `((".*" ,auto-save-dir t)))
+  (setq tramp-auto-save-directory tramp-dir))
 
 (save-place-mode 1)
 
@@ -197,9 +205,7 @@
 (setq redisplay-skip-fontification-on-input t)
 
 ;; Bidi
-(setq-default bidi-display-reordering t)
-(setq-default bidi-paragraph-direction t)
-(setq bidi-inhibit-bpa t)
+(setq-default bidi-paragraph-direction 'left-to-right)
 
 ;; Compilation
 (setq compilation-ask-about-save nil)
@@ -276,6 +282,7 @@
 (add-to-list 'completion-ignored-extensions ".exe")
 
 (define-key completion-in-region-mode-map (kbd "S-<return>") #'switch-to-completions)
+(define-key minibuffer-local-completion-map (kbd "S-<return>") #'switch-to-completions)
 
 (add-to-list 'display-buffer-alist
 			 '("\\*Completions\\*"
