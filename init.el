@@ -191,7 +191,7 @@
 ;;; Performance
 (setq read-process-output-max (* 3 1024 1024))
 
-;; JIT
+;; Fontification
 (defun optimize-large-files ()
   "Optimize jit configs for large files."
   (when (> (buffer-size) (* 2 1024 1024))
@@ -311,12 +311,13 @@
 
 ;; Minibuffer
 (setq enable-recursive-minibuffers t)
+(minibuffer-depth-indicate-mode 1)
+
 (setq read-minibuffer-restore-windows nil)
 (setq minibuffer-prompt-properties
 	  '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
 
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-(minibuffer-depth-indicate-mode 1)
 
 ;; Savehist
 (setq savehist-additional-variables
@@ -418,7 +419,8 @@
 (global-set-key (kbd "C-c j") #'jump-to-register)
 (global-set-key (kbd "C-z") #'repeat)
 
-;; Custom file
+;; Customization
+(setq custom-buffer-done-kill t)
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
 
