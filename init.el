@@ -14,11 +14,7 @@
   (unless (package-installed-p pac)
 	(package-install pac)))
 
-;; UI
-(pcase system-name
-  ("doa" (add-to-list 'default-frame-alist '(font . "Input Mono-10.5")))
-  ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Retina-10"))))
-
+;; Themes
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
 
