@@ -15,10 +15,9 @@
 	(package-install pac)))
 
 ;; UI
-(cond ((find-font (font-spec :name "Cascadia Code"))
-	   (add-to-list 'default-frame-alist '(font . "Cascadia Code-10")))
-	  ((find-font (font-spec :name "Input Mono"))
-	   (add-to-list 'default-frame-alist '(font . "Input Mono-10"))))
+(pcase system-name
+  ("doa" (add-to-list 'default-frame-alist '(font . "Input Mono-10.5")))
+  ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Retina-10"))))
 
 (load-theme 'rom-day t)
 (load-theme 'rom-night t t)
