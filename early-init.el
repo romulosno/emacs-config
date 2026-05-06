@@ -8,4 +8,5 @@
 
 (setq default-frame-alist '((vertical-scroll-bars . nil)
 							(horizontal-scroll-bars . nil)
-							(width . 120)))
+							(width . 120)
+							(font . "Fira Code-10.5")))
