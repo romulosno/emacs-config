@@ -1,18 +1,25 @@
 ;;; init.el --- Emacs config -*- lexical-binding: t; -*-
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-						 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-						 ("melpa" . "https://melpa.org/packages/")))
+			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+			 ("melpa" . "https://melpa.org/packages/")))
 
 (setq my-packages
-	  '(dockerfile-mode
-		exec-path-from-shell
-		go-mode
-		markdown-mode
-		yaml-mode))
+      '(dockerfile-mode
+	exec-path-from-shell
+	go-mode
+	markdown-mode
+	yaml-mode))
 
 (dolist (pac my-packages)
   (unless (package-installed-p pac)
-	(package-install pac)))
+    (package-install pac)))
+
+;; Font
+(cond
+ ((find-font (font-spec :family "Maple Mono Normal NL" :weight 'medium))
+  (add-to-list 'default-frame-alist '(font . "Maple Mono Normal NL:weight=medium:size=15")))
+ ((find-font (font-spec :name "Fira Code-11"))
+  (add-to-list 'default-frame-alist '(font . "Fira Code-11"))))
 
 ;; Themes
 (load-theme 'rom-day t)
@@ -26,24 +33,24 @@
 
 ;; Mode line
 (setq-default mode-line-format
-			  `("%e"
-				mode-line-front-space
-				(:propertize ("" mode-line-mule-info mode-line-modified)
-							 display (min-width (6.0)))
-				" " mode-line-buffer-identification
-				" " mode-line-modes
-				,(when (boundp 'mode-line-format-right-align)
-				   'mode-line-format-right-align)
-				(project-mode-line project-mode-line-format)
-				(vc-mode vc-mode)
-				"  "
-				mode-line-misc-info
-				"[L:%l/C:%c] "
-				mode-line-percent-position " "
-				mode-line-end-spaces " "))
+	      `("%e"
+		mode-line-front-space
+		(:propertize
+		 ("" mode-line-mule-info mode-line-modified)
+		 display (min-width (6.0)))
+		" " mode-line-buffer-identification
+		" " mode-line-modes
+		,(when (boundp 'mode-line-format-right-align)
+		   'mode-line-format-right-align)
+		(project-mode-line project-mode-line-format)
+		(vc-mode vc-mode)
+		"  "
+		mode-line-misc-info
+		"[L:%l/C:%c] "
+		mode-line-percent-position " "
+		mode-line-end-spaces " "))
 
 ;; Indentation
-(setq-default tab-width 4)
 (setq c-basic-offset 2)
 (setq js-indent-level 2)
 
@@ -83,14 +90,14 @@
 (defun display-buffer-from-help-p (&rest _)
   "Check if current buffer is a Help buffer."
   (unless current-prefix-arg
-	(with-current-buffer (window-buffer)
-	  (derived-mode-p '(help-mode)))))
+    (with-current-buffer (window-buffer)
+      (derived-mode-p '(help-mode)))))
 
 (add-to-list 'display-buffer-alist
-			 '(display-buffer-from-help-p
-			   display-buffer-same-window
-			   (inhibit-same-window . nil)
-			   (window-height . nil)))
+	     '(display-buffer-from-help-p
+	       display-buffer-same-window
+	       (inhibit-same-window . nil)
+	       (window-height . nil)))
 
 ;; Uniquify buffer name
 (setq uniquify-buffer-name-style 'forward)
@@ -123,13 +130,13 @@
 ;; Grep/Occur buffers
 (setq grep-save-buffers nil)
 (add-to-list 'display-buffer-alist
-			 `(,(rx bos "*"
-					(or "grep" "Occur")
-					"*" eos)
-			   display-buffer-in-side-window
-			   (side . bottom)
-			   (window-height . 10)
-			   (body-function . select-window)))
+	     `(,(rx bos "*"
+		    (or "grep" "Occur")
+		    "*" eos)
+	       display-buffer-in-side-window
+	       (side . bottom)
+	       (window-height . 10)
+	       (body-function . select-window)))
 
 (dolist (hook '(occur-mode-hook grep-mode-hook))
   (add-hook hook (lambda () (setq truncate-lines t))))
@@ -162,8 +169,8 @@
 ;; Recent files
 (setq recentf-max-menu-items 25)
 (setq recentf-exclude `("~$"
-						"/#[^/]*#\\'"
-						,(regexp-quote (expand-file-name data-directory))))
+			"/#[^/]*#\\'"
+			,(regexp-quote (expand-file-name data-directory))))
 
 (when (boundp 'data-directory)
   (add-to-list 'recentf-exclude (regexp-quote (expand-file-name lisp-directory)) t))
@@ -176,12 +183,12 @@
 (define-key Buffer-menu-mode-map (kbd "O") #'Buffer-menu-multi-occur)
 
 (advice-add 'Buffer-menu-other-window :after
-			(lambda (&rest _) (select-window (get-buffer-window "*Buffer List*"))))
+	    (lambda (&rest _) (select-window (get-buffer-window "*Buffer List*"))))
 
 (add-to-list 'display-buffer-alist
-			 '("\\*Buffer List\\*"
-			   display-buffer-same-window
-			   (inhibit-same-window . nil)))
+	     '("\\*Buffer List\\*"
+	       display-buffer-same-window
+	       (inhibit-same-window . nil)))
 
 ;;; Performance
 (setq read-process-output-max (* 3 1024 1024))
@@ -190,8 +197,8 @@
 (defun optimize-large-files ()
   "Optimize jit configs for large files."
   (when (> (buffer-size) (* 2 1024 1024))
-	(setq-local jit-lock-defer-time 0.1)
-	(setq-local jit-lock-stealth-time 0.1)))
+    (setq-local jit-lock-defer-time 0.1)
+    (setq-local jit-lock-stealth-time 0.1)))
 
 (add-hook 'find-file-hook #'optimize-large-files)
 
@@ -211,12 +218,12 @@
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
 (add-to-list 'display-buffer-alist
-			 `(,(rx bos "*"
-					(or "compilation")
-					"*" eos)
-			   display-buffer-in-side-window
-			   (side . bottom)
-			   (window-height . 10)))
+	     `(,(rx bos "*"
+		    (or "compilation")
+		    "*" eos)
+	       display-buffer-in-side-window
+	       (side . bottom)
+	       (window-height . 10)))
 
 ;; Prog
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
@@ -247,11 +254,11 @@
   "Toggle flymake diagnostics buffer."
   (interactive)
   (let ((diagnostics-window (seq-find #'flymake-diagnostics-window (window-list))))
-	(if diagnostics-window
-		(quit-window t diagnostics-window)
-	  (if (project-current)
-		  (flymake-show-project-diagnostics)
-		(flymake-show-buffer-diagnostics)))))
+    (if diagnostics-window
+	(quit-window t diagnostics-window)
+      (if (project-current)
+	  (flymake-show-project-diagnostics)
+	(flymake-show-buffer-diagnostics)))))
 
 (with-eval-after-load 'flymake
   (require 'project)
@@ -260,10 +267,10 @@
   (define-key flymake-mode-map (kbd "M-p") #'flymake-goto-prev-error))
 
 (add-to-list 'display-buffer-alist
-			 '("\\*Flymake diagnostics"
-			   display-buffer-in-side-window
-			   (side . bottom)
-			   (window-height . (lambda (window) (fit-window-to-buffer window 10)))))
+	     '("\\*Flymake diagnostics"
+	       display-buffer-in-side-window
+	       (side . bottom)
+	       (window-height . (lambda (window) (fit-window-to-buffer window 10)))))
 
 ;; Completions
 (setq completion-styles '(basic partial-completion substring))
@@ -280,9 +287,9 @@
 (define-key minibuffer-local-completion-map (kbd "S-<return>") #'switch-to-completions)
 
 (add-to-list 'display-buffer-alist
-			 '("\\*Completions\\*"
-			   display-buffer-in-side-window
-			   (side . bottom)))
+	     '("\\*Completions\\*"
+	       display-buffer-in-side-window
+	       (side . bottom)))
 
 ;; Repeat
 (setq repeat-exit-key "RET")
@@ -295,12 +302,12 @@
   "Toggle single window."
   (interactive)
   (if (and last-window-config
-		   (= (length (window-list)) 1))
-	  (progn
-		(set-window-configuration last-window-config)
-		(setq last-window-config nil))
-	(setq last-window-config (current-window-configuration))
-	(delete-other-windows)))
+	   (= (length (window-list)) 1))
+      (progn
+	(set-window-configuration last-window-config)
+	(setq last-window-config nil))
+    (setq last-window-config (current-window-configuration))
+    (delete-other-windows)))
 
 (global-set-key (kbd "C-x 1") #'toggle-single-window)
 
@@ -308,19 +315,19 @@
 (setq enable-recursive-minibuffers t)
 (setq read-minibuffer-restore-windows nil)
 (setq minibuffer-prompt-properties
-	  '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
+      '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
 
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 (minibuffer-depth-indicate-mode 1)
 
 ;; Savehist
 (setq savehist-additional-variables
-	  '(kill-ring
-		register-alist
-		mark-ring
-		global-mark-ring
-		search-ring
-		regexp-search-ring))
+      '(kill-ring
+	register-alist
+	mark-ring
+	global-mark-ring
+	search-ring
+	regexp-search-ring))
 (savehist-mode 1)
 
 ;; Eval expression
@@ -395,9 +402,9 @@
   "Collapse multiple blank lines into one."
   (interactive)
   (save-excursion
-	(goto-char (point-min))
-	(while (re-search-forward "\n\\{2,\\}" nil t)
-	  (replace-match "\n\n"))))
+    (goto-char (point-min))
+    (while (re-search-forward "\n\\{2,\\}" nil t)
+      (replace-match "\n\n"))))
 
 ;; Keybindings
 (global-set-key (kbd "<remap> <count-words-region>") #'count-words)
