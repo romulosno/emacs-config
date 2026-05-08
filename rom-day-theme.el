@@ -9,6 +9,8 @@
 (custom-theme-set-faces
  'rom-day
  '(cursor ((t (:background "#cf8300"))))
+ '(company-tooltip ((t (:background "#e1e1f2" :foreground "black"))))
+ '(company-tooltip-selection ((t (:background "#babad9"))))
  '(completions-common-part ((t (:foreground "#4f4941"))))
  '(default ((t (:background "#f1f1f1" :foreground "#000000"))))
  '(diff-added ((t (:background "#daebda"))))
@@ -22,11 +24,11 @@
  '(flymake-warning ((t (:underline "#805801"))))
  '(font-lock-builtin-face ((t (:foreground "#07206b"))))
  '(font-lock-comment-face ((t (:foreground "#606150"))))
- '(font-lock-constant-face ((t (:foreground "#284d2b"))))
+ '(font-lock-constant-face ((t (:foreground "#243980"))))
  '(font-lock-function-name-face ((t (:foreground "#4a005c"))))
- '(font-lock-keyword-face ((t (:foreground "#16046b"))))
+ '(font-lock-keyword-face ((t (:foreground "#6d0573"))))
  '(font-lock-string-face ((t (:foreground "#004747"))))
- '(font-lock-type-face ((t (:foreground "#191970"))))
+ '(font-lock-type-face ((t (:foreground "#0c0c87"))))
  '(font-lock-variable-name-face ((t (:foreground "#1d3759"))))
  '(font-lock-warning-face ((t (:foreground "#ff0000" :bold t))))
  '(fringe ((t (:background "#f1f1f1"))))
