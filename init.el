@@ -4,7 +4,8 @@
 			 ("melpa" . "https://melpa.org/packages/")))
 
 (setq my-packages
-      '(dockerfile-mode
+      '(company
+	dockerfile-mode
 	exec-path-from-shell
 	go-mode
 	markdown-mode
@@ -281,6 +282,9 @@
 (setq completions-max-height 10)
 (setq completion-show-help nil)
 
+(add-hook 'prog-mode-hook #'company-mode)
+(setq company-idle-delay 0.1)
+
 (add-to-list 'completion-ignored-extensions ".exe")
 
 (define-key completion-in-region-mode-map (kbd "S-<return>") #'switch-to-completions)
@@ -412,7 +416,6 @@
 (global-set-key (kbd "<remap> <downcase-word>") #'downcase-dwim)
 (global-set-key (kbd "<remap> <upcase-word>") #'upcase-dwim)
 (global-set-key (kbd "<remap> <zap-to-char>") #'zap-up-to-char)
-
 (global-set-key (kbd "M-o") #'other-window)
 (global-set-key (kbd "C-c h") #'hl-line-mode)
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
