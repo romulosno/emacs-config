@@ -4,8 +4,7 @@
 			 ("melpa" . "https://melpa.org/packages/")))
 
 (setq my-packages
-      '(company
-	dockerfile-mode
+      '(dockerfile-mode
 	exec-path-from-shell
 	go-mode
 	markdown-mode
@@ -16,11 +15,9 @@
     (package-install pac)))
 
 ;; Font
-(cond
- ((find-font (font-spec :family "Maple Mono Normal NL" :weight 'medium))
-  (add-to-list 'default-frame-alist '(font . "Maple Mono Normal NL:weight=medium:size=15")))
- ((find-font (font-spec :name "Fira Code-11"))
-  (add-to-list 'default-frame-alist '(font . "Fira Code-11"))))
+(pcase system-name
+ ("doa" (add-to-list 'default-frame-alist '(font . "Maple Mono Normal NL:size=15")))
+ ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Retina:size=14"))))
 
 ;; Themes
 (load-theme 'rom-day t)
@@ -281,9 +278,11 @@
 (setq completions-format 'vertical)
 (setq completions-max-height 10)
 (setq completion-show-help nil)
+(setq completions-sort 'historical)
 
-(add-hook 'prog-mode-hook #'company-mode)
-(setq company-idle-delay 0.1)
+(when (fboundp #'completion-preview-mode)
+  (setq completion-preview-exact-match-only t)
+  (global-completion-preview-mode 1))
 
 (add-to-list 'completion-ignored-extensions ".exe")
 
@@ -325,7 +324,7 @@
 
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
 
-;; Savehist
+;; History
 (setq savehist-additional-variables
       '(kill-ring
 	register-alist
@@ -333,6 +332,7 @@
 	global-mark-ring
 	search-ring
 	regexp-search-ring))
+(setq history-delete-duplicates t)
 (savehist-mode 1)
 
 ;; Eval expression
