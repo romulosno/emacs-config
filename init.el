@@ -76,10 +76,6 @@
 (setq ffap-machine-p-known 'reject)
 (setq disabled-command-function nil)
 
-;; Split
-(setq split-height-threshold nil)
-(setq split-width-threshold 100)
-
 ;; Help
 (setq help-window-select t)
 
@@ -286,6 +282,8 @@
 
 (add-to-list 'completion-ignored-extensions ".exe")
 
+(define-key global-map (kbd "M-/") #'dabbrev-completion)
+
 (define-key completion-in-region-mode-map (kbd "S-<return>") #'switch-to-completions)
 (define-key minibuffer-local-completion-map (kbd "S-<return>") #'switch-to-completions)
 
@@ -387,6 +385,9 @@
 (setq org-log-into-drawer t)
 (setq org-hide-emphasis-markers t)
 (setq org-return-follows-link t)
+(setq org-html-postamble nil)
+(setq org-export-with-toc nil)
+(setq org-export-with-sub-superscripts nil)
 
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
