@@ -16,8 +16,8 @@
 
 ;; Font
 (pcase system-name
- ("doa" (add-to-list 'default-frame-alist '(font . "Maple Mono Normal NL:size=15")))
- ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Retina:size=14"))))
+  ("doa" (add-to-list 'default-frame-alist '(font . "Maple Mono Normal NL:size=15")))
+  ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Retina:size=14"))))
 
 ;; Themes
 (load-theme 'rom-day t)
@@ -386,8 +386,11 @@
 (setq org-hide-emphasis-markers t)
 (setq org-return-follows-link t)
 (setq org-html-postamble nil)
+
 (setq org-export-with-toc nil)
 (setq org-export-with-sub-superscripts nil)
+(setq org-export-with-section-numbers nil)
+(setq org-export-preserve-breaks t)
 
 (global-set-key (kbd "C-c l") #'org-store-link)
 (global-set-key (kbd "C-c a") #'org-agenda)
