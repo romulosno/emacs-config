@@ -17,7 +17,9 @@
 ;; Font
 (pcase system-name
   ("doa" (add-to-list 'default-frame-alist '(font . "Maple Mono Normal NL:size=15")))
-  ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Cascadia Code:size=14"))))
+  ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Medium:size=15"))))
+
+(setq-default w32-enable-synthesized-fonts t)
 
 ;; Themes
 (load-theme 'rom-day t)
