@@ -16,10 +16,8 @@
 
 ;; Font
 (pcase system-name
-  ("doa" (add-to-list 'default-frame-alist '(font . "Maple Mono Normal NL:size=15")))
-  ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Medium:size=15"))))
-
-(setq-default w32-enable-synthesized-fonts t)
+  ("doa" (add-to-list 'default-frame-alist '(font . "Fira Code:weight=medium:pixelsize=15")))
+  ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Medium:pixelsize=13"))))
 
 ;; Themes
 (load-theme 'rom-day t)
