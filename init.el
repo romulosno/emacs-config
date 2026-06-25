@@ -271,10 +271,43 @@
 (setq completion-category-overrides '((project-file (styles . (basic flex initials)))))
 
 (setq tab-always-indent 'complete)
-(setq completions-format 'vertical)
 (setq completions-max-height 10)
 (setq completion-show-help nil)
-(setq completions-sort 'historical)
+(setq completion-auto-select 'second-tab)
+
+(defun update-completions ()
+  (let ((inhibit-message t))
+      (minibuffer-completion-help)))
+
+(defun config-completions ()
+  (when auto-completions-mode
+    (add-hook 'post-command-hook #'update-completions nil t)))
+
+(defun my-completion-in-region (start end collection predicate)
+  (if (minibufferp)
+      (let ((completion-in-region-function #'completion--in-region))
+        (funcall completion-in-region-function start end collection predicate))
+    (let* ((initial-input (buffer-substring-no-properties start end))
+           (candidates (all-completions initial-input collection predicate))
+           (minibuffer-setup-hook (append minibuffer-setup-hook (list #'update-completions)))
+           (completion-in-region-function #'completion--in-region)
+           (completion-auto-select t)
+           (choice (completing-read "Completar: " candidates nil nil initial-input)))
+      (delete-region start end)
+      (insert choice))))
+
+(define-minor-mode auto-completions-mode
+  "Auto update completions mode."
+  :global t
+  :group 'completion
+  (if auto-completions-mode
+      (progn
+	(add-hook 'minibuffer-setup-hook #'config-completions)
+	(setq completion-in-region-function #'my-completion-in-region))
+    (remove-hook 'minibuffer-setup-hook #'config-completions)
+    (setq completion-in-region-function #'completion--in-region)))
+
+(auto-completions-mode 1)
 
 (when (fboundp #'completion-preview-mode)
   (setq completion-preview-exact-match-only t)
@@ -286,11 +319,13 @@
 
 (define-key completion-in-region-mode-map (kbd "S-<return>") #'switch-to-completions)
 (define-key minibuffer-local-completion-map (kbd "S-<return>") #'switch-to-completions)
+(define-key completion-list-mode-map (kbd "<") #'first-completion)
+(define-key completion-list-mode-map (kbd ">") #'last-completion)
+(define-key completion-list-mode-map (kbd "q") #'quit-window)
 
-(add-to-list 'display-buffer-alist
-	     '("\\*Completions\\*"
-	       display-buffer-in-side-window
-	       (side . bottom)))
+(add-to-list 'display-buffer-alist '("\\*Completions\\*"
+				     display-buffer-in-side-window
+				     (side . bottom)))
 
 ;; Repeat
 (setq repeat-exit-key "RET")
