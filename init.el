@@ -337,8 +337,6 @@
 
 (add-to-list 'completion-ignored-extensions ".exe")
 
-(define-key global-map (kbd "M-/") #'dabbrev-completion)
-
 (define-key completion-in-region-mode-map (kbd "S-<return>") #'switch-to-completions)
 (define-key minibuffer-local-completion-map (kbd "S-<return>") #'switch-to-completions)
 (define-key completion-list-mode-map (kbd "<") #'first-completion)
