@@ -275,18 +275,17 @@
 (setq completion-show-help nil)
 (setq completion-auto-select 'second-tab)
 
-(defun update-completions ()
+(defun show-completions ()
+  (let ((inhibit-message t))
+    (minibuffer-completion-help)))
+
+(defun update-completions (&rest _args)
   (when (minibufferp)
-    (let ((inhibit-message t))
-      (when (or (memq this-command '(self-insert-command 
-                                     backward-delete-char-untabify 
-                                     delete-backward-char))
-                (bound-and-true-p open-completion-p))
-	(minibuffer-completion-help)))))
+    (show-completions)))
 
 (defun config-completions ()
   (when auto-completions-mode
-    (add-hook 'post-command-hook #'update-completions nil t)))
+    (add-hook 'after-change-functions #'update-completions nil t)))
 
 (defun my-completion-in-region (start end collection predicate)
   (if (minibufferp)
@@ -294,11 +293,12 @@
         (funcall completion-in-region-function start end collection predicate))
     (let* ((initial-input (buffer-substring-no-properties start end))
            (candidates (all-completions initial-input collection predicate))
-           (minibuffer-setup-hook (append minibuffer-setup-hook (list #'update-completions)))
            (completion-in-region-function #'completion--in-region)
-	   (open-completion-p)
            (completion-auto-select t)
-           (choice (completing-read "Completar: " candidates nil nil initial-input)))
+           (minibuffer-setup-hook (append minibuffer-setup-hook 
+                                          (list #'show-completions
+                                                (lambda () (add-hook 'post-command-hook #'show-completions nil t)))))
+           (choice (completing-read "Complete: " candidates nil nil initial-input)))
       (delete-region start end)
       (insert choice))))
 
