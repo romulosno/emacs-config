@@ -273,33 +273,43 @@
 (setq tab-always-indent 'complete)
 (setq completions-max-height 10)
 (setq completion-show-help nil)
-(setq completion-auto-select 'second-tab)
 
 (defun show-completions ()
   (let ((inhibit-message t))
     (minibuffer-completion-help)))
 
 (defun update-completions (&rest _args)
-  (when (minibufferp)
+  (when (and (minibufferp)
+             (null isearch-mode)
+             (not (memq this-command '(minibuffer-complete 
+                                       minibuffer-complete-word
+                                       minibuffer-complete-and-exit
+                                       completion-at-point))))
     (show-completions)))
 
-(defun config-completions ()
+(defun setup-completions ()
   (when auto-completions-mode
     (add-hook 'after-change-functions #'update-completions nil t)))
+
+(defun setup-minibuffer-completions ()
+  (add-hook 'post-command-hook #'show-completions nil t)
+  (local-set-key (kbd "TAB") #'minibuffer-complete-and-exit)
+  (local-set-key [tab] #'minibuffer-complete-and-exit))
 
 (defun my-completion-in-region (start end collection predicate)
   (if (minibufferp)
       (let ((completion-in-region-function #'completion--in-region))
         (funcall completion-in-region-function start end collection predicate))
     (let* ((initial-input (buffer-substring-no-properties start end))
-           (candidates (completion-all-completions initial-input collection predicate (length initial-input)))
            (completion-in-region-function #'completion--in-region)
+	   (raw-matches (completion-all-completions initial-input collection predicate (length initial-input)))
+           (completions (all-completions "" raw-matches))
            (minibuffer-setup-hook (append minibuffer-setup-hook 
-                                          (list #'show-completions
-                                                (lambda () (add-hook 'post-command-hook #'show-completions nil t)))))
-           (choice (completing-read "Complete: " candidates nil nil initial-input)))
+                                          (list #'setup-minibuffer-completions))))
       (delete-region start end)
-      (insert choice))))
+      (if (= (length completions) 1)
+          (insert (car completions))
+        (insert (completing-read "Complete: " collection predicate nil initial-input))))))
 
 (defun quit-completion ()
   (interactive)
@@ -314,9 +324,9 @@
   :group 'completion
   (if auto-completions-mode
       (progn
-	(add-hook 'minibuffer-setup-hook #'config-completions)
-	(setq completion-in-region-function #'my-completion-in-region))
-    (remove-hook 'minibuffer-setup-hook #'config-completions)
+        (add-hook 'minibuffer-setup-hook #'setup-completions)
+        (setq completion-in-region-function #'my-completion-in-region))
+    (remove-hook 'minibuffer-setup-hook #'setup-completions)
     (setq completion-in-region-function #'completion--in-region)))
 
 (auto-completions-mode 1)
