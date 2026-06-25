@@ -435,6 +435,8 @@
 (advice-add 'diff-hunk-next :after #'recenter-top)
 (advice-add 'diff-hunk-prev :after #'recenter-top)
 
+(add-to-list 'display-buffer-alist '("\\*vc-git" nil (body-function . select-window)))
+
 ;; Org
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@/!)")))
