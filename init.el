@@ -292,7 +292,7 @@
       (let ((completion-in-region-function #'completion--in-region))
         (funcall completion-in-region-function start end collection predicate))
     (let* ((initial-input (buffer-substring-no-properties start end))
-           (candidates (all-completions initial-input collection predicate))
+           (candidates (completion-all-completions initial-input collection predicate (length initial-input)))
            (completion-in-region-function #'completion--in-region)
            (completion-auto-select t)
            (minibuffer-setup-hook (append minibuffer-setup-hook 
