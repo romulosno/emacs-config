@@ -294,13 +294,19 @@
     (let* ((initial-input (buffer-substring-no-properties start end))
            (candidates (completion-all-completions initial-input collection predicate (length initial-input)))
            (completion-in-region-function #'completion--in-region)
-           (completion-auto-select t)
            (minibuffer-setup-hook (append minibuffer-setup-hook 
                                           (list #'show-completions
                                                 (lambda () (add-hook 'post-command-hook #'show-completions nil t)))))
            (choice (completing-read "Complete: " candidates nil nil initial-input)))
       (delete-region start end)
       (insert choice))))
+
+(defun quit-completion ()
+  (interactive)
+  (if (and auto-completions-mode 
+           (string-prefix-p "Complete: " (minibuffer-prompt)))
+      (abort-recursive-edit)
+    (quit-window)))
 
 (define-minor-mode auto-completions-mode
   "Auto update completions mode."
@@ -327,7 +333,7 @@
 (define-key minibuffer-local-completion-map (kbd "S-<return>") #'switch-to-completions)
 (define-key completion-list-mode-map (kbd "<") #'first-completion)
 (define-key completion-list-mode-map (kbd ">") #'last-completion)
-(define-key completion-list-mode-map (kbd "q") #'quit-window)
+(define-key completion-list-mode-map (kbd "q") #'quit-completion)
 
 (add-to-list 'display-buffer-alist '("\\*Completions\\*"
 				     display-buffer-in-side-window
