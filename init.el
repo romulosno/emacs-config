@@ -277,12 +277,16 @@
 (defun update-completions (&rest _)
   (when (and (minibufferp)
              minibuffer-completion-table
-             (null isearch-mode))
-    (while-no-input
-      (minibuffer-completion-help))))
+             (null isearch-mode)
+	     (not (memq this-command '(exit-minibuffer 
+                                       minibuffer-complete-and-exit
+                                       minibuffer-complete-word
+                                       minibuffer-complete))))
+    (let ((inhibit-message t))
+      (while-no-input
+	(minibuffer-completion-help)))))
 
 (defun setup-minibuffer-completions ()
-  (add-hook 'post-command-hook #'minibuffer-completion-help nil t)
   (local-set-key (kbd "TAB") #'minibuffer-complete-and-exit)
   (local-set-key [tab] #'minibuffer-complete-and-exit))
 
@@ -295,7 +299,8 @@
       (delete-region start end)
       (if (= (length (all-completions "" matches)) 1)
           (insert (car (all-completions "" matches)))
-        (insert (completing-read "Complete: " collection predicate nil initial))))))
+        (let ((choice (completing-read "Complete: " collection predicate nil initial)))
+	  (insert choice))))))
 
 (advice-add 'choose-completion :around
             (lambda (orig-fun &rest args)
