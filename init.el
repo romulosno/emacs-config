@@ -14,6 +14,9 @@
   (unless (package-installed-p pac)
     (package-install pac)))
 
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory) t)
+(require 'auto-completions)
+
 ;; Font
 (pcase system-name
   ("doa" (add-to-list 'default-frame-alist '(font . "JetBrains Mono:weight=medium:pixelsize=15")))
@@ -33,11 +36,10 @@
 (setq-default mode-line-format
 	      `("%e"
 		mode-line-front-space
-		(:propertize
-		 ("" mode-line-mule-info mode-line-modified)
-		 display (min-width (6.0)))
+	        mode-line-mule-info
+		mode-line-modified
 		" " mode-line-buffer-identification
-		" " mode-line-modes
+		" " (:propertize mode-name face italic) " "
 		,(when (boundp 'mode-line-format-right-align)
 		   'mode-line-format-right-align)
 		(project-mode-line project-mode-line-format)
@@ -45,7 +47,8 @@
 		"  "
 		mode-line-misc-info
 		"[L:%l/C:%c] "
-		mode-line-percent-position " "
+		(:propertize mode-line-percent-position)
+		" "
 		mode-line-end-spaces " "))
 
 ;; Indentation
@@ -273,56 +276,6 @@
 (setq tab-always-indent 'complete)
 (setq completions-max-height 10)
 (setq completion-show-help nil)
-
-(defun update-completions (&rest _)
-  (when (and (minibufferp)
-             minibuffer-completion-table
-             (null isearch-mode)
-	     (not (memq this-command '(exit-minibuffer 
-                                       minibuffer-complete-and-exit
-                                       minibuffer-complete-word
-                                       minibuffer-complete))))
-    (let ((inhibit-message t))
-      (while-no-input
-	(minibuffer-completion-help)))))
-
-(defun setup-minibuffer-completions ()
-  (local-set-key (kbd "TAB") #'minibuffer-complete-and-exit)
-  (local-set-key [tab] #'minibuffer-complete-and-exit))
-
-(defun my-completion-in-region (start end collection predicate)
-  (if (minibufferp)
-      (funcall #'completion--in-region start end collection predicate)
-    (let* ((initial (buffer-substring-no-properties start end))
-           (matches (completion-all-completions initial collection predicate (length initial)))
-           (minibuffer-setup-hook (append minibuffer-setup-hook '(setup-minibuffer-completions))))
-      (delete-region start end)
-      (if (= (length (all-completions "" matches)) 1)
-          (insert (car (all-completions "" matches)))
-        (let ((choice (completing-read "Complete: " collection predicate nil initial)))
-	  (insert choice))))))
-
-(advice-add 'choose-completion :around
-            (lambda (orig-fun &rest args)
-              (with-current-buffer (window-buffer (active-minibuffer-window))
-                (remove-hook 'after-change-functions #'update-completions t)
-                (apply orig-fun args)
-                (exit-minibuffer))))
-
-(defun auto-completions-mode--enable ()
-  (when auto-completions-mode
-    (add-hook 'after-change-functions #'update-completions nil t)))
-
-(define-minor-mode auto-completions-mode
-  "Auto update completions mode."
-  :global t
-  (if auto-completions-mode
-      (progn
-        (add-hook 'minibuffer-setup-hook #'auto-completions-mode--enable)
-        (setq completion-in-region-function #'my-completion-in-region))
-    (setq completion-in-region-function #'completion--in-region)))
-
-(auto-completions-mode 1)
 
 (when (fboundp #'completion-preview-mode)
   (setq completion-preview-exact-match-only t)
