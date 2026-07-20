@@ -19,8 +19,17 @@
 
 ;; Font
 (pcase system-name
-  ("doa" (add-to-list 'default-frame-alist '(font . "JetBrains Mono:weight=medium:pixelsize=15")))
+  ("doa" (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=15")))
   ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Medium:pixelsize=13"))))
+
+(cond
+ ((eq system-type 'gnu/linux)
+  (set-fontset-font t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend)
+  (set-fontset-font t 'emoji  (font-spec :family "Noto Color Emoji") nil 'prepend))
+ 
+ ((eq system-type 'windows-nt)
+  (set-fontset-font t 'symbol (font-spec :family "Segoe UI Emoji") nil 'prepend)
+  (set-fontset-font t 'emoji  (font-spec :family "Segoe UI Emoji") nil 'prepend)))
 
 ;; Themes
 (load-theme 'rom-day t)
@@ -34,11 +43,9 @@
 
 ;; Mode line
 (setq-default mode-line-format
-	      `("%e"
-		mode-line-front-space
-	        mode-line-mule-info
-		mode-line-modified
-		" " mode-line-buffer-identification
+	      `("%e "
+	        mode-line-modified " "
+		mode-line-buffer-identification
 		" " (:propertize mode-name face italic) " "
 		,(when (boundp 'mode-line-format-right-align)
 		   'mode-line-format-right-align)
@@ -49,6 +56,7 @@
 		"[L:%l/C:%c] "
 		(:propertize mode-line-percent-position)
 		" "
+		current-input-method " "
 		mode-line-end-spaces " "))
 
 ;; Indentation

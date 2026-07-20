@@ -12,7 +12,7 @@
  '(company-tooltip ((t (:background "#e1e1f2" :foreground "black"))))
  '(company-tooltip-selection ((t (:background "#babad9"))))
  '(completions-common-part ((t (:foreground "#4f4941"))))
- '(default ((t (:background "#fbfbfb" :foreground "#000000"))))
+ '(default ((t (:background "#f0f0f0" :foreground "#000000"))))
  '(diff-added ((t (:background "#daebda"))))
  '(diff-refine-added ((t (:background "#bce2be"))))
  '(diff-refine-removed ((t (:background "#f1caca"))))
