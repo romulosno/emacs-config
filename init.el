@@ -15,7 +15,6 @@
     (package-install pac)))
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory) t)
-(require 'auto-completions)
 
 ;; Font
 (pcase system-name
@@ -54,8 +53,7 @@
 		"  "
 		mode-line-misc-info
 		"[L:%l/C:%c] "
-		(:propertize mode-line-percent-position)
-		" "
+		(:eval (unless (display-graphic-p) (concat mode-line-percent-position " ")))
 		current-input-method " "
 		mode-line-end-spaces " "))
 

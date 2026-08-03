@@ -4,8 +4,5 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (tooltip-mode -1)
-(scroll-bar-mode -1)
 
-(setq default-frame-alist '((vertical-scroll-bars . nil)
-			    (horizontal-scroll-bars . nil)
-			    (width . 120)))
+(setq default-frame-alist '((width . 120)))
