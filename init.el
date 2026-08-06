@@ -51,6 +51,7 @@
 		(project-mode-line project-mode-line-format)
 		(vc-mode vc-mode)
 		"  "
+		mode-line-modes
 		mode-line-misc-info
 		"[L:%l/C:%c] "
 		(:eval (unless (display-graphic-p) (concat mode-line-percent-position " ")))
@@ -276,6 +277,7 @@
 	       (window-height . (lambda (window) (fit-window-to-buffer window 10)))))
 
 ;; Completions
+
 (setq completion-styles '(basic partial-completion substring))
 (setq completion-category-overrides '((project-file (styles . (basic flex initials)))))
 
