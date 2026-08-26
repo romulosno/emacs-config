@@ -1,4 +1,4 @@
-;;; rom-night-theme.el --- rom-night
+;;; rom-night-theme.el --- rom-night  -*- lexical-binding: t; -*-
 (deftheme rom-night
   "Dark theme."
   :kind 'color-scheme

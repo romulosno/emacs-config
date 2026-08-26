@@ -1,4 +1,4 @@
-;;; rom-day-theme.el --- rom-day
+;;; rom-day-theme.el --- rom-day  -*- lexical-binding: t; -*-
 
 (deftheme rom-day
   "Light theme."

@@ -18,7 +18,7 @@
 
 ;; Font
 (pcase system-name
-  ("doa" (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=15")))
+  ("doa" (add-to-list 'default-frame-alist '(font . "Adwaita Mono:pixelsize=15")))
   ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Medium:pixelsize=13"))))
 
 (cond

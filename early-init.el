@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (setq gc-cons-threshold 8000000)
 (setq gc-cons-percentage 0.4)
 
