@@ -19,7 +19,7 @@
 ;; Font
 (pcase system-name
   ("doa" (add-to-list 'default-frame-alist '(font . "Adwaita Mono:pixelsize=15")))
-  ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Medium:pixelsize=13"))))
+  ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Retina:pixelsize=13"))))
 
 (cond
  ((eq system-type 'gnu/linux)
@@ -31,8 +31,7 @@
   (set-fontset-font t 'emoji  (font-spec :family "Segoe UI Emoji") nil 'prepend)))
 
 ;; Themes
-(load-theme 'rom-day t)
-(load-theme 'rom-night t t)
+(load-theme 'rom t)
 
 ;; Init screen
 (setq initial-major-mode 'fundamental-mode)
@@ -44,8 +43,8 @@
 (setq-default mode-line-format
 	      `("%e "
 	        mode-line-modified " "
-		mode-line-buffer-identification
-		" " (:propertize mode-name face italic) " "
+		mode-line-buffer-identification " "
+		"[L:%l/C:%c] "
 		,(when (boundp 'mode-line-format-right-align)
 		   'mode-line-format-right-align)
 		(project-mode-line project-mode-line-format)
@@ -53,7 +52,6 @@
 		"  "
 		mode-line-modes
 		mode-line-misc-info
-		"[L:%l/C:%c] "
 		(:eval (unless (display-graphic-p) (concat mode-line-percent-position " ")))
 		current-input-method " "
 		mode-line-end-spaces " "))
@@ -278,12 +276,14 @@
 
 ;; Completions
 
-(setq completion-styles '(basic partial-completion substring))
+(setq completion-styles '(basic partial-completion substring flex))
 (setq completion-category-overrides '((project-file (styles . (basic flex initials)))))
 
 (setq tab-always-indent 'complete)
 (setq completions-max-height 10)
 (setq completion-show-help nil)
+(setq completion-flex-nospace t)
+(setq completion-eager-update t)
 
 (when (fboundp #'completion-preview-mode)
   (setq completion-preview-exact-match-only t)
@@ -392,13 +392,11 @@
 (add-to-list 'display-buffer-alist '("\\*vc-git" nil (body-function . select-window)))
 
 ;; Org
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@/!)")))
-(setq org-todo-keyword-faces
-      '(("TODO" . (:foreground "#8a1716" :weight bold))
-        ("WAIT" . (:foreground "#cf6417" :weight bold))
-        ("DONE" . (:foreground "#578020" :weight bold))
-	("CANCELED" . (:foreground "#595e63" :weight bold :strike-through t))))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@/!)")))
+(setq org-todo-keyword-faces '(("TODO" . (:foreground "#8a1716" :weight bold))
+			       ("WAIT" . (:foreground "#cf6417" :weight bold))
+			       ("DONE" . (:foreground "#578020" :weight bold))
+			       ("CANCELED" . (:foreground "#595e63" :weight bold :strike-through t))))
 
 (setq org-log-into-drawer t)
 (setq org-use-speed-commands t)

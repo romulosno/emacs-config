@@ -1,0 +1,34 @@
+;;; rom-theme.el ---  -*- lexical-binding: t; -*-
+
+(deftheme rom
+  "Light theme."
+  :kind 'color-scheme
+  :family 'rom
+  :background-mode 'light)
+
+(custom-theme-set-faces
+ 'rom
+ '(default ((t (:background "#f5f5f5" :foreground "#000000"))))
+ '(diff-added ((t (:background "#caedca"))))
+ '(diff-refine-added ((t (:background "#a9d9a9"))))
+ '(diff-refine-removed ((t (:background "#e3b5b5"))))
+ '(diff-removed ((t (:background "#e3b5b5"))))
+ '(font-lock-builtin-face ((t (:foreground "#380f7a"))))
+ '(font-lock-type-face ((t (:foreground "#51017d"))))
+ '(font-lock-builtin-face ((t (:foreground "#4e1261"))))
+ '(font-lock-comment-face ((t (:foreground "#636149"))))
+ '(font-lock-constant-face ((t (:foreground "#0d526e"))))
+ '(font-lock-function-name-face ((t (:foreground "#0a015e"))))
+ '(font-lock-keyword-face ((t (:foreground "#73063e"))))
+ '(font-lock-string-face ((t (:foreground "#00646e"))))
+ '(font-lock-variable-name-face ((t (:foreground "#2f3357"))))
+ '(fringe ((t (:background "#f5f5f5"))))
+ '(minibuffer-prompt ((t (:background "#dcdfe0" :foreground "#142240"))))
+ '(mode-line ((t (:background "#dcdfe0" :foreground "#000000" :box "#8d9ba1"))))
+ '(mode-line-inactive ((t (:background "#dcdfe0" :foreground "#606266" :box "#8d9ba1"))))
+ '(tab-bar ((t (:background "#dcdfe0" :foreground "#000000" :box "#8d9ba1"))))
+ '(tab-bar-tab ((t (:background "#dcdfe0" :foreground "#000000"))))
+ '(tab-bar-tab-inactive ((t (:background "#dcdfe0" :foreground "#606266")))))
+
+(provide-theme 'rom)
+;;; rom-theme.el ends here
