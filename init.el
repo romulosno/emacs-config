@@ -65,6 +65,15 @@
 (setq frame-inhibit-implied-resize t)
 (setq window-combination-resize t)
 
+;; Pulse line
+(defun pulse-line (&rest _)
+      "Pulse the current line."
+      (pulse-momentary-highlight-one-line (point)))
+
+(dolist (command '(scroll-up-command scroll-down-command
+                   recenter-top-bottom other-window))
+  (advice-add command :after #'pulse-line))
+
 ;; Short answers
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq use-short-answers t)
