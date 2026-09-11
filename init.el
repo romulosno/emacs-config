@@ -452,6 +452,70 @@
     (while (re-search-forward "\n\\{2,\\}" nil t)
       (replace-match "\n\n"))))
 
+;; Session
+(require 'desktop)
+
+(setq desktop-dirname             (expand-file-name "desktop-session/" user-emacs-directory))
+(setq desktop-base-file-name      "session.el")
+(setq desktop-base-lock-name      "session.lock")
+(setq desktop-path                (list desktop-dirname))
+(setq desktop-load-locked-desktop t)
+
+(defvar rom-desktop-file (expand-file-name desktop-base-file-name desktop-dirname))
+(defvar rom-desktop-lock (expand-file-name desktop-base-lock-name desktop-dirname))
+
+(defun rom/desktop-save-session ()
+  (interactive)
+  (unless (file-directory-p desktop-dirname)
+    (make-directory desktop-dirname t))
+  (condition-case err
+      (progn
+        (desktop-save desktop-dirname t)
+        (message "Sessão salva em %s" rom-desktop-file))
+    (error (message "Falha ao salvar sessão: %s" (error-message-string err)))))
+
+(defun rom/desktop-restore-session ()
+  (interactive)
+  (if (file-exists-p rom-desktop-file)
+      (condition-case err
+          (progn
+            (desktop-read desktop-dirname)
+            (message "Sessão restaurada."))
+        (error (message "Falha ao restaurar sessão: %s" (error-message-string err))))
+    (message "Nenhuma sessão salva encontrada.")))
+
+(defun rom/desktop-delete-session ()
+  "Apaga o arquivo de sessão salvo (e o lock, se existir)."
+  (interactive)
+  (when (file-exists-p rom-desktop-file)
+    (delete-file rom-desktop-file))
+  (when (file-exists-p rom-desktop-lock)
+    (delete-file rom-desktop-lock))
+  (message "Arquivo de sessão apagado."))
+
+(defun rom/desktop-ask-save-on-exit ()
+  (when (y-or-n-p "Salvar sessão do Emacs antes de sair? ")
+    (rom/desktop-save-session))
+  t) ; sempre retorna t para não impedir o kill-emacs
+
+(add-hook 'kill-emacs-query-functions #'rom/desktop-ask-save-on-exit)
+
+(defvar rom/desktop-restore-asked-p nil)
+
+(defun rom/desktop-ask-restore-on-start (&rest _)
+  (unless rom/desktop-restore-asked-p
+    (setq rom/desktop-restore-asked-p t)
+    (when (file-exists-p rom-desktop-file)
+      (if (y-or-n-p "Restaurar sessão anterior do Emacs? ")
+          (rom/desktop-restore-session)
+        (when (y-or-n-p "Apagar o arquivo de sessão salvo? ")
+          (rom/desktop-delete-session))))))
+
+(unless noninteractive
+  (if (daemonp)
+      (add-hook 'server-after-make-frame-hook #'rom/desktop-ask-restore-on-start)
+    (add-hook 'after-init-hook #'rom/desktop-ask-restore-on-start)))
+
 ;; Keybindings
 (global-set-key (kbd "<remap> <count-words-region>") #'count-words)
 (global-set-key (kbd "<remap> <capitalize-word>") #'capitalize-dwim)
