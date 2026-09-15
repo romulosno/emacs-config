@@ -18,7 +18,7 @@
 
 ;; Font
 (pcase system-name
-  ("doa" (add-to-list 'default-frame-alist '(font . "Input Mono:pixelsize=14")))
+  ("doa" (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=14")))
   ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Retina:pixelsize=13"))))
 
 (cond
@@ -67,11 +67,11 @@
 
 ;; Pulse line
 (defun pulse-line (&rest _)
-      "Pulse the current line."
-      (pulse-momentary-highlight-one-line (point)))
+  "Pulse the current line."
+  (pulse-momentary-highlight-one-line (point)))
 
 (dolist (command '(scroll-up-command scroll-down-command
-                   recenter-top-bottom other-window))
+				     recenter-top-bottom other-window))
   (advice-add command :after #'pulse-line))
 
 ;; Short answers
