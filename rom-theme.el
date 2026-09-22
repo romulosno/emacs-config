@@ -8,7 +8,7 @@
 
 (custom-theme-set-faces
  'rom
- '(default ((t (:background "#f5f5f5" :foreground "#000000"))))
+ '(default ((t (:background "gray89" :foreground "#000000"))))
  '(diff-added ((t (:background "#caedca"))))
  '(diff-refine-added ((t (:background "#a9d9a9"))))
  '(diff-refine-removed ((t (:background "#e3b5b5"))))
@@ -22,10 +22,10 @@
  '(font-lock-keyword-face ((t (:foreground "#73063e"))))
  '(font-lock-string-face ((t (:foreground "#00646e"))))
  '(font-lock-variable-name-face ((t (:foreground "#2f3357"))))
- '(fringe ((t (:background "#f5f5f5"))))
+ '(fringe ((t (:background "gray89"))))
  '(highlight ((t (:background "#d0ebf2"))))
  '(minibuffer-prompt ((t (:background "#dcdfe0" :foreground "#142240"))))
- '(mode-line ((t (:background "#dcdfe0" :foreground "#000000" :box "#8d9ba1"))))
+ '(mode-line ((t (:background "gray80" :foreground "#000000" :box "#8d9ba1"))))
  '(mode-line-inactive ((t (:background "#dcdfe0" :foreground "#606266" :box "#8d9ba1"))))
  '(pulse-highlight-face ((t (:extend nil :background "#84b0e8"))))
  '(pulse-highlight-start-face ((t (:background "#a4c4ed"))))
