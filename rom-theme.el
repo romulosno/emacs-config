@@ -24,6 +24,8 @@
  '(font-lock-variable-name-face ((t (:foreground "#2f3357"))))
  '(fringe ((t (:background "gray89"))))
  '(highlight ((t (:background "#d0ebf2"))))
+ '(minibuffer-depth-indicator ((t (:background "#03296b" :foreground "#ffffff"))))
+ '(minibuffer-nonselected ((t (:background "#4e0191" :foreground "#ffffff"))))
  '(minibuffer-prompt ((t (:background "#dcdfe0" :foreground "#142240"))))
  '(mode-line ((t (:background "gray80" :foreground "#000000" :box "#8d9ba1"))))
  '(mode-line-inactive ((t (:background "#dcdfe0" :foreground "#606266" :box "#8d9ba1"))))
