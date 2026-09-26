@@ -18,17 +18,11 @@
 
 ;; Font
 (pcase system-name
-  ("doa" (add-to-list 'default-frame-alist '(font . "Input Mono:pixelsize=15")))
-  ("ROMULO-NOTE" (add-to-list 'default-frame-alist '(font . "Fira Code Retina:pixelsize=13"))))
-
-(cond
- ((eq system-type 'gnu/linux)
-  (set-fontset-font t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend)
-  (set-fontset-font t 'emoji  (font-spec :family "Noto Color Emoji") nil 'prepend))
- 
- ((eq system-type 'windows-nt)
-  (set-fontset-font t 'symbol (font-spec :family "Segoe UI Emoji") nil 'prepend)
-  (set-fontset-font t 'emoji  (font-spec :family "Segoe UI Emoji") nil 'prepend)))
+  ("doa" (add-to-list 'default-frame-alist '(font . "Hack:pixelsize=15")))
+  ("ROMULO-NOTE"
+   (add-to-list 'default-frame-alist '(font . "Fira Code Retina:pixelsize=13"))
+   (set-fontset-font t 'symbol (font-spec :family "Segoe UI Emoji") nil 'prepend)
+   (set-fontset-font t 'emoji  (font-spec :family "Segoe UI Emoji") nil 'prepend)))
 
 ;; Themes
 (load-theme 'rom t)
@@ -258,7 +252,6 @@
 	       (window-height . (lambda (window) (fit-window-to-buffer window 10)))))
 
 ;; Completions
-
 (setq completion-styles '(basic partial-completion substring flex))
 (setq completion-category-overrides '((project-file (styles . (basic flex initials)))))
 
@@ -267,6 +260,10 @@
 (setq completion-show-help nil)
 (setq completion-flex-nospace t)
 (setq completion-eager-update t)
+
+(setq-default abbrev-mode t)
+(global-set-key (kbd "C-x a a") #'add-mode-abbrev)
+(global-set-key (kbd "C-x a l") #'list-abbrevs)
 
 (when (fboundp #'completion-preview-mode)
   (setq completion-preview-exact-match-only t)
@@ -414,8 +411,8 @@
 (setq tab-bar-select-tab-modifiers '(meta))
 (setq tab-bar-show 1)
 (setq tab-bar-close-button-show nil)
-(setq tab-bar-format '(tab-bar-format-tabs))
 (setq tab-bar-auto-width-max nil)
+(setq tab-bar-format '(tab-bar-format-tabs))
 
 ;; Empty lines
 (defun delete-multi-empty-lines ()
