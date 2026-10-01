@@ -18,9 +18,10 @@
 
 ;; Font
 (pcase system-name
-  ("doa" (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=15")))
+  ("doa"
+   (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=15")))
   ("ROMULO-NOTE"
-   (add-to-list 'default-frame-alist '(font . "Fira Code Retina:pixelsize=13"))
+   (add-to-list 'default-frame-alist '(font . "mononoki:pixelsize=14"))
    (set-fontset-font t 'symbol (font-spec :family "Segoe UI Emoji") nil 'prepend)
    (set-fontset-font t 'emoji  (font-spec :family "Segoe UI Emoji") nil 'prepend)))
 
