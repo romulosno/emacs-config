@@ -21,7 +21,7 @@
   ("doa"
    (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=15")))
   ("ROMULO-NOTE"
-   (add-to-list 'default-frame-alist '(font . "mononoki:pixelsize=14"))
+   (add-to-list 'default-frame-alist '(font . "Fira Code Retina:pixelsize=13"))
    (set-fontset-font t 'symbol (font-spec :family "Segoe UI Emoji") nil 'prepend)
    (set-fontset-font t 'emoji  (font-spec :family "Segoe UI Emoji") nil 'prepend)))
 
@@ -285,6 +285,7 @@
 ;; Repeat
 (setq repeat-exit-key "RET")
 (repeat-mode 1)
+(put 'dired-jump 'repeat-map nil)
 
 ;; C-x 1
 (defvar last-window-config nil)
@@ -371,6 +372,9 @@
 (advice-add 'diff-hunk-prev :after #'recenter-top)
 
 (add-to-list 'display-buffer-alist '("\\*vc-git" nil (body-function . select-window)))
+
+;; Dictionary
+(setq ispell-dictionary "pt_BR")
 
 ;; Org
 (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@/!)")))
