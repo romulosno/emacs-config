@@ -165,10 +165,10 @@
 (advice-add 'Buffer-menu-other-window :after
 	    (lambda (&rest _) (select-window (get-buffer-window "*Buffer List*"))))
 
-(add-to-list 'display-buffer-alist
-	     '("\\*Buffer List\\*"
-	       display-buffer-same-window
-	       (inhibit-same-window . nil)))
+;; (add-to-list 'display-buffer-alist
+;; 	     '("\\*Buffer List\\*"
+;; 	       display-buffer-same-window
+;; 	       (inhibit-same-window . nil)))
 
 ;;; Performance
 (setq read-process-output-max (* 3 1024 1024))
@@ -440,6 +440,7 @@
 (global-set-key (kbd "C-c m") #'point-to-register)
 (global-set-key (kbd "C-c j") #'jump-to-register)
 (global-set-key (kbd "C-z") #'repeat)
+(global-set-key (kbd "C-x C-b") #'electric-buffer-list)
 
 ;; Customization
 (setq custom-buffer-done-kill t)
