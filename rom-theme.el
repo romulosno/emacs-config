@@ -27,7 +27,7 @@
  '(minibuffer-depth-indicator ((t (:background "#03296b" :foreground "#ffffff"))))
  '(minibuffer-nonselected ((t (:background "#4e0191" :foreground "#ffffff"))))
  '(minibuffer-prompt ((t (:background "#dcdfe0" :foreground "#142240"))))
- '(mode-line ((t (:background "gray80" :foreground "#000000" :box "#8d9ba1"))))
+ '(mode-line ((t (:background "#dcdfe0" :foreground "#000000" :box "#8d9ba1"))))
  '(mode-line-inactive ((t (:background "#dcdfe0" :foreground "#606266" :box "#8d9ba1"))))
  '(pulse-highlight-face ((t (:extend nil :background "#84b0e8"))))
  '(pulse-highlight-start-face ((t (:background "#a4c4ed"))))

@@ -18,6 +18,8 @@
 
 ;; Font
 (pcase system-name
+  ("alien"
+   (add-to-list 'default-frame-alist '(font . "Monaspace Argon:pixelsize=15")))
   ("doa"
    (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=15")))
   ("ROMULO-NOTE"
