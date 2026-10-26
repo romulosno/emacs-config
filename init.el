@@ -19,7 +19,7 @@
 ;; Font
 (pcase system-name
   ("alien"
-   (add-to-list 'default-frame-alist '(font . "Adwaita Mono:pixelsize=15")))
+   (add-to-list 'default-frame-alist '(font . "Aporetic Sans Mono:pixelsize=18")))
   ("doa"
    (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=15")))
   ("ROMULO-NOTE"
@@ -201,9 +201,7 @@
 	     `(,(rx bos "*"
 		    (or "compilation")
 		    "*" eos)
-	       display-buffer-in-side-window
-	       (side . bottom)
-	       (window-height . 10)))
+	       display-buffer-same-window))
 
 ;; Prog
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
