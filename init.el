@@ -103,8 +103,14 @@
 
 ;; Grep/Occur buffers
 (setq grep-save-buffers nil)
+
 (dolist (hook '(occur-mode-hook grep-mode-hook))
   (add-hook hook (lambda () (setq truncate-lines t))))
+
+(add-hook 'occur-hook
+          (lambda ()
+            (occur-rename-buffer t)
+            (setq buffer-read-only nil)))
 
 ;; Isearch
 (setq isearch-lazy-count t)
@@ -176,7 +182,7 @@
 
 (add-to-list 'display-buffer-alist
              `(,(rx bos "*"
-                    (or "Help" "Apropos" "Colors" "Buffer List" "Occur"
+                    (or "Help" "Apropos" "Colors" "Buffer List"
                         "grep" "shell" "compilation" "Shell Command Output"
                         "Diff" "vc-dir" "vc-log" "vc-search-log")
                     "*"
