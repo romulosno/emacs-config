@@ -352,7 +352,9 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-keep-variants nil)
 (setq diff-default-read-only t)
-(setq smerge-command-prefix "\C-cd")
+
+(global-set-key (kbd "C-c m") #'smerge-mode)
+(setq smerge-command-prefix (kbd "SPC"))
 
 (defun recenter-top (&rest _) (recenter 0))
 (advice-add 'diff-hunk-next :after #'recenter-top)
@@ -413,6 +415,14 @@
     (while (re-search-forward "\n\\{2,\\}" nil t)
       (replace-match "\n\n"))))
 
+;; register
+(global-set-key (kbd "C-c p") #'point-to-register)
+(global-set-key (kbd "C-c j") #'jump-to-register)
+
+(defun clean-register (register)
+  (interactive "cRegister to clean: ")
+  (set-register register nil))
+
 ;; Keybindings
 (when window-system
   (define-key global-map [escape] 'keyboard-escape-quit)
@@ -427,8 +437,6 @@
 (global-set-key (kbd "M-o") #'other-window)
 (global-set-key (kbd "C-c h") #'hl-line-mode)
 (global-set-key (kbd "C-c k") #'kill-current-buffer)
-(global-set-key (kbd "C-c m") #'point-to-register)
-(global-set-key (kbd "C-c j") #'jump-to-register)
 (global-set-key (kbd "C-z") #'repeat)
 
 ;; Customization
