@@ -16,10 +16,15 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory) t)
 
+;; Server
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 ;; Font
 (pcase system-name
   ("alien"
-   (add-to-list 'default-frame-alist '(font . "Aporetic Sans Mono:pixelsize=18")))
+   (add-to-list 'default-frame-alist '(font . "Adwaita Mono:pixelsize=18")))
   ("doa"
    (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=15")))
   ("ROMULO-NOTE"
@@ -310,7 +315,6 @@
       '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
 
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-
 ;; History
 (setq savehist-additional-variables
       '(kill-ring
