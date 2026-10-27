@@ -20,7 +20,7 @@
  '(font-lock-constant-face ((t (:foreground "#0d526e"))))
  '(font-lock-function-name-face ((t (:foreground "#0a015e"))))
  '(font-lock-keyword-face ((t (:foreground "#73063e"))))
- '(font-lock-string-face ((t (:foreground "#00646e"))))
+ '(font-lock-string-face ((t (:foreground "#0e468a"))))
  '(font-lock-variable-name-face ((t (:foreground "#2f3357"))))
  '(fringe ((t (:background "#f5f5f5"))))
  '(highlight ((t (:background "#d0ebf2"))))

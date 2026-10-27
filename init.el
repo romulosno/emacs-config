@@ -53,6 +53,7 @@
 ;; Short answers
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq use-short-answers t)
+(setq disabled-command-function nil)
 
 ;; Misc
 (setq echo-keystrokes 0.02)
@@ -67,7 +68,6 @@
 (setq require-final-newline t)
 (setq reb-re-syntax 'string)
 (setq ffap-machine-p-known 'reject)
-(setq disabled-command-function nil)
 
 ;; Help
 (setq help-window-select t)
@@ -352,7 +352,7 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-keep-variants nil)
 (setq diff-default-read-only t)
-(setq smerge-command-prefix "\e")
+(setq smerge-command-prefix "\C-cd")
 
 (defun recenter-top (&rest _) (recenter 0))
 (advice-add 'diff-hunk-next :after #'recenter-top)
@@ -414,6 +414,11 @@
       (replace-match "\n\n"))))
 
 ;; Keybindings
+(when window-system
+  (define-key global-map [escape] 'keyboard-escape-quit)
+  (define-key isearch-mode-map  [escape] 'isearch-cancel)
+  (define-key completion-list-mode-map [escape] 'switch-to-minibuffer))
+
 (global-set-key (kbd "<remap> <count-words-region>") #'count-words)
 (global-set-key (kbd "<remap> <capitalize-word>") #'capitalize-dwim)
 (global-set-key (kbd "<remap> <downcase-word>") #'downcase-dwim)
