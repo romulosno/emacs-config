@@ -71,20 +71,7 @@
 
 ;; Help
 (setq help-window-select t)
-
 (add-hook 'help-mode #'visual-line-mode)
-
-(defun display-buffer-from-help-p (&rest _)
-  "Check if current buffer is a Help buffer."
-  (unless current-prefix-arg
-    (with-current-buffer (window-buffer)
-      (derived-mode-p '(help-mode)))))
-
-(add-to-list 'display-buffer-alist
-	     '(display-buffer-from-help-p
-	       display-buffer-same-window
-	       (inhibit-same-window . nil)
-	       (window-height . nil)))
 
 ;; Uniquify buffer name
 (setq uniquify-buffer-name-style 'forward)
@@ -116,15 +103,6 @@
 
 ;; Grep/Occur buffers
 (setq grep-save-buffers nil)
-(add-to-list 'display-buffer-alist
-	     `(,(rx bos "*"
-		    (or "grep" "Occur")
-		    "*" eos)
-	       display-buffer-in-side-window
-	       (side . bottom)
-	       (window-height . 10)
-	       (body-function . select-window)))
-
 (dolist (hook '(occur-mode-hook grep-mode-hook))
   (add-hook hook (lambda () (setq truncate-lines t))))
 
@@ -169,12 +147,6 @@
 (define-key Buffer-menu-mode-map (kbd "q") #'kill-buffer-and-window)
 (define-key Buffer-menu-mode-map (kbd "O") #'Buffer-menu-multi-occur)
 
-(add-to-list 'display-buffer-alist
-	     '("\\*Buffer List\\*"
-	       display-buffer-pop-up-window
-	       (inhibit-same-window . t)
-	       (body-function . select-window)))
-
 ;;; Performance
 (setq read-process-output-max (* 3 1024 1024))
 
@@ -203,10 +175,17 @@
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
 (add-to-list 'display-buffer-alist
-	     `(,(rx bos "*"
-		    (or "compilation")
-		    "*" eos)
-	       display-buffer-same-window))
+             `(,(rx bos "*"
+                    (or "Help" "Apropos" "Colors" "Buffer List" "Occur"
+                        "grep" "shell" "compilation" "Shell Command Output"
+                        "Diff" "vc-dir" "vc-log" "vc-search-log")
+                    "*"
+                    ;; Uniquifed buffer name with optional suffix in angle brackets
+                    (? (and "<" (+ (not (any ">"))) ">"))
+                    eos)
+               display-buffer-same-window
+               (inhibit-same-window . nil)
+               (window-height . nil)))
 
 ;; Prog
 (add-hook 'prog-mode-hook #'electric-pair-local-mode)
@@ -372,8 +351,6 @@
 (defun recenter-top (&rest _) (recenter 0))
 (advice-add 'diff-hunk-next :after #'recenter-top)
 (advice-add 'diff-hunk-prev :after #'recenter-top)
-
-(add-to-list 'display-buffer-alist '("\\*vc-git" nil (body-function . select-window)))
 
 ;; Dictionary
 (setq ispell-dictionary "pt_BR")
