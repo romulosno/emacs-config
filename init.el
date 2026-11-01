@@ -16,15 +16,10 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory) t)
 
-;; Server
-(require 'server)
-(unless (server-running-p)
-  (server-start))
-
 ;; Font
 (pcase system-name
   ("alien"
-   (add-to-list 'default-frame-alist '(font . "Adwaita Mono:pixelsize=18")))
+   (add-to-list 'default-frame-alist '(font . "Fira Mono:pixelsize=16")))
   ("doa"
    (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=15")))
   ("ROMULO-NOTE"
@@ -294,6 +289,10 @@
 ;; Minibuffer
 (setq enable-recursive-minibuffers t)
 (minibuffer-depth-indicate-mode 1)
+
+(add-hook 'after-init-hook
+	  (lambda ()
+	    (set-window-scroll-bars (minibuffer-window) nil nil nil nil t)))
 
 (setq read-minibuffer-restore-windows nil)
 (setq minibuffer-prompt-properties
