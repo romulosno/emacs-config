@@ -19,7 +19,7 @@
 ;; Font
 (pcase system-name
   ("alien"
-   (add-to-list 'default-frame-alist '(font . "Fira Mono:pixelsize=16")))
+   (add-to-list 'default-frame-alist '(font . "Fira Code:pixelsize=16")))
   ("doa"
    (add-to-list 'default-frame-alist '(font . "JetBrains Mono:pixelsize=15")))
   ("ROMULO-NOTE"
