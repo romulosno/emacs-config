@@ -414,14 +414,6 @@
     (while (re-search-forward "\n\\{2,\\}" nil t)
       (replace-match "\n\n"))))
 
-;; register
-(global-set-key (kbd "C-c p") #'point-to-register)
-(global-set-key (kbd "C-c j") #'jump-to-register)
-
-(defun clean-register (register)
-  (interactive "cRegister to clean: ")
-  (set-register register nil))
-
 ;; Keybindings
 (when window-system
   (define-key global-map [escape] 'keyboard-escape-quit)
