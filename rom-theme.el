@@ -17,7 +17,7 @@
  '(font-lock-type-face ((t (:foreground "#51017d"))))
  '(font-lock-comment-face ((t (:foreground "#104e57" :background "#ebf0f0"))))
  '(font-lock-constant-face ((t (:foreground "#0d526e"))))
- '(font-lock-function-name-face ((t (:foreground "#0a015e"))))
+ '(font-lock-function-name-face ((t (:foreground "tomato4"))))
  '(font-lock-keyword-face ((t (:foreground "DarkBlue"))))
  '(font-lock-string-face ((t (:foreground "#104e57"))))
  '(font-lock-variable-name-face ((t (:foreground "#2f3357"))))
