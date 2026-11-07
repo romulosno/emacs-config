@@ -364,41 +364,6 @@
 ;; Dictionary
 (setq ispell-dictionary "pt_BR")
 
-;; Org
-(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@/!)")))
-(setq org-todo-keyword-faces '(("TODO" . (:foreground "#8a1716" :weight bold))
-			       ("WAIT" . (:foreground "#cf6417" :weight bold))
-			       ("DONE" . (:foreground "#578020" :weight bold))
-			       ("CANCELED" . (:foreground "#595e63" :weight bold :strike-through t))))
-
-(setq org-log-into-drawer t)
-(setq org-use-speed-commands t)
-(setq org-enforce-todo-dependencies t)
-(setq org-enforce-todo-checkbox-dependencies t)
-
-(setq org-agenda-start-on-weekday nil)
-(setq org-agenda-span 5)
-(setq org-deadline-warning-days 7)
-
-(setq org-hide-emphasis-markers t)
-(setq org-return-follows-link t)
-(setq org-html-postamble nil)
-
-(setq org-export-with-toc nil)
-(setq org-export-with-sub-superscripts nil)
-(setq org-export-with-section-numbers nil)
-(setq org-export-preserve-breaks t)
-
-(setq org-agenda-time-grid '((daily today require-timed) () " " ""))
-(setq org-agenda-block-separator (string-to-char "—"))
-(setq org-agenda-compact-blocks t)
-
-(global-set-key (kbd "C-c l") #'org-store-link)
-(global-set-key (kbd "C-c a") #'org-agenda)
-
-(with-eval-after-load 'org
-  (define-key org-mode-map (kbd "C-M-<return>") #'org-insert-subheading))
-
 ;; Tab bar
 (setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
 (setq tab-bar-select-tab-modifiers '(meta))
