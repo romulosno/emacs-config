@@ -21,6 +21,7 @@
  '(font-lock-keyword-face ((t (:foreground "DarkBlue"))))
  '(font-lock-string-face ((t (:foreground "#104e57"))))
  '(font-lock-variable-name-face ((t (:foreground "#2f3357"))))
+ '(font-lock-warning-face ((t (:foreground "#961f0b" :bold t))))
  '(fringe ((t (:background "#f5f5f0"))))
  '(highlight ((t (:background "#d0ebf2"))))
  '(minibuffer-depth-indicator ((t (:background "#03296b" :foreground "#ffffff"))))
