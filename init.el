@@ -34,9 +34,16 @@
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message nil)
 
-;; Indentation
-(setq c-basic-offset 2)
-(setq js-indent-level 2)
+;; Mode line
+(setq-default mode-line-format
+	      '("%e "
+		(:propertize ("" mode-line-mule-info mode-line-modified) display (min-width (5.0)))
+		(:propertize " %b " face bold)
+		(:propertize (:eval default-directory) face (:foreground "gray30")) " "
+		mode-line-format-right-align
+		(:propertize (:eval (symbol-name major-mode)) face bold) " "
+		" %l:%c "
+		mode-line-end-spaces))
 
 ;; Resize
 (setq frame-resize-pixelwise t)
@@ -96,14 +103,7 @@
 
 ;; Grep/Occur buffers
 (setq grep-save-buffers nil)
-
-(dolist (hook '(occur-mode-hook grep-mode-hook))
-  (add-hook hook (lambda () (setq truncate-lines t))))
-
-(add-hook 'occur-hook
-          (lambda ()
-            (occur-rename-buffer t)
-            (setq buffer-read-only nil)))
+(dolist (hook '(occur-mode-hook grep-mode-hook)) (add-hook hook (lambda () (setq truncate-lines t))))
 
 ;; Isearch
 (setq isearch-lazy-count t)
@@ -123,9 +123,6 @@
 
 (setq hscroll-margin 2)
 (setq hscroll-step 1)
-
-(when (fboundp #'pixel-scroll-precision)
-  (pixel-scroll-precision-mode 1))
 
 ;; Window divider
 (setq window-divider-default-bottom-width 0)
@@ -197,19 +194,7 @@
 (setq eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
 (setq eldoc-echo-area-use-multiline-p 2)
 
-(setq eglot-autoshutdown t)
-(setq eglot-sync-connect nil)
-(setq eglot-events-buffer-config '(:size 0))
-(setq eglot-ignored-server-capabilities '(:hoverProvider :documentHighlightProvider))
-
-(with-eval-after-load 'eglot
-  (define-key eglot-mode-map (kbd "C-c c r") #'eglot-rename)
-  (define-key eglot-mode-map (kbd "C-c c f") #'eglot-format)
-  (define-key eglot-mode-map (kbd "C-c c a") #'eglot-code-actions))
-
 ;; Flymake
-(setq flymake-mode-line-lighter nil)
-
 (defun flymake-diagnostics-window (window)
   "Return WINDOW if it show a flymake diagnostics buffer."
   (string-prefix-p "*Flymake diagnostics" (buffer-name (window-buffer window))))
@@ -260,7 +245,7 @@
 (define-key minibuffer-local-completion-map (kbd "S-<return>") #'switch-to-completions)
 (define-key completion-list-mode-map (kbd "<") #'first-completion)
 (define-key completion-list-mode-map (kbd ">") #'last-completion)
-(define-key completion-list-mode-map (kbd "q") #'quit-completion)
+(define-key completion-list-mode-map (kbd "q") #'quit-window)
 
 (add-to-list 'display-buffer-alist '("\\*Completions\\*"
 				     display-buffer-in-side-window
