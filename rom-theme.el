@@ -31,7 +31,7 @@
  '(mode-line-inactive ((t (:background "#dcdfe0" :foreground "#606266" :box "#8d9ba1"))))
  '(pulse-highlight-face ((t (:extend nil :background "#84b0e8"))))
  '(pulse-highlight-start-face ((t (:background "#a4c4ed"))))
- '(region ((t (:background "#d3dce8"))))
+ '(region ((t (:background "#d9d6d0"))))
  '(tab-bar ((t (:background "gray89" :foreground "#000000" :box "gray74"))))
  '(tab-bar-tab ((t (:background "gray89" :foreground "DodgerBlue4"))))
  '(tab-bar-tab-inactive ((t (:background "gray89" :foreground "gray20")))))
