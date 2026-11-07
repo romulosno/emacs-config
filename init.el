@@ -367,10 +367,15 @@
       (replace-match "\n\n"))))
 
 ;; Keybindings
-(when window-system
-  (define-key global-map [escape] 'keyboard-escape-quit)
-  (define-key isearch-mode-map  [escape] 'isearch-cancel)
-  (define-key completion-list-mode-map [escape] 'switch-to-minibuffer))
+(defvar rom-esc-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [escape] #'keyboard-escape-quit)
+    (define-key map (kbd "SPC") #'cycle-spacing)
+    map))
+
+(define-key global-map [escape] rom-esc-map)
+(define-key isearch-mode-map [escape] 'isearch-cancel)
+(define-key completion-list-mode-map [escape] 'quit-window)
 
 (global-set-key (kbd "<remap> <count-words-region>") #'count-words)
 (global-set-key (kbd "<remap> <capitalize-word>") #'capitalize-dwim)
