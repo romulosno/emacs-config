@@ -14,8 +14,6 @@
   (unless (package-installed-p pac)
     (package-install pac)))
 
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory) t)
-
 ;; Font
 (pcase system-name
   ("alien"
@@ -125,6 +123,9 @@
 
 (setq hscroll-margin 2)
 (setq hscroll-step 1)
+
+(when (fboundp #'pixel-scroll-precision)
+  (pixel-scroll-precision-mode 1))
 
 ;; Window divider
 (setq window-divider-default-bottom-width 0)
@@ -299,6 +300,7 @@
       '(read-only t intangible t cursor-intangible t face minibuffer-prompt))
 
 (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
 ;; History
 (setq savehist-additional-variables
       '(kill-ring
