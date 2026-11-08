@@ -41,7 +41,9 @@
 		(:propertize " %b " face bold)
 		(:propertize (:eval default-directory) face (:foreground "gray30")) " "
 		mode-line-format-right-align
-		(:propertize (:eval (symbol-name major-mode)) face bold) " "
+		(compilation-in-progress "Compilando")
+		" "(flymake-mode flymake-mode-line-counters)
+		" "(:propertize (:eval (symbol-name major-mode)) face bold) " "
 		" %l:%c "
 		mode-line-end-spaces))
 
