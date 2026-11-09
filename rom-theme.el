@@ -33,6 +33,7 @@
  '(pulse-highlight-face ((t (:extend nil :background "#84b0e8"))))
  '(pulse-highlight-start-face ((t (:background "#a4c4ed"))))
  '(region ((t (:background "#d9d6d0"))))
+ '(sh-quoted-exec ((t (:foreground "dark magenta"))))
  '(success ((t (:foreground "ForestGreen" :bold t))))
  '(tab-bar ((t (:background "#e3e3e3" :foreground "#000000" :box "#939393"))))
  '(tab-bar-tab ((t (:background "#e3e3e3" :foreground "DodgerBlue4"))))
