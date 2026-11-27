@@ -134,18 +134,6 @@
 (setq window-divider-default-right-width 1)
 (window-divider-mode 1)
 
-;; Recent files
-(setq recentf-max-menu-items 25)
-(setq recentf-exclude `("~$"
-			"/#[^/]*#\\'"
-			,(regexp-quote (expand-file-name data-directory))))
-
-(when (boundp 'data-directory)
-  (add-to-list 'recentf-exclude (regexp-quote (expand-file-name lisp-directory)) t))
-
-(recentf-mode 1)
-(global-set-key (kbd "C-c r") #'recentf-open-files)
-
 ;; Buffer menu
 (define-key Buffer-menu-mode-map (kbd "q") #'kill-buffer-and-window)
 (define-key Buffer-menu-mode-map (kbd "O") #'Buffer-menu-multi-occur)
