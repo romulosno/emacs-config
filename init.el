@@ -126,6 +126,8 @@
 (setq hscroll-margin 2)
 (setq hscroll-step 1)
 
+(pixel-scroll-precision-mode 1)
+
 ;; Window divider
 (setq window-divider-default-bottom-width 0)
 (setq window-divider-default-places t)

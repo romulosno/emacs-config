@@ -16,7 +16,7 @@
  '(error ((t (:foreground "DarkRed" :bold t))))
  '(font-lock-builtin-face ((t (:foreground "#0e468a"))))
  '(font-lock-type-face ((t (:foreground "#51017d"))))
- '(font-lock-comment-face ((t (:foreground "#104e57" :background "#ebf0f0"))))
+ '(font-lock-comment-face ((t (:foreground "#104e57" :background "#e1e6e8"))))
  '(font-lock-constant-face ((t (:foreground "#0d526e"))))
  '(font-lock-function-name-face ((t (:foreground "#75062b"))))
  '(font-lock-keyword-face ((t (:foreground "DarkBlue"))))
